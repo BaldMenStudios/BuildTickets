@@ -51,12 +51,7 @@ public class BuildTicketsGUI extends PaginatedGUI {
                 new TicketNotesGUI(ticket, 0).open(event.getWhoClicked());
             }
             if(event.getClick().isRightClick()) {
-                if(ticket.getClaimer() != null) {
-                    event.getWhoClicked().sendMessage(Messages.ALREADY_CLAIMED);
-                    return;
-                }
-                ticket.setClaimer(event.getWhoClicked().getName());
-                event.getWhoClicked().sendMessage(Messages.CLAIMED);
+                new TicketGUI(ticket).open(event.getWhoClicked());
             }
 
         }
@@ -77,7 +72,7 @@ public class BuildTicketsGUI extends PaginatedGUI {
             ItemStack stack = new ItemStack(material);
             ItemMeta meta = stack.getItemMeta();
             meta.setDisplayName("§a" + ticket.getTicketReason());
-            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "§7Claimed by: §f" + (ticket.getClaimer() == null ? "§cNone" : ticket.getClaimer()), "", "§eRight-Click to claim the ticket!", "§eLeft-Click to add a note"));
+            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "§7Claimed by: §f" + (ticket.getClaimer() == null ? "§cNone" : ticket.getClaimer()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
             stack.setItemMeta(meta);
 
             stacks.add(stack);
