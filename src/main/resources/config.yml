@@ -50,3 +50,6 @@ ticket-note-edit: "§aYou edited your previous note on the ticket!"
 
 ticket-already-claimed: "§cThis ticket is already claimed by someone!"
 ticket-claim: "§aYou claimed this ticket!"
+
+page-already-first-page: "§cYou are already on the first page!"
+page-already-last-page: "§cYou are already on the last page!"

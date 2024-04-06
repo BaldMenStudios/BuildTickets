@@ -5,6 +5,7 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.kyori.adventure.text.Component;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
+import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.HeadUtils;
 import org.bukkit.Bukkit;
@@ -51,6 +52,24 @@ public class TicketNotesGUI extends PaginatedGUI {
             });
         }));
 
+
+
+        gui.setItem(49, new GuiItem(BACK));
+
+        setAction(49, (event -> {
+            new BuildTicketsGUI(0).open(event.getWhoClicked());
+        }));
+
+        gui.setItem(48, new GuiItem(GO_BACK));
+        gui.setItem(50, new GuiItem(GO_NEXT));
+
+        setAction(48, (event -> {
+            goBack(event.getWhoClicked());
+        }));
+
+        setAction(50, (event -> {
+            goNext(event.getWhoClicked());
+        }));
     }
 
     @Override

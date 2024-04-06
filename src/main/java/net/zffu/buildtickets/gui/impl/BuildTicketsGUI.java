@@ -1,5 +1,6 @@
 package net.zffu.buildtickets.gui.impl;
 
+import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
 import net.zffu.buildtickets.messages.Messages;
@@ -18,6 +19,21 @@ public class BuildTicketsGUI extends PaginatedGUI {
     public BuildTicketsGUI(int page) {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
         this.page = page;
+    }
+
+    @Override
+    public void initItems() {
+        super.initItems();
+        gui.setItem(48, new GuiItem(GO_BACK));
+        gui.setItem(50, new GuiItem(GO_NEXT));
+
+        setAction(48, (event -> {
+            goBack(event.getWhoClicked());
+        }));
+
+        setAction(50, (event -> {
+            goNext(event.getWhoClicked());
+        }));
     }
 
     @Override

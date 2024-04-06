@@ -1,16 +1,24 @@
 package net.zffu.buildtickets.gui;
 
 import dev.triumphteam.gui.guis.GuiItem;
+import net.zffu.buildtickets.messages.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class PaginatedGUI extends AbstractGUI {
 
+    public static ItemStack BACK = null;
+    public static ItemStack GO_BACK = null;
+    public static ItemStack GO_NEXT = null;
     protected int page;
-    private int elementsPerPage;
+    protected int elementsPerPage;
     protected int startingIndex;
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
         super(inventoryName);
@@ -29,4 +37,43 @@ public abstract class PaginatedGUI extends AbstractGUI {
     }
 
     public abstract List<ItemStack> getStacks();
+
+    static {
+        BACK = new ItemStack(Material.ARROW);
+        ItemMeta meta = BACK.getItemMeta();
+        meta.setDisplayName("§aGo Back");
+        meta.setLore(Arrays.asList("§7Click here to go back!"));
+        BACK.setItemMeta(meta);
+
+        GO_BACK = new ItemStack(Material.ARROW);
+        meta = GO_BACK.getItemMeta();
+        meta.setDisplayName("§aPrevious Page");
+        meta.setLore(Arrays.asList("§7Click here to go back to the previous page!"));
+
+        GO_NEXT = new ItemStack(Material.ARROW);
+        meta = GO_NEXT.getItemMeta();
+        meta.setDisplayName("§aNext Page");
+        meta.setLore(Arrays.asList("§7Click here to go back to the next page!"));
+    }
+
+    public void goBack(HumanEntity player) {
+        if(this.page <= 0) {
+            player.sendMessage(Messages.ALREADY_FIRST_PAGE);
+            return;
+        }
+        this.page--;
+        this.startingIndex = elementsPerPage * page;
+        this.open(player);
+    }
+
+    public void goNext(HumanEntity player) {
+        if(this.getStacks().size() <= (this.page + 1) * elementsPerPage) {
+            player.sendMessage(Messages.ALREADY_LAST_PAGE);
+            return;
+        }
+        this.page++;
+        this.startingIndex = elementsPerPage * page;
+        this.open(player);
+    }
+
 }

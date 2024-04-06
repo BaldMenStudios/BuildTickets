@@ -17,6 +17,9 @@ public class Messages {
     public static String ALREADY_CLAIMED;
     public static String CLAIMED;
 
+    public static String ALREADY_FIRST_PAGE;
+    public static String ALREADY_LAST_PAGE;
+
 
     public Messages(FileConfiguration configuration) {
         PREFIX = configuration.getString("prefix");
@@ -31,6 +34,9 @@ public class Messages {
         NOTE_EDIT = PREFIX + configuration.getString("ticket-note-edit");
         ALREADY_CLAIMED = PREFIX + configuration.getString("ticket-already-claimed");
         CLAIMED = PREFIX + configuration.getString("ticket-claim");
+
+        ALREADY_FIRST_PAGE = PREFIX + configuration.getString("page-already-first-page");
+        ALREADY_LAST_PAGE = PREFIX + configuration.getString("page-already-last-page");
     }
 
 }
