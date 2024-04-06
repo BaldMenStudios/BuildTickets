@@ -44,9 +44,8 @@ public class TicketCommand implements CommandExecutor {
                 return false;
             }
             String reason = args[1];
-            String priorityId = args[2];
 
-            BuildTicket buildTicket = new BuildTicket(reason, (priorityId != null ? TicketPriority.getValue(priorityId) : TicketPriority.NORMAL), player.getUniqueId().toString());
+            BuildTicket buildTicket = new BuildTicket(reason, (args.length >= 3 ? TicketPriority.getValue(args[2]) : TicketPriority.NORMAL), player.getUniqueId().toString());
             BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
         }
         else {
