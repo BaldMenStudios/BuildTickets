@@ -2,7 +2,9 @@ package net.zffu.buildtickets;
 
 import lombok.Getter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
+import net.zffu.buildtickets.commands.TicketCommand;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
+import net.zffu.buildtickets.tickets.BuildTicket;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -14,12 +16,16 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     private ArrayList<UUID> buildMode = new ArrayList<>();
 
+    private ArrayList<BuildTicket> tickets = new ArrayList<>();
+
 
     @Override
     public void onEnable() {
         INSTANCE = this;
 
         this.saveDefaultConfig();
+
+        this.getCommand("ticket").setExecutor(new TicketCommand(this.getConfig().getString("tickets.command-permission")));
 
         this.getLogger().info("Loading Features...");
 

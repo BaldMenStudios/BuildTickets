@@ -1,24 +1,45 @@
 # BuildTickets Config
 
+#
 # Build Mode
+#
+
 build-mode:
   enabled: true
   permission: build.mode
 
+#
+# Build Chat
+#
+
 build-chat:
   enabled: true
-  toggle-permission: buildchat.toggle
-  see-permission: buildchat.see
+  toggle-permission: "buildchat.toggle"
+  see-permission: "buildchat.see"
+
+#
+# Build Physics
+#
 
 build-physics:
   enabled: true
   default-enabled: false
-  toggle-permission: buildphysics.toggle
+  toggle-permission: "buildphysics.toggle"
+
+#
+# Tickets
+#
+tickets:
+  command-permission: "buildtickets.command"
+  notify-builders-when-created: true
+  builder-permission: "buildtickets.builder"
+  webhook-url: ""
 
 #
 # Messages
 #
 prefix: "§8[§aBuildTickets§r§8] §r"
 no-permission: "§cYou do not have the required permission to execute this action!"
+invalid-usage: "§cMissing arguments! Please check the command help page!"
 buildmode-enabled: "§aYou enabled build mode!"
 buildmode-disabled: "§cYou disabled build mode!"
