@@ -2,6 +2,7 @@ package net.zffu.buildtickets;
 
 import lombok.Getter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
+import net.zffu.buildtickets.listeners.BuildModeListeners;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         if(getConfig().getBoolean("build-mode.enabled")) {
             this.getCommand("buildmode").setExecutor(new BuildModeCommand(this.getConfig().getString("build-mode.permission")));
+            this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
         }
 
     }
