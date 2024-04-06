@@ -1,0 +1,4 @@
+name: BuildTickets
+version: '${project.version}'
+main: net.zffu.buildtickets.BuildTicketsPlugin
+api-version: '1.20'
