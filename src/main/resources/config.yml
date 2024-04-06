@@ -3,7 +3,7 @@
 # Build Mode
 build-mode:
   enabled: true
-  permission-required: build.mode
+  permission: build.mode
 
 build-chat:
   enabled: true
@@ -14,3 +14,11 @@ build-physics:
   enabled: true
   default-enabled: false
   toggle-permission: buildphysics.toggle
+
+#
+# Messages
+#
+prefix: "§8[§aBuildTickets§r§8] §r"
+no-permission: "§cYou do not have the required permission to execute this action!"
+buildmode-enabled: "§aYou enabled build mode!"
+buildmode-disabled: "§cYou disabled build mode!"
