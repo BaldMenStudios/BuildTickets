@@ -1,6 +1,7 @@
 package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
+import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.messages.Messages;
@@ -62,6 +63,15 @@ public class TicketViewerGUI extends AbstractGUI {
 
             if(b) event.getWhoClicked().sendMessage(Messages.TICKET_HELP_ON);
             else event.getWhoClicked().sendMessage(Messages.TICKET_HELP_OFF);
+        }));
+
+        setAction(31, (event -> {
+            event.getWhoClicked().sendMessage("§aPlease enter the new ticket reason in the chat.");
+            BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
+                chat.setCancelled(true);
+                ticket.setTicketReason(chat.getMessage());
+                this.open(chat.getPlayer());
+            });
         }));
 
 
