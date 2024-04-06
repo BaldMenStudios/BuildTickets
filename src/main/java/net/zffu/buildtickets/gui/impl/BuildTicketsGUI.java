@@ -32,10 +32,8 @@ public class BuildTicketsGUI extends PaginatedGUI {
     @Override
     public List<ItemStack> getStacks() {
         List<ItemStack> stacks = new ArrayList<>();
-        for(int i = startingIndex; i < startingIndex + 35; i++) {
-            if(BuildTicketsPlugin.getInstance().getTickets().size() <= i) return stacks;
-            BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(i);
 
+        for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
             Material material = Material.GREEN_DYE;
 
             if(ticket.getClaimer() == null) {

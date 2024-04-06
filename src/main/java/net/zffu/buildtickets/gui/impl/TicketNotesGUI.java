@@ -28,11 +28,8 @@ public class TicketNotesGUI extends PaginatedGUI {
     @Override
     public List<ItemStack> getStacks() {
         List<ItemStack> stacks = new ArrayList<>();
-        if(ticket.getNoteCreators().size() <= startingIndex) return stacks;
 
-        for(int i = startingIndex; i < startingIndex + 35; i++) {
-            if(ticket.getNoteCreators().size() <= i) return stacks;
-            UUID posterUUID = ticket.getNoteCreators().get(i);
+        for(UUID posterUUID : ticket.getNoteCreators()) {
             OfflinePlayer poster = Bukkit.getOfflinePlayer(posterUUID);
             String note = ticket.getNotes().get(posterUUID);
 

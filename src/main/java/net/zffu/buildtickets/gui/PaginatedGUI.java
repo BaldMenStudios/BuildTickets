@@ -21,7 +21,9 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     @Override
     public void initItems() {
+        List<ItemStack> stacks = getStacks();
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
+            if(stacks.size() <= i) return;
             this.gui.setItem(i - startingIndex, new GuiItem(getStacks().get(i)));
         }
     }
