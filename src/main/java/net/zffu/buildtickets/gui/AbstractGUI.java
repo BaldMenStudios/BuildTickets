@@ -14,7 +14,7 @@ public abstract class AbstractGUI {
     protected Gui gui;
 
     public AbstractGUI(String inventoryName) {
-        this.gui = Gui.gui().title(Component.text(inventoryName)).rows(9).create();
+        this.gui = Gui.gui().title(Component.text(inventoryName)).rows(6).create();
     }
 
     public abstract void initItems();
