@@ -47,3 +47,6 @@ buildmode-disabled: "§cYou disabled build mode!"
 
 ticket-note-add: "§aYou added a note for the ticket!"
 ticket-note-edit: "§aYou edited your previous note on the ticket!"
+
+ticket-already-claimed: "§cThis ticket is already claimed by someone!"
+ticket-claim: "§aYou claimed this ticket!"

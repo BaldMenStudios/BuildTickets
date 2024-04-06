@@ -14,6 +14,8 @@ public class Messages {
 
     public static String NOTE_ADD;
     public static String NOTE_EDIT;
+    public static String ALREADY_CLAIMED;
+    public static String CLAIMED;
 
 
     public Messages(FileConfiguration configuration) {
@@ -27,6 +29,8 @@ public class Messages {
 
         NOTE_ADD = PREFIX + configuration.getString("ticket-note-add");
         NOTE_EDIT = PREFIX + configuration.getString("ticket-note-edit");
+        ALREADY_CLAIMED = PREFIX + configuration.getString("ticket-already-claimed");
+        CLAIMED = PREFIX + configuration.getString("ticket-claim");
     }
 
 }

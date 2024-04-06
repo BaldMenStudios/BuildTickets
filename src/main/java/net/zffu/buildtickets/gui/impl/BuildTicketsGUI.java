@@ -2,6 +2,7 @@ package net.zffu.buildtickets.gui.impl;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
+import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -31,8 +32,17 @@ public class BuildTicketsGUI extends PaginatedGUI {
         event.setCancelled(true);
 
         if(event.getSlot() <= 35) {
+            BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot());
             if(event.getClick().isLeftClick()) {
-                new TicketNotesGUI(BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot()), 0).open(event.getWhoClicked());
+                new TicketNotesGUI(ticket, 0).open(event.getWhoClicked());
+            }
+            if(event.getClick().isRightClick()) {
+                if(ticket.getClaimer() != null) {
+                    event.getWhoClicked().sendMessage(Messages.ALREADY_CLAIMED);
+                    return;
+                }
+                ticket.setClaimer(event.getWhoClicked().getName());
+                event.getWhoClicked().sendMessage(Messages.CLAIMED);
             }
 
         }
