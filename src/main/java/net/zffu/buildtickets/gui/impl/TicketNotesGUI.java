@@ -64,7 +64,7 @@ public class TicketNotesGUI extends PaginatedGUI {
             ItemStack stack = HeadUtils.getHeadStack(posterUUID);
             ItemMeta meta = stack.getItemMeta();
             meta.setDisplayName("§a" + poster.getPlayer().getName() + "'s Note");
-            meta.setLore(Arrays.asList(note));
+            meta.setLore(Arrays.asList("§7Note: §f" + note));
 
             stack.setItemMeta(meta);
             stacks.add(stack);
