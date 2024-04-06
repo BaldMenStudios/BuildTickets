@@ -10,6 +10,7 @@ import net.zffu.buildtickets.utils.HeadUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -33,7 +34,12 @@ public class TicketNotesGUI extends PaginatedGUI {
     @Override
     public void initItems() {
         super.initItems();
-        gui.setItem(53, new GuiItem(ItemBuilder.from(Material.PAPER).name(Component.text("§aCreate a note")).lore(Component.text("§7Create or edit your note about"), Component.text("§7this ticket."), Component.empty(), Component.text("§eClick to add / modify your note")).build()));
+        ItemStack itemStack = new ItemStack(Material.PAPER);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setDisplayName("§aCreate a note");
+        meta.setLore(Arrays.asList("§7Create or edit your note of this", "§7ticket.", "", "§eClick to send / edit your note!"));
+        itemStack.setItemMeta(meta);
+        gui.setItem(53, new GuiItem(itemStack));
 
         setAction(53, (event -> {
             event.getWhoClicked().closeInventory();
@@ -41,6 +47,7 @@ public class TicketNotesGUI extends PaginatedGUI {
             BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.sendNote(chat.getPlayer(), chat.getMessage());
+                this.open(chat.getPlayer());
             });
         }));
 
