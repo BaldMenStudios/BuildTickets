@@ -56,6 +56,14 @@ public class TicketViewerGUI extends AbstractGUI {
             new TicketPriorityGUI(ticket).open(event.getWhoClicked());
         }));
 
+        setAction(23, (event -> {
+            boolean b = !ticket.isNeedsHelp();
+            ticket.setNeedsHelp(b);
+
+            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_HELP_ON);
+            else event.getWhoClicked().sendMessage(Messages.TICKET_HELP_OFF);
+        }));
+
 
     }
 

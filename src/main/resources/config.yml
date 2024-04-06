@@ -54,6 +54,8 @@ ticket-already-joined: "§cYou already joined this ticket."
 ticket-left: "§cYou left the ticket."
 ticket-already-priority: "§aThe ticket already has this priority!"
 ticket-changed-priority: "§aYou changed the ticket priority!"
+ticket-request-help-on: "§aYou are now requesting help from other builders!"
+ticket-request-help-off: "§aYou are no longer requesting help from other builders!"
 
 page-already-first-page: "§cYou are already on the first page!"
 page-already-last-page: "§cYou are already on the last page!"

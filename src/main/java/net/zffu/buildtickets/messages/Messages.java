@@ -23,6 +23,9 @@ public class Messages {
     public static String TICKET_ALREADY_PRIORITY;
     public static String TICKET_CHANGED_PRIORITY;
 
+    public static String TICKET_HELP_ON;
+    public static String TICKET_HELP_OFF;
+
     public static String ALREADY_FIRST_PAGE;
     public static String ALREADY_LAST_PAGE;
 
@@ -46,6 +49,9 @@ public class Messages {
 
         TICKET_ALREADY_PRIORITY = PREFIX + configuration.getString("ticket-already-priority");
         TICKET_CHANGED_PRIORITY = PREFIX + configuration.getString("ticket-changed-priority");
+
+        TICKET_HELP_ON = PREFIX + configuration.getString("ticket-request-help-on");
+        TICKET_HELP_OFF = PREFIX + configuration.getString("ticket-request-help-off");
 
         ALREADY_FIRST_PAGE = PREFIX + configuration.getString("page-already-first-page");
         ALREADY_LAST_PAGE = PREFIX + configuration.getString("page-already-last-page");
