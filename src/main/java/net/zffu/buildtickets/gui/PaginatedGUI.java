@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class PaginatedGUI extends AbstractGUI {
 
-    private int page;
+    protected int page;
     private int elementsPerPage;
     protected int startingIndex;
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
