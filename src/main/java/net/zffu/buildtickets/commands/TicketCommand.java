@@ -1,7 +1,7 @@
 package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
-import net.zffu.buildtickets.gui.BuildTicketsGUI;
+import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
@@ -9,8 +9,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Objects;
 
 public class TicketCommand implements CommandExecutor {
 
@@ -32,7 +30,7 @@ public class TicketCommand implements CommandExecutor {
         }
 
         if(args.length == 0) {
-            new BuildTicketsGUI().open(player);
+            new BuildTicketsGUI(0).open(player);
             return true;
         }
 

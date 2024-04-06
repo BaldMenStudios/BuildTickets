@@ -35,6 +35,7 @@ tickets:
   builder-permission: "buildtickets.builder"
   webhook-url: ""
 
+
 #
 # Messages
 #
@@ -43,3 +44,6 @@ no-permission: "§cYou do not have the required permission to execute this actio
 invalid-usage: "§cMissing arguments! Please check the command help page!"
 buildmode-enabled: "§aYou enabled build mode!"
 buildmode-disabled: "§cYou disabled build mode!"
+
+ticket-note-add: "§aYou added a note for the ticket!"
+ticket-note-edit: "§aYou edited your previous note on the ticket!"

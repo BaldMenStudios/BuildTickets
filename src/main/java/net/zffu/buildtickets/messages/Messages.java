@@ -11,6 +11,8 @@ public class Messages {
     public static String ENABLED_BUILD_MODE;
     public static String DISABLED_BUILD_MODE;
 
+    public static String NOTE_ADD;
+    public static String NOTE_EDIT;
 
 
     public Messages(YamlConfiguration configuration) {
@@ -21,6 +23,9 @@ public class Messages {
 
         ENABLED_BUILD_MODE = PREFIX + configuration.getString("buildmode-enabled");
         DISABLED_BUILD_MODE = PREFIX + configuration.getString("buildmode-disabled");
+
+        NOTE_ADD = PREFIX + configuration.getString("ticket-note-add");
+        NOTE_EDIT = PREFIX + configuration.getString("ticket-note-edit");
     }
 
 }

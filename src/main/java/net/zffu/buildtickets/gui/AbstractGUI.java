@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  */
 public abstract class AbstractGUI {
 
-    private Gui gui;
+    protected Gui gui;
 
     public AbstractGUI(String inventoryName) {
         this.gui = new Gui(9, inventoryName);
