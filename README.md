@@ -27,4 +27,4 @@ And a lot of other things that will help builders!
 
 #### Does the plugin work on 1.8?
 
-Currently, the plugin supports 1.13+ versions. We might be adding 1.8 support in the future.
+Currently, the plugin supports 1.13+ versions. We might add 1.8 support in the future.
