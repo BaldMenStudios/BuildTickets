@@ -26,7 +26,7 @@ public class TicketGUI extends AbstractGUI {
 
     @Override
     public void initItems() {
-        gui.setItem(13, new GuiItem(ItemBuilder.create(Material.PAPER).display("§aTicket Information").lore("§7Ticket Reason: §f" + ticket.getTicketReason(), "§7Ticket Priority: §f" + this.ticket.getPriority(), "§7Ticket Creator: §f" + ticket.getCreator()).build()));
+        gui.setItem(13, new GuiItem(ItemBuilder.create(Material.PAPER).display("§aTicket Information").lore("§7Ticket Reason: §f" + ticket.getTicketReason(), "§7Ticket Priority: §f" + this.ticket.getPriority().getDisplay(), "§7Ticket Creator: §f" + ticket.getCreator()).build()));
 
         gui.setItem(22, new GuiItem(ItemBuilder.create(Material.ORANGE_DYE).display("§aModify Ticket Priority").lore("§7Sets the priority of the ticket", "", "§7Current Priority: §f" + this.ticket.getPriority().getDisplay(), "", "§eClick to change the priority!").build()));
         gui.setItem(21, new GuiItem(ItemBuilder.create(Material.LIME_WOOL).display("§aJoin the ticket").lore("§7Adds you to the ticket builders.", "", "§eClick here to join the ticket!").build()));
