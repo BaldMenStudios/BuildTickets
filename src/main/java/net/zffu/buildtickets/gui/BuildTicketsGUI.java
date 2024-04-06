@@ -19,6 +19,7 @@ public class BuildTicketsGUI {
 
     public BuildTicketsGUI() {
         this.inventory = Bukkit.createInventory(null, 54, "Build Tickets (Page 1)");
+        this.page = 0;
     }
 
     public BuildTicketsGUI(int page) {
@@ -30,10 +31,11 @@ public class BuildTicketsGUI {
         if(!BuildTicketsPlugin.getInstance().getTickets().isEmpty()) {
             int startingIndex = page * 35;
 
+            if(BuildTicketsPlugin.getInstance().getTickets().size() < startingIndex) return;
+
             for(int i = startingIndex; i < startingIndex + 35; i++) {
-                if(BuildTicketsPlugin.getInstance().getTickets().size() < startingIndex) return;
+                if(BuildTicketsPlugin.getInstance().getTickets().size() <= i) return;
                 BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(i);
-                if(ticket == null) return;
 
                 Material material = Material.GREEN_DYE;
 
