@@ -14,8 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BuildTicketsGUI extends PaginatedGUI {
-    private int page;
-
 
     public BuildTicketsGUI(int page) {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
