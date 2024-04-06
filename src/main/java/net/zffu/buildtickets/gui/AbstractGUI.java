@@ -3,6 +3,7 @@ package net.zffu.buildtickets.gui;
 import dev.triumphteam.gui.components.GuiAction;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -23,7 +24,7 @@ public abstract class AbstractGUI {
 
     public abstract void handleMenu(InventoryClickEvent event);
 
-    public void open(Player player) {
+    public void open(HumanEntity player) {
         this.initItems();
         this.gui.open(player);
 

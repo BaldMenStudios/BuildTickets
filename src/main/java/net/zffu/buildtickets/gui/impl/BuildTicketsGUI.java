@@ -23,11 +23,21 @@ public class BuildTicketsGUI extends PaginatedGUI {
 
     @Override
     public boolean setDefaultClickActions() {
-        return false;
+        return true;
     }
 
     @Override
-    public void handleMenu(InventoryClickEvent event) {}
+    public void handleMenu(InventoryClickEvent event) {
+        event.setCancelled(true);
+
+        if(event.getSlot() <= 35) {
+            if(event.getClick().isLeftClick()) {
+                new TicketNotesGUI(BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot()), 0).open(event.getWhoClicked());
+            }
+
+        }
+
+    }
 
     @Override
     public List<ItemStack> getStacks() {
