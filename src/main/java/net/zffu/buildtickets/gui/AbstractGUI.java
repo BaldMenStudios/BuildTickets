@@ -2,6 +2,7 @@ package net.zffu.buildtickets.gui;
 
 import dev.triumphteam.gui.components.GuiAction;
 import dev.triumphteam.gui.guis.Gui;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -13,7 +14,7 @@ public abstract class AbstractGUI {
     protected Gui gui;
 
     public AbstractGUI(String inventoryName) {
-        this.gui = new Gui(9, inventoryName);
+        this.gui = Gui.gui().title(Component.text(inventoryName)).rows(9).create();
     }
 
     public abstract void initItems();

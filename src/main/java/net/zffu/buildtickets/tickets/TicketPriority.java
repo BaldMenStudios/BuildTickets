@@ -20,7 +20,7 @@ public enum TicketPriority {
         try {
             return valueOf(id);
         } catch (Exception e) {
-            return null;
+            return NORMAL;
         }
     }
 
