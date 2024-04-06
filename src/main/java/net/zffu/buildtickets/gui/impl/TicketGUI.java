@@ -13,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
+import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
+
 public class TicketGUI extends AbstractGUI {
 
     private BuildTicket ticket;
@@ -33,6 +35,15 @@ public class TicketGUI extends AbstractGUI {
         gui.setItem(31, new GuiItem(ItemBuilder.create(Material.COMPARATOR).display("§aModify the ticket reason").lore("§7Update the ticket's reason.", "", "§eClick here to change the ticket reason!").build()));
         gui.setItem(30, new GuiItem(ItemBuilder.create(Material.DIAMOND).display("§aComplete Ticket").lore("§7Marks the ticket as completed.", "", "§cFaking completing a ticket will", "§cmostly result as a punishement", "§cfrom your staff team", "", "§eClick here to complete this ticket!").build()));
         gui.setItem(32, new GuiItem(ItemBuilder.create(Material.RED_DYE).display("§aLeave Ticket").lore("§7Leave the ticket to go to another one.", "", "§eClick here to leave this ticket").build()));
+
+
+        gui.setItem(49, new GuiItem(BACK));
+
+        setAction(49, (event -> {
+            new BuildTicketsGUI(0).open(event.getWhoClicked());
+        }));
+
+
     }
 
     @Override
