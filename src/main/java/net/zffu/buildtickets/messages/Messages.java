@@ -26,6 +26,8 @@ public class Messages {
     public static String TICKET_HELP_ON;
     public static String TICKET_HELP_OFF;
 
+    public static String TICKET_NOT_BUILDER;
+
     public static String ALREADY_FIRST_PAGE;
     public static String ALREADY_LAST_PAGE;
 
@@ -46,6 +48,8 @@ public class Messages {
         TICKET_JOINED = PREFIX + configuration.getString("ticket-joined");
         ALREADY_JOINED = PREFIX + configuration.getString("ticket-already-joined");
         TICKET_LEFT = PREFIX + configuration.getString("ticket-left");
+
+        TICKET_NOT_BUILDER = PREFIX + configuration.getString("ticket-not-builder");
 
         TICKET_ALREADY_PRIORITY = PREFIX + configuration.getString("ticket-already-priority");
         TICKET_CHANGED_PRIORITY = PREFIX + configuration.getString("ticket-changed-priority");

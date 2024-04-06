@@ -74,6 +74,15 @@ public class TicketViewerGUI extends AbstractGUI {
             });
         }));
 
+        setAction(32, (event -> {
+            if(!ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
+                event.getWhoClicked().sendMessage(Messages.TICKET_NOT_BUILDER);
+                return;
+            }
+            ticket.getBuilders().remove(event.getWhoClicked().getUniqueId());
+            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT);
+        }));
+
 
     }
 
