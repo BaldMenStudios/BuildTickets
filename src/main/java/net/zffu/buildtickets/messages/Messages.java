@@ -1,5 +1,6 @@
 package net.zffu.buildtickets.messages;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Messages {
@@ -15,7 +16,7 @@ public class Messages {
     public static String NOTE_EDIT;
 
 
-    public Messages(YamlConfiguration configuration) {
+    public Messages(FileConfiguration configuration) {
         PREFIX = configuration.getString("prefix");
 
         NO_PERMISSION = PREFIX + configuration.getString("no-permission");

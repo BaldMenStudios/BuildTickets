@@ -1,9 +1,14 @@
 package net.zffu.buildtickets.gui.impl;
 
+import dev.triumphteam.gui.builder.item.ItemBuilder;
+import dev.triumphteam.gui.guis.GuiItem;
+import net.kyori.adventure.text.Component;
+import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.HeadUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -23,6 +28,20 @@ public class TicketNotesGUI extends PaginatedGUI {
         super("Notes (Page " + page + ")", page, 35);
         this.ticket = ticket;
         this.page = page;
+    }
+
+    @Override
+    public void initItems() {
+        super.initItems();
+        gui.setItem(53, new GuiItem(ItemBuilder.from(Material.PAPER).name(Component.text("§aCreate a note")).lore(Component.text("§7Create or edit your note about"), Component.text("§7this ticket."), Component.empty(), Component.text("§eClick to add / modify your note")).build()));
+
+        setAction(53, (event -> {
+            event.getWhoClicked().sendMessage("§aPlease enter your note in the chat.");
+            BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
+                ticket.sendNote(chat.getPlayer(), chat.getMessage());
+            });
+        }));
+
     }
 
     @Override
