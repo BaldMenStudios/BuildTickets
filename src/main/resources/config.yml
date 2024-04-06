@@ -48,8 +48,10 @@ buildmode-disabled: "§cYou disabled build mode!"
 ticket-note-add: "§aYou added a note for the ticket!"
 ticket-note-edit: "§aYou edited your previous note on the ticket!"
 
-ticket-already-claimed: "§cThis ticket is already claimed by someone!"
-ticket-claim: "§aYou claimed this ticket!"
+ticket-no-need-help: "§cThis ticket doesn't need help from other players, to contribute to this ticket, please ask the creator of the ticket to ask for help."
+ticket-joined: "§aYou joined the ticket."
+ticket-already-joined: "§cYou already joined this ticket."
+ticket-left: "§cYou left the ticket."
 
 page-already-first-page: "§cYou are already on the first page!"
 page-already-last-page: "§cYou are already on the last page!"

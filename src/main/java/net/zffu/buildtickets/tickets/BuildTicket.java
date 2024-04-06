@@ -3,6 +3,7 @@ package net.zffu.buildtickets.tickets;
 import lombok.Getter;
 import lombok.Setter;
 import net.zffu.buildtickets.messages.Messages;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.units.qual.A;
 
@@ -19,9 +20,10 @@ public class BuildTicket {
     private String ticketReason;
     private TicketPriority priority;
     private final String creator;
-    private String claimer;
+    private ArrayList<UUID> builders;
     private ArrayList<UUID> noteCreators = new ArrayList<>();
     private HashMap<UUID, String> notes = new HashMap<>();
+    private boolean needsHelp;
 
     public BuildTicket(String reason, TicketPriority priority, String creator) {
         this.ticketReason = reason;
@@ -43,6 +45,17 @@ public class BuildTicket {
             player.sendMessage(Messages.NOTE_ADD);
             noteCreators.add(player.getUniqueId());
         }
+    }
+
+    public String getFormattedBuilders() {
+        String s = "";
+        boolean b = false;
+        for(UUID uuid : builders) {
+            if(b) s += ", ";
+            s += Bukkit.getOfflinePlayer(uuid).getPlayer().getName();
+            b = true;
+        }
+        return s;
     }
 
 }

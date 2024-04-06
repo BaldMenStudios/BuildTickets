@@ -65,14 +65,14 @@ public class BuildTicketsGUI extends PaginatedGUI {
         for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
             Material material = Material.GREEN_DYE;
 
-            if(ticket.getClaimer() == null) {
+            if(ticket.getBuilders().isEmpty()) {
                 material = Material.RED_DYE;
             }
 
             ItemStack stack = new ItemStack(material);
             ItemMeta meta = stack.getItemMeta();
             meta.setDisplayName("§a" + ticket.getTicketReason());
-            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "§7Claimed by: §f" + (ticket.getClaimer() == null ? "§cNone" : ticket.getClaimer()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
+            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "§7Claimed by: §f" + (ticket.getBuilders().isEmpty() ? "§cNone" : ticket.getFormattedBuilders()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
             stack.setItemMeta(meta);
 
             stacks.add(stack);

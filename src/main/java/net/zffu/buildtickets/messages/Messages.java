@@ -14,8 +14,11 @@ public class Messages {
 
     public static String NOTE_ADD;
     public static String NOTE_EDIT;
-    public static String ALREADY_CLAIMED;
-    public static String CLAIMED;
+
+    public static String NO_NEED_HELP;
+    public static String TICKET_JOINED;
+    public static String ALREADY_JOINED;
+    public static String TICKET_LEFT;
 
     public static String ALREADY_FIRST_PAGE;
     public static String ALREADY_LAST_PAGE;
@@ -32,8 +35,11 @@ public class Messages {
 
         NOTE_ADD = PREFIX + configuration.getString("ticket-note-add");
         NOTE_EDIT = PREFIX + configuration.getString("ticket-note-edit");
-        ALREADY_CLAIMED = PREFIX + configuration.getString("ticket-already-claimed");
-        CLAIMED = PREFIX + configuration.getString("ticket-claim");
+
+        NO_NEED_HELP = PREFIX + configuration.getString("ticket-no-need-help");
+        TICKET_JOINED = PREFIX + configuration.getString("ticket-joined");
+        ALREADY_JOINED = PREFIX + configuration.getString("ticket-already-joined");
+        TICKET_LEFT = PREFIX + configuration.getString("ticket-left");
 
         ALREADY_FIRST_PAGE = PREFIX + configuration.getString("page-already-first-page");
         ALREADY_LAST_PAGE = PREFIX + configuration.getString("page-already-last-page");
