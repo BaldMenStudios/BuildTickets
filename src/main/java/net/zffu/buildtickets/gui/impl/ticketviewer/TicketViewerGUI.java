@@ -44,7 +44,7 @@ public class TicketViewerGUI extends AbstractGUI {
                 event.getWhoClicked().sendMessage(Messages.ALREADY_JOINED);
                 return;
             }
-            if(!ticket.isNeedsHelp()) {
+            if(!ticket.isNeedsHelp() && !ticket.getBuilders().isEmpty()) {
                 event.getWhoClicked().sendMessage(Messages.NO_NEED_HELP);
                 return;
             }

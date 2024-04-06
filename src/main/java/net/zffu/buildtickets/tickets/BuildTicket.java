@@ -28,7 +28,6 @@ public class BuildTicket {
         this.ticketReason = reason;
         this.priority = priority;
         this.creator = creator;
-        this.builders.add(creator);
     }
 
     /**
