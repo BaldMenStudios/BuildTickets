@@ -52,6 +52,8 @@ ticket-no-need-help: "§cThis ticket doesn't need help from other players, to co
 ticket-joined: "§aYou joined the ticket."
 ticket-already-joined: "§cYou already joined this ticket."
 ticket-left: "§cYou left the ticket."
+ticket-already-priority: "§aThe ticket already has this priority!"
+ticket-changed-priority: "§aYou changed the ticket priority!"
 
 page-already-first-page: "§cYou are already on the first page!"
 page-already-last-page: "§cYou are already on the last page!"

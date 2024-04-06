@@ -3,7 +3,7 @@ package net.zffu.buildtickets.gui.impl;
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.gui.impl.ticketviewer.TicketViewerGUI;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -51,7 +51,7 @@ public class BuildTicketsGUI extends PaginatedGUI {
                 new TicketNotesGUI(ticket, 0).open(event.getWhoClicked());
             }
             if(event.getClick().isRightClick()) {
-                new TicketGUI(ticket).open(event.getWhoClicked());
+                new TicketViewerGUI(ticket).open(event.getWhoClicked());
             }
 
         }

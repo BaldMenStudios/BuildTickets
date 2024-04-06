@@ -1,26 +1,21 @@
-package net.zffu.buildtickets.gui.impl;
+package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.gui.AbstractGUI;
+import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
-import net.zffu.buildtickets.utils.HeadUtils;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
 
 import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
-public class TicketGUI extends AbstractGUI {
+public class TicketViewerGUI extends AbstractGUI {
 
     private BuildTicket ticket;
 
-    public TicketGUI(BuildTicket ticket) {
+    public TicketViewerGUI(BuildTicket ticket) {
         super("Ticket Viewer");
         this.ticket = ticket;
     }
@@ -55,6 +50,10 @@ public class TicketGUI extends AbstractGUI {
             }
             ticket.getBuilders().add(event.getWhoClicked().getUniqueId());
             event.getWhoClicked().sendMessage(Messages.TICKET_JOINED);
+        }));
+
+        setAction(22, (event -> {
+            new TicketPriorityGUI(ticket).open(event.getWhoClicked());
         }));
 
 

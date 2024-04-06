@@ -20,6 +20,9 @@ public class Messages {
     public static String ALREADY_JOINED;
     public static String TICKET_LEFT;
 
+    public static String TICKET_ALREADY_PRIORITY;
+    public static String TICKET_CHANGED_PRIORITY;
+
     public static String ALREADY_FIRST_PAGE;
     public static String ALREADY_LAST_PAGE;
 
@@ -40,6 +43,9 @@ public class Messages {
         TICKET_JOINED = PREFIX + configuration.getString("ticket-joined");
         ALREADY_JOINED = PREFIX + configuration.getString("ticket-already-joined");
         TICKET_LEFT = PREFIX + configuration.getString("ticket-left");
+
+        TICKET_ALREADY_PRIORITY = PREFIX + configuration.getString("ticket-already-priority");
+        TICKET_CHANGED_PRIORITY = PREFIX + configuration.getString("ticket-changed-priority");
 
         ALREADY_FIRST_PAGE = PREFIX + configuration.getString("page-already-first-page");
         ALREADY_LAST_PAGE = PREFIX + configuration.getString("page-already-last-page");

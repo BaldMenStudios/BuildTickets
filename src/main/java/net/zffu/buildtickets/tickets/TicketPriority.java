@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum TicketPriority {
 
     HIGH("High Priority"),
+    MEDIUM("Medium Priority"),
     NORMAL("Normal Priority"),
     LOW("Low Priority"),
     NONE("No Priority");

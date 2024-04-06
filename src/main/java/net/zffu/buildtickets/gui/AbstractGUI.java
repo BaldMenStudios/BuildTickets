@@ -18,6 +18,11 @@ public abstract class AbstractGUI {
         this.gui = Gui.gui().title(Component.text(inventoryName)).rows(6).create();
     }
 
+    public AbstractGUI(String inventoryName, int rows) {
+        this.gui = Gui.gui().title(Component.text(inventoryName)).rows(rows).create();
+    }
+
+
     public abstract void initItems();
 
     public abstract boolean setDefaultClickActions();

@@ -5,7 +5,6 @@ import lombok.Setter;
 import net.zffu.buildtickets.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class BuildTicket {
     private String ticketReason;
     private TicketPriority priority;
     private final String creator;
-    private ArrayList<UUID> builders;
+    private ArrayList<UUID> builders = new ArrayList<>();
     private ArrayList<UUID> noteCreators = new ArrayList<>();
     private HashMap<UUID, String> notes = new HashMap<>();
     private boolean needsHelp;
