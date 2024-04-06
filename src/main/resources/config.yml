@@ -1,0 +1,16 @@
+# BuildTickets Config
+
+# Build Mode
+build-mode:
+  enabled: true
+  permission-required: build.mode
+
+build-chat:
+  enabled: true
+  toggle-permission: buildchat.toggle
+  see-permission: buildchat.see
+
+build-physics:
+  enabled: true
+  default-enabled: false
+  toggle-permission: buildphysics.toggle
