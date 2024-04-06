@@ -18,16 +18,17 @@ public class BuildTicket {
     // Uses player names instead of uuids just to avoid having to get the name trough mojang all the time;
     private String ticketReason;
     private TicketPriority priority;
-    private final String creator;
+    private final UUID creator;
     private ArrayList<UUID> builders = new ArrayList<>();
     private ArrayList<UUID> noteCreators = new ArrayList<>();
     private HashMap<UUID, String> notes = new HashMap<>();
     private boolean needsHelp;
 
-    public BuildTicket(String reason, TicketPriority priority, String creator) {
+    public BuildTicket(String reason, TicketPriority priority, UUID creator) {
         this.ticketReason = reason;
         this.priority = priority;
         this.creator = creator;
+        this.builders.add(creator);
     }
 
     /**
@@ -44,6 +45,10 @@ public class BuildTicket {
             player.sendMessage(Messages.NOTE_ADD);
             noteCreators.add(player.getUniqueId());
         }
+    }
+
+    public String getCreator() {
+        return Bukkit.getOfflinePlayer(this.creator).getPlayer().getName();
     }
 
     public String getFormattedBuilders() {
