@@ -2,6 +2,7 @@ package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.gui.AbstractGUI;
+import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
@@ -9,6 +10,8 @@ import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+
+import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
 public class TicketPriorityGUI extends AbstractGUI {
 
@@ -30,6 +33,8 @@ public class TicketPriorityGUI extends AbstractGUI {
 
             index++;
         }
+
+        gui.setItem(22, new GuiItem(BACK));
     }
 
     @Override
@@ -40,6 +45,11 @@ public class TicketPriorityGUI extends AbstractGUI {
     @Override
     public void handleMenu(InventoryClickEvent event) {
         event.setCancelled(true);
+
+        if(event.getSlot() == 22) {
+            new TicketViewerGUI(ticket).open(event.getWhoClicked());
+            return;
+        }
 
         if(event.getSlot() >= 11 && (event.getSlot() - 11) <= TicketPriority.values().length) {
             int priorityId = event.getSlot() - 11;
@@ -52,6 +62,7 @@ public class TicketPriorityGUI extends AbstractGUI {
 
             ticket.setPriority(priority);
             event.getWhoClicked().sendMessage(Messages.TICKET_CHANGED_PRIORITY);
+            this.initItems();
         }
 
     }
