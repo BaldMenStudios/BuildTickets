@@ -27,26 +27,28 @@ public class BuildTicketsGUI {
     }
 
     public void initItems() {
-        int startingIndex = page * 35;
+        if(!BuildTicketsPlugin.getInstance().getTickets().isEmpty()) {
+            int startingIndex = page * 35;
 
-        for(int i = startingIndex; i < startingIndex + 35; i++) {
-            if(BuildTicketsPlugin.getInstance().getTickets().size() < startingIndex) return;
-            BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(i);
-            if(ticket == null) return;
+            for(int i = startingIndex; i < startingIndex + 35; i++) {
+                if(BuildTicketsPlugin.getInstance().getTickets().size() < startingIndex) return;
+                BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(i);
+                if(ticket == null) return;
 
-            Material material = Material.GREEN_DYE;
+                Material material = Material.GREEN_DYE;
 
-            if(ticket.getClaimer() == null) {
-                material = Material.RED_DYE;
+                if(ticket.getClaimer() == null) {
+                    material = Material.RED_DYE;
+                }
+
+                ItemStack stack = new ItemStack(material);
+                ItemMeta meta = stack.getItemMeta();
+                meta.setDisplayName("§a" + ticket.getTicketReason());
+                meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "Claimed by: " + (ticket.getClaimer() == null ? "§cNone" : ticket.getClaimer()), "", "§eClick to claim the ticket!"));
+                stack.setItemMeta(meta);
+
+                inventory.setItem(i - startingIndex, stack);
             }
-
-            ItemStack stack = new ItemStack(material);
-            ItemMeta meta = stack.getItemMeta();
-            meta.setDisplayName("§a" + ticket.getTicketReason());
-            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "Claimed by: " + (ticket.getClaimer() == null ? "§cNone" : ticket.getClaimer()), "", "§eClick to claim the ticket!"));
-            stack.setItemMeta(meta);
-
-            inventory.setItem(i - startingIndex, stack);
         }
     }
 
