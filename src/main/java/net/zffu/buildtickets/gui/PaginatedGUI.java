@@ -49,11 +49,13 @@ public abstract class PaginatedGUI extends AbstractGUI {
         meta = GO_BACK.getItemMeta();
         meta.setDisplayName("§aPrevious Page");
         meta.setLore(Arrays.asList("§7Click here to go back to the previous page!"));
+        GO_BACK.setItemMeta(meta);
 
         GO_NEXT = new ItemStack(Material.ARROW);
         meta = GO_NEXT.getItemMeta();
         meta.setDisplayName("§aNext Page");
         meta.setLore(Arrays.asList("§7Click here to go back to the next page!"));
+        GO_NEXT.setItemMeta(meta);
     }
 
     public void goBack(HumanEntity player) {
