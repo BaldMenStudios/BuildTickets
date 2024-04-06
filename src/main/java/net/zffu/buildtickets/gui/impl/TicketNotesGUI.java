@@ -36,8 +36,10 @@ public class TicketNotesGUI extends PaginatedGUI {
         gui.setItem(53, new GuiItem(ItemBuilder.from(Material.PAPER).name(Component.text("§aCreate a note")).lore(Component.text("§7Create or edit your note about"), Component.text("§7this ticket."), Component.empty(), Component.text("§eClick to add / modify your note")).build()));
 
         setAction(53, (event -> {
+            event.getWhoClicked().closeInventory();
             event.getWhoClicked().sendMessage("§aPlease enter your note in the chat.");
             BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
+                chat.setCancelled(true);
                 ticket.sendNote(chat.getPlayer(), chat.getMessage());
             });
         }));
