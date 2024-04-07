@@ -5,14 +5,13 @@ import net.zffu.buildtickets.commands.BuildModeCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,9 @@ import java.util.UUID;
 @Getter
 public final class BuildTicketsPlugin extends JavaPlugin {
     private static BuildTicketsPlugin INSTANCE;
+
+    // Used to make sure that the config is valid.
+    private final int CONFIG_VERSION = 1;
 
     private ArrayList<UUID> buildMode = new ArrayList<>();
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
@@ -32,10 +34,16 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         INSTANCE = this;
 
         this.saveDefaultConfig();
-        new Messages(this.getConfig());
+
+        if(!this.getConfig().contains("version") || this.getConfig().getInt("version") != CONFIG_VERSION) {
+            this.getLogger().warning("Config is outdated! Resetting configuration...");
+            saveConfig();
+        }
+
+        Messages.loadFromConfig(getConfig());
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
-        this.getCommand("ticket").setExecutor(new TicketCommand(this.getConfig().getString("tickets.command-permission")));
+        this.getCommand("ticket").setExecutor(new TicketCommand());
 
         this.getLogger().info("Loading Features...");
 
@@ -53,8 +61,31 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     public void doChatHandler(HumanEntity entity, Action<AsyncPlayerChatEvent> action) {
         entity.closeInventory();
-        entity.sendMessage(Messages.ENTER_PROMPT);
+        entity.sendMessage(Messages.ENTER_PROMPT.getMessage());
         this.chatHandlers.put(entity.getUniqueId(), action);
+    }
+
+    /**
+     * Gets the permissions from the config.
+     * The array is:
+     * - First Element: Permission on self tickets (tickets owned by the player) or default
+     * - Second Element: Permission on other tickets (tickets owned by another player) or self permission if none is set
+     * @param permissionId the key in the config with "-permission" remove
+     * @return the array of permissions.
+     */
+    public String[] getPermissions(String permissionId) {
+        String permission = "";
+        String otherPermission = "";
+        if(!getConfig().contains(permissionId + "-permission")) {
+            Bukkit.getLogger().warning("The permission " + permissionId + " could not be loaded correctly, please check if the config is valid");
+            return null;
+        }
+        permission = getConfig().getString(permissionId + "-permission");
+        otherPermission = permission;
+        if(getConfig().contains(permissionId + "-other-permission")) {
+            otherPermission = getConfig().getString(permissionId + "-other-permission");
+        }
+        return new String[] {permission, otherPermission};
     }
 
     public static BuildTicketsPlugin getInstance() {

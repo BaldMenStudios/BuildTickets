@@ -2,13 +2,12 @@ package net.zffu.buildtickets.tickets;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.config.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -39,15 +38,19 @@ public class BuildTicket {
         boolean b = notes.containsKey(player.getUniqueId());
         notes.put(player.getUniqueId(), note);
 
-        if(b) player.sendMessage(Messages.NOTE_EDIT);
+        if(b) player.sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
         else {
-            player.sendMessage(Messages.NOTE_ADD);
+            player.sendMessage(Messages.TICKET_NOTE_ADD.getMessage());
             noteCreators.add(player.getUniqueId());
         }
     }
 
     public String getCreator() {
         return Bukkit.getOfflinePlayer(this.creator).getPlayer().getName();
+    }
+
+    public UUID getCreatorUUID() {
+        return creator;
     }
 
     public String getFormattedBuilders() {

@@ -2,9 +2,10 @@ package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
+import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
@@ -41,31 +42,47 @@ public class TicketViewerGUI extends AbstractGUI {
         }));
 
         setAction(21, (event -> {
+            if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             if(ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.ALREADY_JOINED);
+                event.getWhoClicked().sendMessage(Messages.TICKET_ALREADY_JOINED.getMessage());
                 return;
             }
             if(!ticket.isNeedsHelp() && !ticket.getBuilders().isEmpty()) {
-                event.getWhoClicked().sendMessage(Messages.NO_NEED_HELP);
+                event.getWhoClicked().sendMessage(Messages.TICKET_NO_NEED_HELP.getMessage());
                 return;
             }
             ticket.getBuilders().add(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_JOINED);
+            event.getWhoClicked().sendMessage(Messages.TICKET_JOINED.getMessage());
         }));
 
         setAction(22, (event -> {
+            if(!Permissions.CHANGE_TICKET_PRIORITY.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             new TicketPriorityGUI(ticket).open(event.getWhoClicked());
         }));
 
         setAction(23, (event -> {
+            if(!Permissions.REQUEST_HELP.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             boolean b = !ticket.isNeedsHelp();
             ticket.setNeedsHelp(b);
 
-            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_HELP_ON);
-            else event.getWhoClicked().sendMessage(Messages.TICKET_HELP_OFF);
+            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_ON.getMessage());
+            else event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_OFF.getMessage());
         }));
 
         setAction(31, (event -> {
+            if(!Permissions.TICKET_CHANGE_REASON.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.setTicketReason(chat.getMessage());
@@ -75,12 +92,12 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(32, (event -> {
             if(!ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_NOT_BUILDER);
+                event.getWhoClicked().sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
                 return;
             }
 
             ticket.getBuilders().remove(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT);
+            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT.getMessage());
         }));
 
 

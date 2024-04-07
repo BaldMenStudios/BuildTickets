@@ -2,14 +2,12 @@ package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.gui.AbstractGUI;
-import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
