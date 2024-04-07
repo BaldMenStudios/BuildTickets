@@ -12,10 +12,12 @@ import org.bukkit.entity.Player;
 
 public class TicketCommand implements CommandExecutor {
 
-    private String permission;
+    private String createTicketPermission;
+    private String ticketGuiPermission;
 
-    public TicketCommand(String permission) {
-        this.permission = permission;
+    public TicketCommand(String createTicketPermission, String ticketGuiPermission) {
+        this.createTicketPermission = createTicketPermission;
+        this.ticketGuiPermission = ticketGuiPermission;
     }
 
     @Override
@@ -24,12 +26,12 @@ public class TicketCommand implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if(!(player.hasPermission(permission))) {
-            player.sendMessage(Messages.NO_PERMISSION);
-            return false;
-        }
 
         if(args.length == 0) {
+            if(!ticketGuiPermission.isEmpty() && !player.hasPermission(ticketGuiPermission)) {
+                player.sendMessage(Messages.NO_PERMISSION);
+                return false;
+            }
             new BuildTicketsGUI(0).open(player);
             return true;
         }
@@ -41,6 +43,12 @@ public class TicketCommand implements CommandExecutor {
                 player.sendMessage(Messages.INVALID_USAGE);
                 return false;
             }
+
+            if(!createTicketPermission.isEmpty() && !player.hasPermission(createTicketPermission)) {
+                player.sendMessage(Messages.NO_PERMISSION);
+                return false;
+            }
+
             String reason = args[1];
 
             BuildTicket buildTicket = new BuildTicket(reason, (args.length >= 3 ? TicketPriority.getValue(args[2]) : TicketPriority.NORMAL), player.getUniqueId());
