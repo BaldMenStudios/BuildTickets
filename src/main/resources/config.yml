@@ -124,7 +124,7 @@ help-message-permission: buildtickets.general.help
 # |                 Ticket Permissions                   | #
 # +------------------------------------------------------+ #
 ############################################################
-open-ticket-gui: buildtickets.tickets.gui
+open-ticket-gui-permission: buildtickets.tickets.gui
 create-ticket-permission: buildtickets.tickets.create
 
 

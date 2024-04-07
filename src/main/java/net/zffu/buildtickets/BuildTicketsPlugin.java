@@ -45,7 +45,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         new Messages(this.getConfig());
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
-        this.getCommand("ticket").setExecutor(new TicketCommand(this.getConfig().getString("tickets.command-permission")));
+        this.getCommand("ticket").setExecutor(new TicketCommand(getPermissions("create-ticket")[0], getPermissions("open-ticket-gui")[0]));
 
         this.getLogger().info("Loading Features...");
 
