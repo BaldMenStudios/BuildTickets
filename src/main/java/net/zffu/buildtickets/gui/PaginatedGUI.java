@@ -1,11 +1,9 @@
 package net.zffu.buildtickets.gui;
 
 import dev.triumphteam.gui.guis.GuiItem;
-import net.zffu.buildtickets.messages.Messages;
-import org.bukkit.Bukkit;
+import net.zffu.buildtickets.config.Messages;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 

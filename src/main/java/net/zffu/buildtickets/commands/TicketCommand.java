@@ -2,7 +2,7 @@ package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
-import net.zffu.buildtickets.messages.Messages;
+import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
 import org.bukkit.command.Command;
