@@ -28,7 +28,7 @@ public interface IDataHandler {
      * @param limit
      * @return
      */
-    TicketBuilder getRegisteredBuilders(int limit);
+    Collection<TicketBuilder> getRegisteredBuilders(int limit);
 
     /**
      * Should sync the data with the database.
