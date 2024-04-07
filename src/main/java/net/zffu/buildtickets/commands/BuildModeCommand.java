@@ -22,14 +22,13 @@ public class BuildModeCommand implements CommandExecutor {
         Player player = (Player) commandSender;
 
         if(!player.hasPermission(togglePermission)) {
-            player.sendMessage(Messages.NO_PERMISSION);
+            player.sendMessage(Messages.NO_PERMISSION.getMessage());
             return false;
         }
 
         boolean b = !BuildTicketsPlugin.getInstance().getBuildMode().remove(player.getUniqueId());
         if(!b) BuildTicketsPlugin.getInstance().getBuildMode().add(player.getUniqueId());
 
-        player.sendMessage((b) ? Messages.ENABLED_BUILD_MODE : Messages.DISABLED_BUILD_MODE);
 
         return true;
     }

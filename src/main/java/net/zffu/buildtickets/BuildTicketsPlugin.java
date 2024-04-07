@@ -40,7 +40,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             saveConfig();
         }
 
-        new Messages(this.getConfig());
+        Messages.loadFromConfig(getConfig());
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand(getPermissions("create-ticket")[0], getPermissions("open-ticket-gui")[0]));
@@ -61,7 +61,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     public void doChatHandler(HumanEntity entity, Action<AsyncPlayerChatEvent> action) {
         entity.closeInventory();
-        entity.sendMessage(Messages.ENTER_PROMPT);
+        entity.sendMessage(Messages.ENTER_PROMPT.getMessage());
         this.chatHandlers.put(entity.getUniqueId(), action);
     }
 

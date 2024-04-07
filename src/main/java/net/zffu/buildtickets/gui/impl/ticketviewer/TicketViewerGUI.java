@@ -42,15 +42,15 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(21, (event -> {
             if(ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.ALREADY_JOINED);
+                event.getWhoClicked().sendMessage(Messages.TICKET_ALREADY_JOINED.getMessage());
                 return;
             }
             if(!ticket.isNeedsHelp() && !ticket.getBuilders().isEmpty()) {
-                event.getWhoClicked().sendMessage(Messages.NO_NEED_HELP);
+                event.getWhoClicked().sendMessage(Messages.TICKET_NO_NEED_HELP.getMessage());
                 return;
             }
             ticket.getBuilders().add(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_JOINED);
+            event.getWhoClicked().sendMessage(Messages.TICKET_JOINED.getMessage());
         }));
 
         setAction(22, (event -> {
@@ -61,8 +61,8 @@ public class TicketViewerGUI extends AbstractGUI {
             boolean b = !ticket.isNeedsHelp();
             ticket.setNeedsHelp(b);
 
-            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_HELP_ON);
-            else event.getWhoClicked().sendMessage(Messages.TICKET_HELP_OFF);
+            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_ON.getMessage());
+            else event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_OFF.getMessage());
         }));
 
         setAction(31, (event -> {
@@ -75,12 +75,12 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(32, (event -> {
             if(!ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_NOT_BUILDER);
+                event.getWhoClicked().sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
                 return;
             }
 
             ticket.getBuilders().remove(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT);
+            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT.getMessage());
         }));
 
 

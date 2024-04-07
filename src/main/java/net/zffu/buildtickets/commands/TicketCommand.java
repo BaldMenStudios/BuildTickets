@@ -29,7 +29,7 @@ public class TicketCommand implements CommandExecutor {
 
         if(args.length == 0) {
             if(!ticketGuiPermission.isEmpty() && !player.hasPermission(ticketGuiPermission)) {
-                player.sendMessage(Messages.NO_PERMISSION);
+                player.sendMessage(Messages.NO_PERMISSION.getMessage());
                 return false;
             }
             new BuildTicketsGUI(0).open(player);
@@ -40,12 +40,12 @@ public class TicketCommand implements CommandExecutor {
 
         if(sub.equals("create")) {
             if(args.length < 2) {
-                player.sendMessage(Messages.INVALID_USAGE);
+                player.sendMessage(Messages.INVALID_USAGE.getMessage());
                 return false;
             }
 
             if(!createTicketPermission.isEmpty() && !player.hasPermission(createTicketPermission)) {
-                player.sendMessage(Messages.NO_PERMISSION);
+                player.sendMessage(Messages.NO_PERMISSION.getMessage());
                 return false;
             }
 
@@ -53,7 +53,7 @@ public class TicketCommand implements CommandExecutor {
 
             BuildTicket buildTicket = new BuildTicket(reason, (args.length >= 3 ? TicketPriority.getValue(args[2]) : TicketPriority.NORMAL), player.getUniqueId());
             BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
-            player.sendMessage(Messages.TICKET_CREATE);
+            player.sendMessage(Messages.TICKET_CREATED.getMessage());
         }
         else {
             player.sendMessage("§7------ §a§lBuild Tickets §r§7------");
