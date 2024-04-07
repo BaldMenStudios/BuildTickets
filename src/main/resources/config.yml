@@ -1,34 +1,58 @@
-# BuildTickets Config
+# +----------------------------------------------------------------------------------------------+
+# |                                                                                              |
+# |                                          Build Tickets                                       |
+# |                                                                                              |
+# |                          Website: https://github.com/Zffu/BuildTickets                       |
+# |                                                                                              |
+# |                                         Author: Zffu, Diph                                   |
+# |                                                                                              |
+# +----------------------------------------------------------------------------------------------+
 
-#
-# Build Mode
-#
+# The version of the config. Used to make sure that the config is valid
+version: 1
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Build Mode Feature                   | #
+# +------------------------------------------------------+ #
+############################################################
 
 build-mode:
   enabled: true
   permission: build.mode
 
-#
-# Build Chat
-#
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Builder Chat Feature                 | #
+# +------------------------------------------------------+ #
+############################################################
 
 build-chat:
   enabled: true
   toggle-permission: "buildchat.toggle"
   see-permission: "buildchat.see"
 
-#
-# Build Physics
-#
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Building Physics Feature             | #
+# +------------------------------------------------------+ #
+############################################################
 
 build-physics:
   enabled: true
   default-enabled: false
   toggle-permission: "buildphysics.toggle"
 
-#
-# Tickets
-#
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 General Ticket Settings              | #
+# +------------------------------------------------------+ #
+############################################################
+
 tickets:
   command-permission: "buildtickets.command"
   notify-builders-when-created: true
@@ -36,14 +60,28 @@ tickets:
   webhook-url: ""
 
 
-#
-# Messages
-#
+############################################################
+# +------------------------------------------------------+ #
+# |                 General Messages                     | #
+# +------------------------------------------------------+ #
+############################################################
+
 prefix: "§8[§aBuildTickets§r§8] §r"
 no-permission: "§cYou do not have the required permission to execute this action!"
 invalid-usage: "§cMissing arguments! Please check the command help page!"
-buildmode-enabled: "§aYou enabled build mode!"
-buildmode-disabled: "§cYou disabled build mode!"
+
+page-already-first-page: "§cYou are already on the first page!"
+page-already-last-page: "§cYou are already on the last page!"
+
+enter-prompt: "§aPlease enter the prompt in the chat:"
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |              General Ticket Messages                 | #
+# +------------------------------------------------------+ #
+############################################################
+
 
 ticket-note-add: "§aYou added a note for the ticket!"
 ticket-note-edit: "§aYou edited your previous note on the ticket!"
@@ -63,5 +101,69 @@ ticket-waiting-completion: "§aYou marked the ticket as completed! You must wait
 ticket-completed: "§aYou marked this ticket as completed!"
 
 
-page-already-first-page: "§cYou are already on the first page!"
-page-already-last-page: "§cYou are already on the last page!"
+############################################################
+# +------------------------------------------------------+ #
+# |                 Build Mode Messages                  | #
+# +------------------------------------------------------+ #
+############################################################
+
+buildmode-enabled: "§aYou enabled build mode!"
+buildmode-disabled: "§cYou disabled build mode!"
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 General Permissions                  | #
+# +------------------------------------------------------+ #
+############################################################
+# To disable a permission, leave the field blank
+help-message-permission: buildtickets.general.help
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Ticket Permissions                   | #
+# +------------------------------------------------------+ #
+############################################################
+open-ticket-gui: buildtickets.tickets.gui
+create-ticket-permission: buildtickets.tickets.create
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Ticket Permissions (Self)            | #
+# +------------------------------------------------------+ #
+############################################################
+change-ticket-priority-permission: buildtickets.tickets.change_priority
+join-ticket-permission: buildtickets.tickets.join
+join-without-help-permission: buildtickets.tickets.join_without_help
+request-help-permission: buildtickets.tickets.request_help
+ticket-mark-as-complete-permission: buildtickets.tickets.complete.mark
+ticket-confirm-as-complete-permission: buildtickets.tickets.complete.confirm
+ticket-change-reason-permission: buildtickets.tickets.change_reason
+ticket-leave-permission: buildtickets.tickets.leave
+open-ticket-viewer-permission: buildtickets.viewer.open
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Ticket Permissions (Other)           | #
+# +------------------------------------------------------+ #
+############################################################
+change-ticket-priority-other-permission: buildtickets.tickets.other.change_priority
+join-ticket-other-permission: buildtickets.tickets.other.join
+join-without-help-other-permission: buildtickets.tickets.other.join_without_help
+request-help-other-permission: buildtickets.tickets.other.request_help
+ticket-mark-as-complete-other-permission: buildtickets.tickets.other.complete.mark
+ticket-confirm-as-complete-other-permission: buildtickets.tickets.other.complete.confirm
+ticket-change-reason-other-permission: buildtickets.tickets.other.change_reason
+ticket-leave-other-permission: buildtickets.tickets.other.leave
+open-ticket-viewer-other-permission: buildtickets.viewer.other.open
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Ticket Permissions (Panel)           | #
+# +------------------------------------------------------+ #
+############################################################
+open-ticket-panel-permission: buildtickets.panel.open
+player-stats-panel-permission: buildtickets.panel.player_stats
+active-tickets-panel-permission: buildtickets.panel.active_tickets

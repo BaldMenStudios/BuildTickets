@@ -66,8 +66,7 @@ public class TicketViewerGUI extends AbstractGUI {
         }));
 
         setAction(31, (event -> {
-            event.getWhoClicked().sendMessage("§aPlease enter the new ticket reason in the chat.");
-            BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
+            BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.setTicketReason(chat.getMessage());
                 this.open(chat.getPlayer());
@@ -79,6 +78,7 @@ public class TicketViewerGUI extends AbstractGUI {
                 event.getWhoClicked().sendMessage(Messages.TICKET_NOT_BUILDER);
                 return;
             }
+
             ticket.getBuilders().remove(event.getWhoClicked().getUniqueId());
             event.getWhoClicked().sendMessage(Messages.TICKET_LEFT);
         }));

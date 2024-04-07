@@ -8,6 +8,8 @@ import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.messages.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.units.qual.C;
@@ -47,6 +49,12 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public void doChatHandler(HumanEntity entity, Action<AsyncPlayerChatEvent> action) {
+        entity.closeInventory();
+        entity.sendMessage(Messages.ENTER_PROMPT);
+        this.chatHandlers.put(entity.getUniqueId(), action);
     }
 
     public static BuildTicketsPlugin getInstance() {

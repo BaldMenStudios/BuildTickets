@@ -43,9 +43,7 @@ public class TicketNotesGUI extends PaginatedGUI {
         gui.setItem(53, new GuiItem(itemStack));
 
         setAction(53, (event -> {
-            event.getWhoClicked().closeInventory();
-            event.getWhoClicked().sendMessage("§aPlease enter your note in the chat.");
-            BuildTicketsPlugin.getInstance().getChatHandlers().put(event.getWhoClicked().getUniqueId(), (chat) -> {
+            BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.sendNote(chat.getPlayer(), chat.getMessage());
                 this.open(chat.getPlayer());
