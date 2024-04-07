@@ -3,6 +3,7 @@ package net.zffu.buildtickets;
 import lombok.Getter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
+import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
@@ -28,6 +29,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
 
+    private HashMap<UUID, TicketBuilder> builders = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -86,6 +88,16 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             otherPermission = getConfig().getString(permissionId + "-other-permission");
         }
         return new String[] {permission, otherPermission};
+    }
+
+    /**
+     * Gets or create the builder.
+     * @param uuid
+     * @return
+     */
+    public TicketBuilder getOrCreateBuilder(UUID uuid) {
+        TicketBuilder builder = this.builders.computeIfAbsent(uuid, TicketBuilder::new);
+        return builder;
     }
 
     public static BuildTicketsPlugin getInstance() {

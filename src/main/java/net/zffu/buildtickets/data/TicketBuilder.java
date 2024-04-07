@@ -1,11 +1,14 @@
 package net.zffu.buildtickets.data;
 
+import lombok.Getter;
+
 import java.util.UUID;
 
 /**
  * Represents a builder player.
  */
-public class TicketBuilder implements IDataElement {
+@Getter
+public class TicketBuilder {
 
     private UUID uuid;
 
@@ -16,6 +19,10 @@ public class TicketBuilder implements IDataElement {
     // Timestamps
     private long lastCompletedTicket;
     private long lastCreatedTicket;
+
+    public TicketBuilder(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     public void completeTicket() {
         this.ticketsCompleted++;
