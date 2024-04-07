@@ -1,6 +1,7 @@
 package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
+import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
@@ -12,14 +13,6 @@ import org.bukkit.entity.Player;
 
 public class TicketCommand implements CommandExecutor {
 
-    private String createTicketPermission;
-    private String ticketGuiPermission;
-
-    public TicketCommand(String createTicketPermission, String ticketGuiPermission) {
-        this.createTicketPermission = createTicketPermission;
-        this.ticketGuiPermission = ticketGuiPermission;
-    }
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String commandName, String[] args) {
         if(!(commandSender instanceof Player)) return false;
@@ -28,7 +21,7 @@ public class TicketCommand implements CommandExecutor {
 
 
         if(args.length == 0) {
-            if(!ticketGuiPermission.isEmpty() && !player.hasPermission(ticketGuiPermission)) {
+            if(!Permissions.OPEN_TICKET_GUI.hasPermission(player)) {
                 player.sendMessage(Messages.NO_PERMISSION.getMessage());
                 return false;
             }
@@ -44,7 +37,7 @@ public class TicketCommand implements CommandExecutor {
                 return false;
             }
 
-            if(!createTicketPermission.isEmpty() && !player.hasPermission(createTicketPermission)) {
+            if(!Permissions.CREATE_TICKET.hasPermission(player)) {
                 player.sendMessage(Messages.NO_PERMISSION.getMessage());
                 return false;
             }
