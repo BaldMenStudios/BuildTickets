@@ -2,6 +2,7 @@ package net.zffu.buildtickets.gui.impl.ticketviewer;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
+import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.config.Messages;
@@ -41,6 +42,10 @@ public class TicketViewerGUI extends AbstractGUI {
         }));
 
         setAction(21, (event -> {
+            if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             if(ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
                 event.getWhoClicked().sendMessage(Messages.TICKET_ALREADY_JOINED.getMessage());
                 return;
@@ -54,10 +59,18 @@ public class TicketViewerGUI extends AbstractGUI {
         }));
 
         setAction(22, (event -> {
+            if(!Permissions.CHANGE_TICKET_PRIORITY.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             new TicketPriorityGUI(ticket).open(event.getWhoClicked());
         }));
 
         setAction(23, (event -> {
+            if(!Permissions.REQUEST_HELP.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             boolean b = !ticket.isNeedsHelp();
             ticket.setNeedsHelp(b);
 
@@ -66,6 +79,10 @@ public class TicketViewerGUI extends AbstractGUI {
         }));
 
         setAction(31, (event -> {
+            if(!Permissions.TICKET_CHANGE_REASON.hasPermission(event.getWhoClicked(), ticket)) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.setTicketReason(chat.getMessage());
