@@ -48,6 +48,7 @@ buildmode-disabled: "§cYou disabled build mode!"
 ticket-note-add: "§aYou added a note for the ticket!"
 ticket-note-edit: "§aYou edited your previous note on the ticket!"
 
+ticket-created: "§aYou created a ticket!"
 ticket-no-need-help: "§cThis ticket doesn't need help from other players, to contribute to this ticket, please ask the creator of the ticket to ask for help."
 ticket-joined: "§aYou joined the ticket."
 ticket-already-joined: "§cYou already joined this ticket."
@@ -57,6 +58,10 @@ ticket-already-priority: "§aThe ticket already has this priority!"
 ticket-changed-priority: "§aYou changed the ticket priority!"
 ticket-request-help-on: "§aYou are now requesting help from other builders!"
 ticket-request-help-off: "§aYou are no longer requesting help from other builders!"
+
+ticket-waiting-completion: "§aYou marked the ticket as completed! You must wait for an admin to confirm it as completed!"
+ticket-completed: "§aYou marked this ticket as completed!"
+
 
 page-already-first-page: "§cYou are already on the first page!"
 page-already-last-page: "§cYou are already on the last page!"
