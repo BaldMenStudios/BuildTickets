@@ -38,9 +38,9 @@ public class BuildTicket {
         boolean b = notes.containsKey(player.getUniqueId());
         notes.put(player.getUniqueId(), note);
 
-        if(b) player.sendMessage(Messages.NOTE_EDIT);
+        if(b) player.sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
         else {
-            player.sendMessage(Messages.NOTE_ADD);
+            player.sendMessage(Messages.TICKET_NOTE_ADD.getMessage());
             noteCreators.add(player.getUniqueId());
         }
     }
