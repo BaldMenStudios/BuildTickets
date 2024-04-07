@@ -49,6 +49,10 @@ public class BuildTicket {
         return Bukkit.getOfflinePlayer(this.creator).getPlayer().getName();
     }
 
+    public UUID getCreatorUUID() {
+        return creator;
+    }
+
     public String getFormattedBuilders() {
         String s = "";
         boolean b = false;

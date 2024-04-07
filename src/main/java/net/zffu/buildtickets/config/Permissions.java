@@ -1,7 +1,9 @@
 package net.zffu.buildtickets.config;
 
 import lombok.Getter;
+import net.zffu.buildtickets.tickets.BuildTicket;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.HumanEntity;
 
 @Getter
 public enum Permissions {
@@ -47,6 +49,15 @@ public enum Permissions {
                 permissions.otherPermission = configuration.getString(permissions.configKey + "-other-permission");
             }
         }
+    }
+
+    public boolean hasPermission(HumanEntity entity) {
+        return (permission.isEmpty() || entity.hasPermission(permission));
+    }
+
+    public boolean hasPermission(HumanEntity entity, BuildTicket ticket) {
+        String perm = (ticket.getCreatorUUID().equals(entity.getUniqueId()) ? permission : otherPermission);
+        return (perm.isEmpty() || entity.hasPermission(perm));
     }
 
 }
