@@ -1,6 +1,8 @@
 package net.zffu.buildtickets.gui.impl.adminpanel;
 
 import dev.triumphteam.gui.guis.GuiItem;
+import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
@@ -22,6 +24,14 @@ public class AdminPanelGUI extends AbstractGUI {
         gui.setItem(29, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to see stats of a builder", "§7or the overall stats of the builders", "§7Those stats include: Completed Ticket, Created Tickets", "§7and more").build()));
         gui.setItem(31, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to see the tickets", "§7that are active, waiting for confirmation", "§7or that require help.").build()));
         gui.setItem(33, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to give or remove ticket permissions to a builder.").build()));
+
+        setAction(20, (event -> {
+            if(!(Permissions.PANEL_PLAYER_STATS.hasPermission(event.getWhoClicked()))) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
+            new PlayerStatsPanelGUI(0).open(event.getWhoClicked());
+        }));
 
         gui.setItem(49, new GuiItem(BACK));
 

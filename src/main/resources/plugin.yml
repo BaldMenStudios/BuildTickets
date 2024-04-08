@@ -9,3 +9,6 @@ commands:
     description: Enables or disables build mode for you
   buildchat:
     description: Main command of the builder's chat.
+  ticketpanel:
+    description: Opens the ticket administrator panel
+    aliases: [adminticketpanel, aticketpanel, tpanel]

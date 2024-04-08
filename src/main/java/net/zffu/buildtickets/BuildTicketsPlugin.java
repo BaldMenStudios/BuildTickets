@@ -3,6 +3,7 @@ package net.zffu.buildtickets;
 import lombok.Getter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
+import net.zffu.buildtickets.commands.TicketPanelCommand;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
@@ -46,6 +47,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand());
+        this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
 
         this.getLogger().info("Loading Features...");
 

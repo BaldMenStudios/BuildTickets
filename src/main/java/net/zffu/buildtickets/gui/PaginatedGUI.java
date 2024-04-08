@@ -34,7 +34,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
             if(stacks.size() <= i) return;
             rowIndex++;
-            if(rowIndex >= elementsPerLine) {
+            if(rowIndex >= elementsPerLine && elementsPerLine > 0) {
                 rowIndex = 0;
                 i += (9 - elementsPerLine);
             }
