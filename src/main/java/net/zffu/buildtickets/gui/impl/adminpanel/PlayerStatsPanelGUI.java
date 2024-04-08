@@ -1,8 +1,10 @@
 package net.zffu.buildtickets.gui.impl.adminpanel;
 
+import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.gui.PaginatedGUI;
+import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
 import net.zffu.buildtickets.utils.HeadUtils;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -30,6 +32,16 @@ public class PlayerStatsPanelGUI extends PaginatedGUI {
     @Override
     public void handleMenu(InventoryClickEvent event) {
 
+    }
+
+    @Override
+    public void initItems() {
+        super.initItems();
+        gui.setItem(49, new GuiItem(BACK));
+
+        setAction(49, (event -> {
+            new AdminPanelGUI().open(event.getWhoClicked());
+        }));
     }
 
     @Override
