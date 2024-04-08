@@ -42,7 +42,12 @@ public enum Messages {
     public static void loadFromConfig(FileConfiguration configuration) {
         for(Messages messages : Messages.values()) {
             if(configuration.contains(messages.configKey)) {
-                messages.message = configuration.getString(messages.configKey);
+                if(messages == PREFIX) {
+                    messages.message = configuration.getString(messages.configKey);
+                }
+                else {
+                    messages.message = PREFIX.message + configuration.getString(messages.configKey);
+                }
             }
         }
     }
