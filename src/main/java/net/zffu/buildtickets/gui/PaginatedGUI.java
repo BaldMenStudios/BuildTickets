@@ -58,7 +58,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goBack(HumanEntity player) {
         if(this.page <= 0) {
-            player.sendMessage(Messages.ALREADY_FIRST_PAGE);
+            player.sendMessage(Messages.PAGE_ALREADY_FIRST_PAGE.getMessage());
             return;
         }
         this.page--;
@@ -68,7 +68,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goNext(HumanEntity player) {
         if(this.getStacks().size() <= (this.page + 1) * elementsPerPage) {
-            player.sendMessage(Messages.ALREADY_LAST_PAGE);
+            player.sendMessage(Messages.PAGE_ALREADY_LAST_PAGE.getMessage());
             return;
         }
         this.page++;

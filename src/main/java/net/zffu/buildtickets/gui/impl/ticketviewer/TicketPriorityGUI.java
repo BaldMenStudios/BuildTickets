@@ -54,12 +54,12 @@ public class TicketPriorityGUI extends AbstractGUI {
             TicketPriority priority = TicketPriority.values()[priorityId];
 
             if(ticket.getPriority() == priority) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_ALREADY_PRIORITY);
+                event.getWhoClicked().sendMessage(Messages.TICKET_PRIORITY.getMessage());
                 return;
             }
 
             ticket.setPriority(priority);
-            event.getWhoClicked().sendMessage(Messages.TICKET_CHANGED_PRIORITY);
+            event.getWhoClicked().sendMessage(Messages.TICKET_PRIORITY_CHANGE.getMessage());
             this.initItems();
         }
 
