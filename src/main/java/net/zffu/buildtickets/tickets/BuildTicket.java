@@ -23,6 +23,9 @@ public class BuildTicket {
     private HashMap<UUID, String> notes = new HashMap<>();
     private boolean needsHelp;
 
+    private boolean isWaitingForCompletionConfirmation;
+    private boolean completed;
+
     public BuildTicket(String reason, TicketPriority priority, UUID creator) {
         this.ticketReason = reason;
         this.priority = priority;

@@ -11,6 +11,8 @@ import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.UUID;
+
 import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
 public class TicketViewerGUI extends AbstractGUI {
@@ -100,6 +102,31 @@ public class TicketViewerGUI extends AbstractGUI {
             event.getWhoClicked().sendMessage(Messages.TICKET_LEFT.getMessage());
         }));
 
+
+        setAction(30, (event -> {
+            if(!(Permissions.TICKET_COMPLETE.hasPermission(event.getWhoClicked()))) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
+            if(!ticket.isWaitingForCompletionConfirmation()) {
+                ticket.setWaitingForCompletionConfirmation(true);
+                event.getWhoClicked().sendMessage(Messages.TICKET_WAITING_COMPLETION.getMessage());
+            }
+            else {
+                if(!Permissions.TICKET_COMPLETE_CONFIRM.hasPermission(event.getWhoClicked())) {
+                    event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                    return;
+                }
+                ticket.setCompleted(true);
+                ticket.setWaitingForCompletionConfirmation(false);
+
+                for(UUID builder : ticket.getBuilders()) {
+                    BuildTicketsPlugin.getInstance().getOrCreateBuilder(builder).completeTicket();
+                }
+
+            }
+
+        }));
 
     }
 
