@@ -18,6 +18,8 @@ public abstract class PaginatedGUI extends AbstractGUI {
     protected int page;
     protected int elementsPerPage;
     protected int startingIndex;
+    protected int startingSlotIndex = 0;
+    protected int elementsPerLine;
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
         super(inventoryName);
         this.page = page;
@@ -28,8 +30,14 @@ public abstract class PaginatedGUI extends AbstractGUI {
     @Override
     public void initItems() {
         List<ItemStack> stacks = getStacks();
+        int rowIndex = 0;
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
             if(stacks.size() <= i) return;
+            rowIndex++;
+            if(rowIndex >= elementsPerLine) {
+                rowIndex = 0;
+                i += (9 - elementsPerLine);
+            }
             this.gui.setItem(i - startingIndex, new GuiItem(getStacks().get(i)));
         }
     }
