@@ -22,6 +22,7 @@ public class TicketBrowserGUI extends PaginatedGUI {
     public TicketBrowserGUI(int page) {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
         this.page = page;
+        this.category = Category.ALL;
     }
 
     public TicketBrowserGUI(int page, Category category) {
@@ -57,10 +58,10 @@ public class TicketBrowserGUI extends PaginatedGUI {
         if(event.getSlot() <= 35) {
             BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot());
             if(event.getClick().isLeftClick()) {
-                new TicketNotesGUI(ticket, 0).open(event.getWhoClicked());
+                new TicketNotesGUI(ticket, 0).open(event.getWhoClicked(), this);
             }
             if(event.getClick().isRightClick()) {
-                new TicketViewerGUI(ticket).open(event.getWhoClicked());
+                new TicketViewerGUI(ticket).open(event.getWhoClicked(), this);
             }
 
         }

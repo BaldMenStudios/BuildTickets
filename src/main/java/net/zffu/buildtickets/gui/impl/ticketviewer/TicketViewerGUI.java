@@ -36,13 +36,6 @@ public class TicketViewerGUI extends AbstractGUI {
         gui.setItem(30, new GuiItem(ItemBuilder.create(Material.DIAMOND).display("§aComplete Ticket").lore("§7Marks the ticket as completed.", "", "§cFaking completing a ticket will", "§cmostly result as a punishement", "§cfrom your staff team", "", "§eClick here to complete this ticket!").build()));
         gui.setItem(32, new GuiItem(ItemBuilder.create(Material.RED_DYE).display("§aLeave Ticket").lore("§7Leave the ticket to go to another one.", "", "§eClick here to leave this ticket").build()));
 
-
-        gui.setItem(49, new GuiItem(BACK));
-
-        setAction(49, (event -> {
-            new TicketBrowserGUI(0).open(event.getWhoClicked());
-        }));
-
         setAction(21, (event -> {
             if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
                 event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
@@ -65,7 +58,7 @@ public class TicketViewerGUI extends AbstractGUI {
                 event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
                 return;
             }
-            new TicketPriorityGUI(ticket).open(event.getWhoClicked());
+            new TicketPriorityGUI(ticket).open(event.getWhoClicked(), this);
         }));
 
         setAction(23, (event -> {

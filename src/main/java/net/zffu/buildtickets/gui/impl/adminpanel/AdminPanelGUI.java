@@ -30,7 +30,15 @@ public class AdminPanelGUI extends AbstractGUI {
                 event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
                 return;
             }
-            new PlayerStatsPanelGUI(0).open(event.getWhoClicked());
+            new PlayerStatsPanelGUI(0).open(event.getWhoClicked(), this);
+        }));
+
+        setAction(22, (event -> {
+            if(!(Permissions.PANEL_ACTIVE_TICKETS.hasPermission(event.getWhoClicked()))) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
+            new TicketsStatsPanelGUI().open(event.getWhoClicked(), this);
         }));
 
         gui.setItem(49, new GuiItem(BACK));

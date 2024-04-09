@@ -20,22 +20,16 @@ public class TicketsStatsPanelGUI extends AbstractGUI {
         gui.setItem(22, new GuiItem(ItemBuilder.create(Material.YELLOW_DYE).display("§aTickets waiting for confirmation").lore("§7Tickets that need confirmation that they", "§7are completed.", "", "§eClick to view category!").build()));
         gui.setItem(24, new GuiItem(ItemBuilder.create(Material.RED_DYE).display("§aInactive Tickets").lore("§7Tickets that doesn't have any builders", "§7working on those.", "", "§eClick here to view category!").build()));
 
-        gui.setItem(49, new GuiItem(BACK));
-
-        setAction(49, (event -> {
-            new AdminPanelGUI().open(event.getWhoClicked());
-        }));
-
         setAction(20, (event -> {
-            new TicketBrowserGUI(0, TicketBrowserGUI.Category.ACTIVE).open(event.getWhoClicked());
+            new TicketBrowserGUI(0, TicketBrowserGUI.Category.ACTIVE).open(event.getWhoClicked(), this);
         }));
 
         setAction(22, (event -> {
-            new TicketBrowserGUI(0, TicketBrowserGUI.Category.WAITING).open(event.getWhoClicked());
+            new TicketBrowserGUI(0, TicketBrowserGUI.Category.WAITING).open(event.getWhoClicked(), this);
         }));
 
         setAction(24, (event -> {
-            new TicketBrowserGUI(0, TicketBrowserGUI.Category.INACTIVE).open(event.getWhoClicked());
+            new TicketBrowserGUI(0, TicketBrowserGUI.Category.INACTIVE).open(event.getWhoClicked(), this);
         }));
 
     }

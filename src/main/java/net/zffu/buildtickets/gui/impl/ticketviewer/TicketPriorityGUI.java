@@ -20,6 +20,7 @@ public class TicketPriorityGUI extends AbstractGUI {
     public TicketPriorityGUI(BuildTicket ticket) {
         super("Change Ticket Priority",3);
         this.ticket = ticket;
+        this.backItemSlot = 22;
     }
 
     @Override
@@ -31,8 +32,6 @@ public class TicketPriorityGUI extends AbstractGUI {
 
             index++;
         }
-
-        gui.setItem(22, new GuiItem(BACK));
     }
 
     @Override
@@ -43,11 +42,6 @@ public class TicketPriorityGUI extends AbstractGUI {
     @Override
     public void handleMenu(InventoryClickEvent event) {
         event.setCancelled(true);
-
-        if(event.getSlot() == 22) {
-            new TicketViewerGUI(ticket).open(event.getWhoClicked());
-            return;
-        }
 
         if(event.getSlot() >= 11 && (event.getSlot() - 11) <= TicketPriority.values().length) {
             int priorityId = event.getSlot() - 11;
