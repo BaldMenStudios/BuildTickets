@@ -4,7 +4,7 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
-import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
+import net.zffu.buildtickets.gui.impl.TicketBrowserGUI;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.ItemBuilder;
@@ -40,7 +40,7 @@ public class TicketViewerGUI extends AbstractGUI {
         gui.setItem(49, new GuiItem(BACK));
 
         setAction(49, (event -> {
-            new BuildTicketsGUI(0).open(event.getWhoClicked());
+            new TicketBrowserGUI(0).open(event.getWhoClicked());
         }));
 
         setAction(21, (event -> {
@@ -125,7 +125,6 @@ public class TicketViewerGUI extends AbstractGUI {
                 }
 
             }
-
         }));
 
     }
