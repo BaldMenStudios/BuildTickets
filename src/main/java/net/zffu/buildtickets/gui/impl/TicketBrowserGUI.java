@@ -88,6 +88,10 @@ public class TicketBrowserGUI extends PaginatedGUI {
 
             Material material = Material.GREEN_DYE;
 
+            if(ticket.isCompleted()) {
+                material = Material.DIAMOND;
+            }
+
             if(ticket.getBuilders().isEmpty()) {
                 material = Material.RED_DYE;
             }

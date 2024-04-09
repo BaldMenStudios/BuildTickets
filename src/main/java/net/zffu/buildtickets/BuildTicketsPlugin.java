@@ -29,6 +29,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private ArrayList<UUID> buildMode = new ArrayList<>();
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
+    private boolean smartTicketPermissions;
 
     private HashMap<UUID, TicketBuilder> builders = new HashMap<>();
 
@@ -42,6 +43,8 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             this.getLogger().warning("Config is outdated! Resetting configuration...");
             saveConfig();
         }
+
+        this.smartTicketPermissions = getConfig().getBoolean("tickets.smart-ticket-permissions");
 
         Messages.loadFromConfig(getConfig());
 

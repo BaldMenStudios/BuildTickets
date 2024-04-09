@@ -3,7 +3,9 @@ package net.zffu.buildtickets.tickets;
 import lombok.Getter;
 import lombok.Setter;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.config.Permissions;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
