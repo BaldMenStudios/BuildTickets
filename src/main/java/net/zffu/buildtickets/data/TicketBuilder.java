@@ -1,5 +1,6 @@
 package net.zffu.buildtickets.data;
 
+import com.google.gson.JsonObject;
 import lombok.Getter;
 
 import java.util.UUID;
@@ -32,6 +33,20 @@ public class TicketBuilder {
     public void createTicket() {
         this.ticketsCreated++;
         this.lastCreatedTicket = System.currentTimeMillis();
+    }
+
+    public JsonObject toJSON() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("created", this.ticketsCreated);
+        jsonObject.addProperty("completed", this.ticketsCompleted);
+        return jsonObject;
+    }
+
+    public static TicketBuilder fromJSON(UUID uuid, JsonObject object) {
+        TicketBuilder builder =  new TicketBuilder(uuid);
+        builder.ticketsCreated = object.get("created").getAsInt();
+        builder.ticketsCompleted = object.get("completed").getAsInt();
+        return builder;
     }
 
 }

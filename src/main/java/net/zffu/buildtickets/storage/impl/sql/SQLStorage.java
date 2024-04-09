@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -67,17 +68,21 @@ public class SQLStorage implements IStorage {
 
     @Override
     public TicketBuilder loadBuilder(UUID uuid) {
-        return null;
+        return TicketBuilder.fromJSON(uuid, this.builders.getJson(uuid, null));
     }
 
     @Override
     public Map<UUID, TicketBuilder> loadBuilders(Set<UUID> uuids) {
-        return null;
+        HashMap<UUID, TicketBuilder> builderHashMap = new HashMap<>();
+        for(UUID uuid : uuids) {
+            builderHashMap.put(uuid, loadBuilder(uuid));
+        }
+        return builderHashMap;
     }
 
     @Override
     public void saveBuilder(TicketBuilder builder) {
-
+        this.builders.pushJSON(builder.getUuid(), builder.toJSON());
     }
 
     @Override
@@ -92,6 +97,6 @@ public class SQLStorage implements IStorage {
 
     @Override
     public void saveTicket(BuildTicket ticket) {
-        JSONObject
+        this.tickets.pushJSON(ticket.getTicketUUID(), ticket.toJSON());
     }
 }
