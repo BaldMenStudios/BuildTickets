@@ -11,6 +11,24 @@
 # The version of the config. Used to make sure that the config is valid
 version: 1
 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Database                             | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Available modes:
+# - sqlite: SQL Database in a file
+# - sql: SQL Database
+# - mongo: MongoDB Database
+storage-mode: sqlite
+
+# Only required if your database type is not h2.
+database-url: ""
+
+# Only required if your database type is not h2.
+database-credentials: ""
+
 
 ############################################################
 # +------------------------------------------------------+ #

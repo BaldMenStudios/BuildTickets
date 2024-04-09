@@ -1,9 +1,15 @@
 package net.zffu.buildtickets.tickets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonWriter;
 import lombok.Getter;
 import lombok.Setter;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
+import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -16,7 +22,7 @@ import java.util.UUID;
 @Setter
 public class BuildTicket {
 
-    // Uses player names instead of uuids just to avoid having to get the name trough mojang all the time;
+    private UUID ticketUUID;
     private String ticketReason;
     private TicketPriority priority;
     private final UUID creator;
@@ -29,6 +35,14 @@ public class BuildTicket {
     private boolean completed;
 
     public BuildTicket(String reason, TicketPriority priority, UUID creator) {
+        this.ticketUUID = UUID.randomUUID();
+        this.ticketReason = reason;
+        this.priority = priority;
+        this.creator = creator;
+    }
+
+    public BuildTicket(UUID ticketUUID, String reason, TicketPriority priority, UUID creator) {
+        this.ticketUUID = ticketUUID;
         this.ticketReason = reason;
         this.priority = priority;
         this.creator = creator;
@@ -67,6 +81,19 @@ public class BuildTicket {
             b = true;
         }
         return s;
+    }
+
+    public JsonObject toJSON() {
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("creator", creator.toString());
+        jsonObject.addProperty("reason", ticketReason);
+        jsonObject.addProperty("priority", priority.getIndex());
+        jsonObject.addProperty("completion", (completed ? 1 : (isWaitingForCompletionConfirmation ? 0 : -1)));
+        jsonObject.add("builders", JsonUtils.toJsonArray(this.builders));
+        jsonObject.add("notes", JsonUtils.toMap(this.notes));
+        jsonObject.addProperty("help", needsHelp);
+        return jsonObject;
     }
 
 }
