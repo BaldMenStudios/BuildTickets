@@ -3,12 +3,14 @@ package net.zffu.buildtickets.commands;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.utils.HeadUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,19 +33,32 @@ public class HeadCommand implements CommandExecutor {
             return false;
         }
 
-        String headIdentifier = args[0];
         ItemStack head = null;
 
-        // If it's higher than 16 chars it must be a texture url.
-        if(headIdentifier.length() > 16) {
-            if(!headIdentifier.startsWith("http")) headIdentifier = "http://textures.minecraft.net/texture/" + headIdentifier;
-            head = HeadUtils.getReflectiveHeadStack(headIdentifier);
-        }
-        else {
-            head = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta meta = (SkullMeta) head.getItemMeta();
-            meta.setOwner(headIdentifier);
-            head.setItemMeta(meta);
+        switch (args[0]) {
+            case "url":
+                if(args.length != 2) {
+                    player.sendMessage(Messages.INVALID_USAGE.getMessage());
+                    return false;
+                }
+                String textureURL = args[1];
+                if(!textureURL.startsWith("http")) textureURL = "http://textures.minecraft.net/texture/" + textureURL;
+                head = HeadUtils.getReflectiveHeadStack(textureURL);
+                break;
+            case "name":
+                if(args.length != 2) {
+                    player.sendMessage(Messages.INVALID_USAGE.getMessage());
+                    return false;
+                }
+                head = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta meta = (SkullMeta) head.getItemMeta();
+                meta.setOwner(args[0]);
+                head.setItemMeta(meta);
+                break;
+            default:
+                player.sendMessage("§c/head url <textureUrl> §fGives you the head with the texture url");
+                player.sendMessage("§c/head name <playerName> §fGives you the head with the player name");
+                return false;
         }
 
         player.getInventory().addItem(head);
