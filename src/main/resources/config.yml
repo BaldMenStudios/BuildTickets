@@ -137,6 +137,7 @@ buildmode-disabled: "§cYou disabled build mode!"
 ############################################################
 # To disable a permission, leave the field blank
 help-message-permission: buildtickets.general.help
+build-mode-toggle-permission: buildmode.toggle
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -186,10 +187,3 @@ open-ticket-viewer-other-permission: buildtickets.viewer.other.open
 open-ticket-panel-permission: buildtickets.panel.open
 player-stats-panel-permission: buildtickets.panel.player_stats
 active-tickets-panel-permission: buildtickets.panel.active_tickets
-
-############################################################
-# +------------------------------------------------------+ #
-# |                 General Permissions                  | #
-# +------------------------------------------------------+ #
-############################################################
-build-mode-toggle-permission: buildmode.toggle
