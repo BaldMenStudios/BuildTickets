@@ -29,7 +29,11 @@ public enum Messages {
     TICKET_REQUEST_HELP_ON("ticket-request-help-on", "§aYou are now requesting help from other builders!"),
     TICKET_REQUEST_HELP_OFF("ticket-request-help-off", "§aYou are no longer requesting help from other builders!"),
     TICKET_WAITING_COMPLETION("ticket-waiting-completion", "§aYou marked the ticket as completed! You must wait for an admin to confirm it as completed!"),
-    TICKET_COMPLETED("ticket-completed", "§aYou marked this ticket as completed!");
+    TICKET_COMPLETED("ticket-completed", "§aYou marked this ticket as completed!"),
+
+    // BUILD MODE
+    BUILD_MODE_ENABLED("buildmode-enabled", "§aYou enabled build mode!"),
+    BUILD_MODE_DISABLED("buildmode-disabled", "§aYou disabled build mode!");
 
     private String message;
     private String configKey;

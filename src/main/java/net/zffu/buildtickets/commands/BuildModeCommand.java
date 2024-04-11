@@ -27,7 +27,13 @@ public class BuildModeCommand implements CommandExecutor {
         }
 
         boolean b = !BuildTicketsPlugin.getInstance().getBuildMode().remove(player.getUniqueId());
-        if(!b) BuildTicketsPlugin.getInstance().getBuildMode().add(player.getUniqueId());
+        if(!b) {
+            BuildTicketsPlugin.getInstance().getBuildMode().add(player.getUniqueId());
+            player.sendMessage(Messages.BUILD_MODE_ENABLED.getMessage());
+        }
+        else {
+            player.sendMessage(Messages.BUILD_MODE_DISABLED.getMessage());
+        }
 
 
         return true;
