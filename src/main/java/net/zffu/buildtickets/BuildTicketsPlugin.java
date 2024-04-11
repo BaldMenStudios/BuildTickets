@@ -8,6 +8,7 @@ import net.zffu.buildtickets.commands.TicketCommand;
 import net.zffu.buildtickets.commands.TicketPanelCommand;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
+import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.storage.IStorage;
@@ -73,6 +74,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         if(getConfig().getBoolean("build-physics.enabled", false)) {
             this.getCommand("buildphysics").setExecutor(new BuildPhysicsCommand());
+            this.getServer().getPluginManager().registerEvents(new BuildPhysicsListeners(), this);
         }
 
     }
