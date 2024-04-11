@@ -34,9 +34,10 @@ public class HeadCommand implements CommandExecutor {
         String headIdentifier = args[0];
         ItemStack head = null;
 
-        // If its higher than 16 chars it must be an uuid.
+        // If it's higher than 16 chars it must be a texture url.
         if(headIdentifier.length() > 16) {
-            head = HeadUtils.getHeadStack(UUID.fromString(headIdentifier));
+            if(!headIdentifier.startsWith("http")) headIdentifier = "http://textures.minecraft.net/texture/" + headIdentifier;
+            head = HeadUtils.getReflectiveHeadStack(headIdentifier);
         }
         else {
             head = new ItemStack(Material.PLAYER_HEAD);
