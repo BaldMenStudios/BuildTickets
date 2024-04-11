@@ -62,9 +62,15 @@ build-chat:
 
 build-physics:
   enabled: true
-  default-enabled: false
   toggle-permission: "buildphysics.toggle"
 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Head Giver Feature                   | #
+# +------------------------------------------------------+ #
+############################################################
+head-giver:
+  enabled: true
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -148,6 +154,7 @@ buildphysics-disabled: "§cYou disabled block physics!"
 help-message-permission: buildtickets.general.help
 build-mode-toggle-permission: buildmode.toggle
 build-physics-toggle-permission: buildphysics.toggle
+head-giver-permission: headgiver.use
 
 ############################################################
 # +------------------------------------------------------+ #

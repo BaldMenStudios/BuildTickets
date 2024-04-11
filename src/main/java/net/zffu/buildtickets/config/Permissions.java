@@ -26,7 +26,8 @@ public enum Permissions {
     PANEL_ACTIVE_TICKETS("active-tickets-panel", "buildtickets.panel.active_tickets"),
 
     BUILD_MODE_TOGGLE("build-mode-toggle", "buildmode.toggle"),
-    BUILD_PHYSICS("build-physics-toggle", "buildphysics.toggle");
+    BUILD_PHYSICS("build-physics-toggle", "buildphysics.toggle"),
+    HEAD_GIVER_USER("headgiver-use", "headgiver.use");
 
     private String permission;
     private String otherPermission;
