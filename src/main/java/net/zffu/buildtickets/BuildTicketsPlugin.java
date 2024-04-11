@@ -2,10 +2,7 @@ package net.zffu.buildtickets;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.zffu.buildtickets.commands.BuildModeCommand;
-import net.zffu.buildtickets.commands.BuildPhysicsCommand;
-import net.zffu.buildtickets.commands.TicketCommand;
-import net.zffu.buildtickets.commands.TicketPanelCommand;
+import net.zffu.buildtickets.commands.*;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
@@ -75,6 +72,10 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         if(getConfig().getBoolean("build-physics.enabled", false)) {
             this.getCommand("buildphysics").setExecutor(new BuildPhysicsCommand());
             this.getServer().getPluginManager().registerEvents(new BuildPhysicsListeners(), this);
+        }
+
+        if(getConfig().getBoolean("head-giver.enabled", false)) {
+            this.getCommand("head").setExecutor(new HeadCommand());
         }
 
     }
