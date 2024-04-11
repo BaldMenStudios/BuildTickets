@@ -62,7 +62,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.getLogger().info("Loading Features...");
 
         if(getConfig().getBoolean("build-mode.enabled")) {
-            this.getCommand("buildmode").setExecutor(new BuildModeCommand(this.getConfig().getString("build-mode.permission")));
+            this.getCommand("buildmode").setExecutor(new BuildModeCommand());
             this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
         }
 
