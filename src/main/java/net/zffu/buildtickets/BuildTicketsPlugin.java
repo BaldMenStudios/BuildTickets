@@ -3,6 +3,7 @@ package net.zffu.buildtickets;
 import lombok.Getter;
 import lombok.Setter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
+import net.zffu.buildtickets.commands.BuildPhysicsCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
 import net.zffu.buildtickets.commands.TicketPanelCommand;
 import net.zffu.buildtickets.data.TicketBuilder;
@@ -65,9 +66,13 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         this.getLogger().info("Loading Features...");
 
-        if(getConfig().getBoolean("build-mode.enabled")) {
+        if(getConfig().getBoolean("build-mode.enabled", false)) {
             this.getCommand("buildmode").setExecutor(new BuildModeCommand());
             this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
+        }
+
+        if(getConfig().getBoolean("build-physics.enabled", false)) {
+            this.getCommand("buildphysics").setExecutor(new BuildPhysicsCommand());
         }
 
     }
