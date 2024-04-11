@@ -2,7 +2,8 @@ package net.zffu.buildtickets.storage;
 
 public enum StorageType {
 
-    SQLITE;
+    SQLITE,
+    CRIMSON;
 
     public static StorageType get(String name) {
         try {

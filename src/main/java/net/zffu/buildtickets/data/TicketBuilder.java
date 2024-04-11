@@ -25,6 +25,12 @@ public class TicketBuilder {
         this.uuid = uuid;
     }
 
+    public TicketBuilder(UUID uuid, int created, int completed) {
+        this.uuid = uuid;
+        this.ticketsCreated = created;
+        this.ticketsCompleted = completed;
+    }
+
     public void completeTicket() {
         this.ticketsCompleted++;
         this.lastCompletedTicket = System.currentTimeMillis();

@@ -48,6 +48,16 @@ public class BuildTicket {
         this.creator = creator;
     }
 
+    public BuildTicket(UUID ticketUUID, UUID creator, String reason, TicketPriority priority, int completionMode, boolean needsHelp) {
+        this.ticketUUID = ticketUUID;
+        this.creator = creator;
+        this.ticketReason = reason;
+        this.priority = priority;
+        this.isWaitingForCompletionConfirmation = (completionMode == 0);
+        this.completed = (completionMode == 1);
+        this.needsHelp = needsHelp;
+    }
+
     /**
      * Sends a note to the ticket.
      * @param player
@@ -81,6 +91,10 @@ public class BuildTicket {
             b = true;
         }
         return s;
+    }
+
+    public int getTicketCompletionMode() {
+        return (completed ? 1 : (isWaitingForCompletionConfirmation ? 0 : -1));
     }
 
     public JsonObject toJSON() {

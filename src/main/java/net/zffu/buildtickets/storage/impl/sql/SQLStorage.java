@@ -3,10 +3,8 @@ package net.zffu.buildtickets.storage.impl.sql;
 import lombok.Getter;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
-import net.zffu.buildtickets.storage.IComplexStorage;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.tickets.BuildTicket;
-import org.h2.util.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,24 +18,15 @@ import java.util.UUID;
 /**
  * Implementation of the SQL Storage.
  */
+//todo: add loading
 @Getter
-public class SQLStorage implements IStorage, IComplexStorage {
+public class SQLStorage implements IStorage {
 
     protected Statement statement;
     protected Connection connection;
     protected SQLTable builders;
     protected SQLTable tickets;
     protected String connectionURL;
-
-    @Override
-    public BuildTicketsPlugin getPlugin() {
-        return BuildTicketsPlugin.getInstance();
-    }
-
-    @Override
-    public String getStorageName() {
-        return "MySQL";
-    }
 
     public SQLStorage(String connectionURL) {
         this.connectionURL = connectionURL;
@@ -54,11 +43,19 @@ public class SQLStorage implements IStorage, IComplexStorage {
 
         this.builders = new SQLTable(this, "builders");
         this.tickets = new SQLTable(this, "tickets");
-
     }
 
     @Override
     public void shutdown() {
+
+        for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
+            this.tickets.pushJSON(ticket.getTicketUUID(), ticket.toJSON());
+        }
+
+        for(Map.Entry<UUID, TicketBuilder> builder : BuildTicketsPlugin.getInstance().getBuilders().entrySet()) {
+            this.builders.pushJSON(builder.getKey(), builder.getValue().toJSON());
+        }
+
         try {
             this.connection.close();
             this.connection = null;
@@ -67,43 +64,4 @@ public class SQLStorage implements IStorage, IComplexStorage {
         }
     }
 
-    @Override
-    public TicketBuilder loadBuilder(UUID uuid) {
-        return TicketBuilder.fromJSON(uuid, this.builders.getJson(uuid, null));
-    }
-
-    @Override
-    public Map<UUID, TicketBuilder> loadBuilders(Set<UUID> uuids) {
-        HashMap<UUID, TicketBuilder> builderHashMap = new HashMap<>();
-        for(UUID uuid : uuids) {
-            builderHashMap.put(uuid, loadBuilder(uuid));
-        }
-        return builderHashMap;
-    }
-
-    @Override
-    public void saveBuilder(TicketBuilder builder) {
-        this.builders.pushJSON(builder.getUuid(), builder.toJSON());
-    }
-
-    @Override
-    public Set<UUID> getUniqueBuilders() {
-        return null;
-    }
-
-    @Override
-    public Set<BuildTicket> getTickets() {
-        return null;
-    }
-
-    @Override
-    public void saveBuilders() {}
-
-    @Override
-    public void saveTickets() {}
-
-    @Override
-    public void saveTicket(BuildTicket ticket) {
-        this.tickets.pushJSON(ticket.getTicketUUID(), ticket.toJSON());
-    }
 }

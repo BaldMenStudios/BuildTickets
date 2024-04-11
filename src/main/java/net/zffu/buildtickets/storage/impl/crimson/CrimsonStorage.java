@@ -1,15 +1,17 @@
 package net.zffu.buildtickets.storage.impl.crimson;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.tickets.BuildTicket;
+import net.zffu.buildtickets.tickets.TicketPriority;
 import net.zffu.crimson.CrimsonDatabase;
-import net.zffu.crimson.format.FormattingException;
+import net.zffu.crimson.tables.params.ParameterType;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,47 +23,39 @@ public class CrimsonStorage implements IStorage {
     private CrimsonDatabase db;
 
     @Override
-    public BuildTicketsPlugin getPlugin() {
-        return BuildTicketsPlugin.getInstance();
-    }
-
-    @Override
-    public String getStorageName() {
-        return "Crimson";
-    }
-
-    @Override
     public void init() throws Exception {
-        this.db = new CrimsonDatabase(new File(this.getPlugin().getDataFolder(), "db"));
+        this.db = new CrimsonDatabase(new File(BuildTicketsPlugin.getInstance().getDataFolder(), "db"));
+        // Structure: ticketUUID, creator, reason, priority as index, completion, needsHelp as int (true = 1)
+        this.db.getOrCreateTable("tickets").useTemplateIfEmpty(ParameterType.STRING, ParameterType.STRING, ParameterType.STRING, ParameterType.INTEGER, ParameterType.INTEGER, ParameterType.INTEGER);
+
+        // Structure: uuid, created, completed
+        this.db.getOrCreateTable("builders").useTemplateIfEmpty(ParameterType.STRING, ParameterType.INTEGER, ParameterType.INTEGER);
+
+        for(Map.Entry<Object, Object[]> entry : this.db.getOrCreateTable("tickets").getEntries().entrySet()) {
+            BuildTicketsPlugin.getInstance().getBuilders().put(UUID.fromString(entry.getKey().toString()), new TicketBuilder(UUID.fromString(entry.getKey().toString()), (Integer)entry.getValue()[0], (Integer)entry.getValue()[1]));
+        }
+
+        for(Map.Entry<Object, Object[]> entry : this.db.getOrCreateTable("builders").getEntries().entrySet()) {
+            BuildTicketsPlugin.getInstance().getTickets().add(new BuildTicket(UUID.fromString(entry.getKey().toString()), UUID.fromString(entry.getValue()[0].toString()), entry.getValue()[1].toString(), TicketPriority.values()[(Integer)entry.getValue()[2]], (Integer)entry.getValue()[3],((Integer)entry.getValue()[4] == 1)));
+        }
     }
 
     @Override
     public void shutdown() {
         try {
+
+            for(Map.Entry<UUID, TicketBuilder> builderEntry : BuildTicketsPlugin.getInstance().getBuilders().entrySet()) {
+                this.db.getOrCreateTable("builders").addEntry(builderEntry.getKey().toString(), builderEntry.getValue().getTicketsCreated(), builderEntry.getValue().getTicketsCompleted());
+            }
+
+            for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
+                this.db.getOrCreateTable("tickets").addEntry(ticket.getTicketUUID().toString(), ticket.getCreatorUUID().toString(), ticket.getTicketReason(), ticket.getPriority().getIndex(), ticket.getTicketCompletionMode());
+            }
+
             this.db.saveTables();
         } catch (Exception e) {
-            this.getPlugin().getLogger().warning("Could not save Crimson Database: " + e);
+            BuildTicketsPlugin.getInstance().getLogger().warning("Could not save Crimson Database: " + e);
         }
-    }
-
-    @Override
-    public Set<UUID> getUniqueBuilders() {
-        return null;
-    }
-
-    @Override
-    public Set<BuildTicket> getTickets() {
-        return null;
-    }
-
-    @Override
-    public void saveBuilders() {
-
-    }
-
-    @Override
-    public void saveTickets() {
-
     }
 
 }

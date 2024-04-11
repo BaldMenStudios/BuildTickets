@@ -8,7 +8,6 @@ import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
-import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;

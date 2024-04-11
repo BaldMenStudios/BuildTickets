@@ -21,12 +21,13 @@ version: 1
 # - sqlite: SQL Database in a file
 # - sql: SQL Database
 # - mongo: MongoDB Database
+# - crimson: CrimsonDB Database (local)
 storage-mode: sqlite
 
-# Only required if your database type is not h2.
+# Only required if your database type is not sqlite or crimson.
 database-url: ""
 
-# Only required if your database type is not h2.
+# Only required if your database type is not sqlite or crimson.
 database-credentials: ""
 
 
