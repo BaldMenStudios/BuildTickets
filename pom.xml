@@ -58,6 +58,10 @@
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+      <repository>
+          <id>zffu</id>
+          <url>https://zffu.is-a.dev/maven</url>
+      </repository>
   </repositories>
 
   <dependencies>
@@ -81,6 +85,11 @@
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
           <version>1.4.200</version>
+      </dependency>
+      <dependency>
+          <groupId>net.zffu</groupId>
+          <artifactId>crimsondb</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
       </dependency>
   </dependencies>
 </project>

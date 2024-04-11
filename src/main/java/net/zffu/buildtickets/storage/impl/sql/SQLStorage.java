@@ -3,6 +3,7 @@ package net.zffu.buildtickets.storage.impl.sql;
 import lombok.Getter;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
+import net.zffu.buildtickets.storage.IComplexStorage;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import org.h2.util.json.JSONObject;
@@ -20,7 +21,7 @@ import java.util.UUID;
  * Implementation of the SQL Storage.
  */
 @Getter
-public class SQLStorage implements IStorage {
+public class SQLStorage implements IStorage, IComplexStorage {
 
     protected Statement statement;
     protected Connection connection;
@@ -94,6 +95,12 @@ public class SQLStorage implements IStorage {
     public Set<BuildTicket> getTickets() {
         return null;
     }
+
+    @Override
+    public void saveBuilders() {}
+
+    @Override
+    public void saveTickets() {}
 
     @Override
     public void saveTicket(BuildTicket ticket) {

@@ -18,14 +18,11 @@ public interface IStorage {
     void init() throws Exception;
     void shutdown();
 
-    TicketBuilder loadBuilder(UUID uuid);
-    Map<UUID, TicketBuilder> loadBuilders(Set<UUID> uuids);
-    void saveBuilder(TicketBuilder builder);
-
     Set<UUID> getUniqueBuilders();
 
     Set<BuildTicket> getTickets();
 
-    void saveTicket(BuildTicket ticket);
+    void saveBuilders();
+    void saveTickets();
 
 }
