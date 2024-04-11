@@ -1,6 +1,7 @@
 package net.zffu.buildtickets;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
 import net.zffu.buildtickets.commands.TicketPanelCommand;
@@ -30,6 +31,9 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private final int CONFIG_VERSION = 1;
 
     private ArrayList<UUID> buildMode = new ArrayList<>();
+    @Setter
+    private boolean buildPhysics;
+
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
     private boolean smartTicketPermissions;
