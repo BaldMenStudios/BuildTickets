@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum TicketPriority {
 
-    HIGH("High Priority", 0),
-    MEDIUM("Medium Priority",1),
+    NONE("No Priority",0),
+    LOW("Low Priority",1),
     NORMAL("Normal Priority",2),
-    LOW("Low Priority",3),
-    NONE("No Priority",4);
+    MEDIUM("Medium Priority",3),
+    HIGH("High Priority", 4);
 
     private String display;
     private int index;
