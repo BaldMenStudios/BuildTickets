@@ -28,6 +28,7 @@ public class CrimsonStorage implements IStorage {
     @Override
     public void init() throws Exception {
         this.db = new CrimsonDatabase(new File(BuildTicketsPlugin.getInstance().getDataFolder(), "db"));
+        this.db.loadTables();
 
         this.tickets = this.db.getOrCreateTable("tickets");
         this.builders = this.db.getOrCreateTable("builders");
