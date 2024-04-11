@@ -14,15 +14,15 @@ And a lot of other things that will help builders!
 
 # Permissions
 ### Basic Permissions
-| Name | Permission | Description                       |
-| :--------  | :--------  | :-------------------------------- |
-| Build Mode       | `build.mode`       | Gives permission for the Build Mode command. |
-| Build Chat       | `buildchat.see`       | Gives permission to use, see... the Build chat. |
-| Build Code       | `buildchat.toggle`       | Toggles the Build chat. |
-| Build Physics       | `buildphysics.toggle`       | Toggles the Minecraft physics, to make building advanced things easier. |
-| Help Message       | `buildtickets.general.help`       | Gives permission to use the BuildTickets help command. |
-| Open Ticket Gui       | `buildtickets.tickets.gui`       | Gives permission to open our BuildTickets menu. |
-| Create Ticket       | `buildtickets.tickets.create`       | Gives permission to create Tickets. |
+| Name | Permission                    | Description                       |
+| :--------  |:------------------------------| :-------------------------------- |
+| Build Mode       | `buildmode.toggle`            | Gives permission for the Build Mode command. |
+| Build Chat       | `buildchat.see`               | Gives permission to use, see... the Build chat. |
+| Build Code       | `buildchat.toggle`            | Toggles the Build chat. |
+| Build Physics       | `buildphysics.toggle`         | Toggles the Minecraft physics, to make building advanced things easier. |
+| Help Message       | `buildtickets.general.help`   | Gives permission to use the BuildTickets help command. |
+| Open Ticket Gui       | `buildtickets.tickets.gui`    | Gives permission to open our BuildTickets menu. |
+| Create Ticket       | `buildtickets.tickets.create` | Gives permission to create Tickets. |
 
 ### Ticket Permission (self)
 | Name | Permission | Description                       |
