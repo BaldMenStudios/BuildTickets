@@ -33,7 +33,10 @@ public enum Messages {
 
     // BUILD MODE
     BUILD_MODE_ENABLED("buildmode-enabled", "§aYou enabled build mode!"),
-    BUILD_MODE_DISABLED("buildmode-disabled", "§aYou disabled build mode!");
+    BUILD_MODE_DISABLED("buildmode-disabled", "§aYou disabled build mode!"),
+
+    BUILD_PHYSICS_ENABLED("buildphyics-enabled", "§aYou enabled block physics!"),
+    BUILD_PHYSICS_DISABLED("buildphysics-disabled", "§aYou disabled block physics!");
 
     private String message;
     private String configKey;

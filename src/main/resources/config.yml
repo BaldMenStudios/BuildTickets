@@ -129,6 +129,15 @@ ticket-completed: "§aYou marked this ticket as completed!"
 buildmode-enabled: "§aYou enabled build mode!"
 buildmode-disabled: "§cYou disabled build mode!"
 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Build Physics Messages               | #
+# +------------------------------------------------------+ #
+############################################################
+
+buildphysics-enabled: "§aYou enabled block physics!"
+buildphysics-disabled: "§cYou disabled block physics!"
+
 
 ############################################################
 # +------------------------------------------------------+ #
