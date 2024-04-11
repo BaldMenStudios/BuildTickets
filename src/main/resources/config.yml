@@ -22,6 +22,7 @@ version: 1
 # - sql: SQL Database
 # - mongo: MongoDB Database
 # - crimson: CrimsonDB Database (local)
+# - none: No data saving & loading
 storage-mode: sqlite
 
 # Only required if your database type is not sqlite or crimson.

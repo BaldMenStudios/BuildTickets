@@ -8,6 +8,7 @@ import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
@@ -68,8 +69,12 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     }
 
     public void loadStorage() {
-        this.getLogger().info("Loading Data Storage...");
+        String storageTypeId = this.getConfig().getString("storage-mode");
+        if(storageTypeId.equals("none")) return;
         StorageType storageType = StorageType.get(this.getConfig().getString("storage-mode"));
+        this.getLogger().info("Loading Data Storage...");
+
+        this.getLogger().warning("Database Storage is in development! Errors crashing the plugin when loading the data could occur. If you wish to disable this please enter none in the storage-mode config value!");
 
         if(storageType == null) {
             this.getLogger().warning("Data Storage type " + this.getConfig().getString("storage-mode") + " is invalid!");
@@ -88,36 +93,17 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        try {
+            this.storage.shutdown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void doChatHandler(HumanEntity entity, Action<AsyncPlayerChatEvent> action) {
         entity.closeInventory();
         entity.sendMessage(Messages.ENTER_PROMPT.getMessage());
         this.chatHandlers.put(entity.getUniqueId(), action);
-    }
-
-    /**
-     * Gets the permissions from the config.
-     * The array is:
-     * - First Element: Permission on self tickets (tickets owned by the player) or default
-     * - Second Element: Permission on other tickets (tickets owned by another player) or self permission if none is set
-     * @param permissionId the key in the config with "-permission" remove
-     * @return the array of permissions.
-     */
-    public String[] getPermissions(String permissionId) {
-        String permission = "";
-        String otherPermission = "";
-        if(!getConfig().contains(permissionId + "-permission")) {
-            Bukkit.getLogger().warning("The permission " + permissionId + " could not be loaded correctly, please check if the config is valid");
-            return null;
-        }
-        permission = getConfig().getString(permissionId + "-permission");
-        otherPermission = permission;
-        if(getConfig().contains(permissionId + "-other-permission")) {
-            otherPermission = getConfig().getString(permissionId + "-other-permission");
-        }
-        return new String[] {permission, otherPermission};
     }
 
     /**
