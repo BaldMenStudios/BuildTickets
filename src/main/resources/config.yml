@@ -192,4 +192,4 @@ active-tickets-panel-permission: buildtickets.panel.active_tickets
 # |                 General Permissions                  | #
 # +------------------------------------------------------+ #
 ############################################################
-build-mode-toggle-permission: buildtickets.buildmode.toggle
+build-mode-toggle-permission: buildmode.toggle
