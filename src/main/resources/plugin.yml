@@ -9,6 +9,9 @@ commands:
     description: Enables or disables build mode for you
   buildchat:
     description: Main command of the builder's chat.
+  buildphysics:
+    description: Toggles vanilla block physics.
   ticketpanel:
     description: Opens the ticket administrator panel
     aliases: [adminticketpanel, aticketpanel, tpanel]
+
