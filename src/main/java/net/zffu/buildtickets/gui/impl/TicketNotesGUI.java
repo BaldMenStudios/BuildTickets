@@ -44,14 +44,6 @@ public class TicketNotesGUI extends PaginatedGUI {
             });
         }));
 
-
-
-        gui.setItem(49, new GuiItem(BACK));
-
-        setAction(49, (event -> {
-            new BuildTicketsGUI(0).open(event.getWhoClicked());
-        }));
-
         gui.setItem(48, new GuiItem(GO_BACK));
         gui.setItem(50, new GuiItem(GO_NEXT));
 

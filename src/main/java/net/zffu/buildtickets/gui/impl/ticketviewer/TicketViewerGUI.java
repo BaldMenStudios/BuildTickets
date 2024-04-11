@@ -4,12 +4,14 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
-import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
+import net.zffu.buildtickets.gui.impl.TicketBrowserGUI;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.util.UUID;
 
 import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
@@ -34,13 +36,6 @@ public class TicketViewerGUI extends AbstractGUI {
         gui.setItem(30, new GuiItem(ItemBuilder.create(Material.DIAMOND).display("§aComplete Ticket").lore("§7Marks the ticket as completed.", "", "§cFaking completing a ticket will", "§cmostly result as a punishement", "§cfrom your staff team", "", "§eClick here to complete this ticket!").build()));
         gui.setItem(32, new GuiItem(ItemBuilder.create(Material.RED_DYE).display("§aLeave Ticket").lore("§7Leave the ticket to go to another one.", "", "§eClick here to leave this ticket").build()));
 
-
-        gui.setItem(49, new GuiItem(BACK));
-
-        setAction(49, (event -> {
-            new BuildTicketsGUI(0).open(event.getWhoClicked());
-        }));
-
         setAction(21, (event -> {
             if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
                 event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
@@ -63,7 +58,7 @@ public class TicketViewerGUI extends AbstractGUI {
                 event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
                 return;
             }
-            new TicketPriorityGUI(ticket).open(event.getWhoClicked());
+            new TicketPriorityGUI(ticket).open(event.getWhoClicked(), this);
         }));
 
         setAction(23, (event -> {
@@ -100,6 +95,30 @@ public class TicketViewerGUI extends AbstractGUI {
             event.getWhoClicked().sendMessage(Messages.TICKET_LEFT.getMessage());
         }));
 
+
+        setAction(30, (event -> {
+            if(!(Permissions.TICKET_COMPLETE.hasPermission(event.getWhoClicked()))) {
+                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                return;
+            }
+            if(!ticket.isWaitingForCompletionConfirmation()) {
+                ticket.setWaitingForCompletionConfirmation(true);
+                event.getWhoClicked().sendMessage(Messages.TICKET_WAITING_COMPLETION.getMessage());
+            }
+            else {
+                if(!Permissions.TICKET_COMPLETE_CONFIRM.hasPermission(event.getWhoClicked())) {
+                    event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                    return;
+                }
+                ticket.setCompleted(true);
+                ticket.setWaitingForCompletionConfirmation(false);
+
+                for(UUID builder : ticket.getBuilders()) {
+                    BuildTicketsPlugin.getInstance().getOrCreateBuilder(builder).completeTicket();
+                }
+
+            }
+        }));
 
     }
 

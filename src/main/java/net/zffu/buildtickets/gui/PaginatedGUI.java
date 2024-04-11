@@ -18,6 +18,8 @@ public abstract class PaginatedGUI extends AbstractGUI {
     protected int page;
     protected int elementsPerPage;
     protected int startingIndex;
+    protected int startingSlotIndex = 0;
+    protected int elementsPerLine;
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
         super(inventoryName);
         this.page = page;
@@ -28,8 +30,14 @@ public abstract class PaginatedGUI extends AbstractGUI {
     @Override
     public void initItems() {
         List<ItemStack> stacks = getStacks();
+        int rowIndex = 0;
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
             if(stacks.size() <= i) return;
+            rowIndex++;
+            if(rowIndex >= elementsPerLine && elementsPerLine > 0) {
+                rowIndex = 0;
+                i += (9 - elementsPerLine);
+            }
             this.gui.setItem(i - startingIndex, new GuiItem(getStacks().get(i)));
         }
     }
@@ -58,7 +66,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goBack(HumanEntity player) {
         if(this.page <= 0) {
-            player.sendMessage(Messages.ALREADY_FIRST_PAGE);
+            player.sendMessage(Messages.PAGE_ALREADY_FIRST_PAGE.getMessage());
             return;
         }
         this.page--;
@@ -68,7 +76,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goNext(HumanEntity player) {
         if(this.getStacks().size() <= (this.page + 1) * elementsPerPage) {
-            player.sendMessage(Messages.ALREADY_LAST_PAGE);
+            player.sendMessage(Messages.PAGE_ALREADY_LAST_PAGE.getMessage());
             return;
         }
         this.page++;

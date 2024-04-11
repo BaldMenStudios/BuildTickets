@@ -9,16 +9,26 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BuildTicketsGUI extends PaginatedGUI {
+public class TicketBrowserGUI extends PaginatedGUI {
 
-    public BuildTicketsGUI(int page) {
+    private Category category;
+
+    public TicketBrowserGUI(int page) {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
         this.page = page;
+        this.category = Category.ALL;
+    }
+
+    public TicketBrowserGUI(int page, Category category) {
+        super("Build Tickets (Page " + (page + 1) + ")", page, 35);
+        this.page = page;
+        this.category = category;
     }
 
     @Override
@@ -48,10 +58,10 @@ public class BuildTicketsGUI extends PaginatedGUI {
         if(event.getSlot() <= 35) {
             BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot());
             if(event.getClick().isLeftClick()) {
-                new TicketNotesGUI(ticket, 0).open(event.getWhoClicked());
+                new TicketNotesGUI(ticket, 0).open(event.getWhoClicked(), this);
             }
             if(event.getClick().isRightClick()) {
-                new TicketViewerGUI(ticket).open(event.getWhoClicked());
+                new TicketViewerGUI(ticket).open(event.getWhoClicked(), this);
             }
 
         }
@@ -63,7 +73,24 @@ public class BuildTicketsGUI extends PaginatedGUI {
         List<ItemStack> stacks = new ArrayList<>();
 
         for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
+
+            switch (category) {
+                case ACTIVE:
+                    if(ticket.getBuilders().isEmpty()) continue;
+                    break;
+                case INACTIVE:
+                    if(!ticket.getBuilders().isEmpty()) continue;
+                    break;
+                case WAITING:
+                    if(!ticket.isWaitingForCompletionConfirmation()) continue;
+                    break;
+            }
+
             Material material = Material.GREEN_DYE;
+
+            if(ticket.isCompleted()) {
+                material = Material.DIAMOND;
+            }
 
             if(ticket.getBuilders().isEmpty()) {
                 material = Material.RED_DYE;
@@ -79,4 +106,12 @@ public class BuildTicketsGUI extends PaginatedGUI {
         }
         return stacks;
     }
+
+    public enum Category {
+        ALL,
+        ACTIVE,
+        INACTIVE,
+        WAITING
+    }
+
 }

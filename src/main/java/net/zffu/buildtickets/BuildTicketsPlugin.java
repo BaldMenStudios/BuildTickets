@@ -3,9 +3,14 @@ package net.zffu.buildtickets;
 import lombok.Getter;
 import net.zffu.buildtickets.commands.BuildModeCommand;
 import net.zffu.buildtickets.commands.TicketCommand;
+import net.zffu.buildtickets.commands.TicketPanelCommand;
+import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.storage.IStorage;
+import net.zffu.buildtickets.storage.StorageFactory;
+import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
 import org.bukkit.Bukkit;
@@ -27,7 +32,11 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private ArrayList<UUID> buildMode = new ArrayList<>();
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
+    private boolean smartTicketPermissions;
 
+    private HashMap<UUID, TicketBuilder> builders = new HashMap<>();
+
+    private IStorage storage;
 
     @Override
     public void onEnable() {
@@ -40,10 +49,15 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             saveConfig();
         }
 
+        this.loadStorage();
+
+        this.smartTicketPermissions = getConfig().getBoolean("tickets.smart-ticket-permissions");
+
         Messages.loadFromConfig(getConfig());
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand());
+        this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
 
         this.getLogger().info("Loading Features...");
 
@@ -52,6 +66,25 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
         }
 
+    }
+
+    public void loadStorage() {
+        this.getLogger().info("Loading Data Storage...");
+        StorageType storageType = StorageType.get(this.getConfig().getString("storage-mode"));
+
+        if(storageType == null) {
+            this.getLogger().warning("Data Storage type " + this.getConfig().getString("storage-mode") + " is invalid!");
+            return;
+        }
+
+        this.getLogger().info("Loading " + storageType.name() + " Storage...");
+        this.storage = StorageFactory.createStorageFromType(storageType);
+
+        try {
+            this.storage.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -86,6 +119,16 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             otherPermission = getConfig().getString(permissionId + "-other-permission");
         }
         return new String[] {permission, otherPermission};
+    }
+
+    /**
+     * Gets or create the builder.
+     * @param uuid
+     * @return
+     */
+    public TicketBuilder getOrCreateBuilder(UUID uuid) {
+        TicketBuilder builder = this.builders.computeIfAbsent(uuid, TicketBuilder::new);
+        return builder;
     }
 
     public static BuildTicketsPlugin getInstance() {

@@ -2,7 +2,7 @@ package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Permissions;
-import net.zffu.buildtickets.gui.impl.BuildTicketsGUI;
+import net.zffu.buildtickets.gui.impl.TicketBrowserGUI;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
@@ -25,7 +25,7 @@ public class TicketCommand implements CommandExecutor {
                 player.sendMessage(Messages.NO_PERMISSION.getMessage());
                 return false;
             }
-            new BuildTicketsGUI(0).open(player);
+            new TicketBrowserGUI(0).open(player);
             return true;
         }
 
@@ -46,6 +46,7 @@ public class TicketCommand implements CommandExecutor {
 
             BuildTicket buildTicket = new BuildTicket(reason, (args.length >= 3 ? TicketPriority.getValue(args[2]) : TicketPriority.NORMAL), player.getUniqueId());
             BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
+            BuildTicketsPlugin.getInstance().getOrCreateBuilder(player.getUniqueId()).createTicket();
             player.sendMessage(Messages.TICKET_CREATED.getMessage());
         }
         else {
