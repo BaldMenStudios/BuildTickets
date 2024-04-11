@@ -138,6 +138,7 @@ buildmode-disabled: "§cYou disabled build mode!"
 # To disable a permission, leave the field blank
 help-message-permission: buildtickets.general.help
 build-mode-toggle-permission: buildmode.toggle
+build-physics-toggle-permission: buildphysics.toggle
 
 ############################################################
 # +------------------------------------------------------+ #
