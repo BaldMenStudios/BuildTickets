@@ -40,7 +40,6 @@ database-credentials: ""
 
 build-mode:
   enabled: true
-  permission: build.mode
 
 
 ############################################################
@@ -187,3 +186,10 @@ open-ticket-viewer-other-permission: buildtickets.viewer.other.open
 open-ticket-panel-permission: buildtickets.panel.open
 player-stats-panel-permission: buildtickets.panel.player_stats
 active-tickets-panel-permission: buildtickets.panel.active_tickets
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 General Permissions                  | #
+# +------------------------------------------------------+ #
+############################################################
+build-mode-toggle-permission: buildtickets.buildmode.toggle

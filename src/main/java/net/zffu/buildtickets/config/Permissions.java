@@ -23,7 +23,9 @@ public enum Permissions {
 
     OPEN_TICKET_PANEL("open-ticket-panel", "buildtickets.panel.open"),
     PANEL_PLAYER_STATS("player-stats-panel-permission", "buildtickets.panel.player_stats"),
-    PANEL_ACTIVE_TICKETS("active-tickets-panel", "buildtickets.panel.active_tickets");
+    PANEL_ACTIVE_TICKETS("active-tickets-panel", "buildtickets.panel.active_tickets"),
+
+    BUILD_MODE_TOGGLE("build-mode-toggle", "buildtickets.buildmode.toggle");
 
     private String permission;
     private String otherPermission;

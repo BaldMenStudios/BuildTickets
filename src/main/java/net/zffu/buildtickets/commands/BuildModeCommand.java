@@ -16,7 +16,7 @@ public class BuildModeCommand implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if(!player.hasPermission("build.toggle")) {
+        if(!Permissions.BUILD_MODE_TOGGLE.hasPermission(player)) {
             player.sendMessage(Messages.NO_PERMISSION.getMessage());
             return false;
         }
