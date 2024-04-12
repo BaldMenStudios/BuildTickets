@@ -31,6 +31,12 @@ database-url: ""
 # Only required if your database type is not sqlite or crimson.
 database-credentials: ""
 
+# Should the players be able to change the plugin language for them?
+allow-players-to-choose-custom-language: true
+
+# The default language used by the server. Use the https://github.com/BuildTickets/Translations to check which languages are supported.
+default-language: "en"
+
 
 ############################################################
 # +------------------------------------------------------+ #
