@@ -27,17 +27,21 @@ public class LocaleManager {
      * @param locale
      */
     public void loadLocale(Locale locale) {
-        ResourceBundle bundle = ResourceBundle.getBundle("buildtickets", locale);
-        Enumeration<String> keys = bundle.getKeys();
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("buildtickets", locale);
+            Enumeration<String> keys = bundle.getKeys();
 
-        HashMap<String, String> l = new HashMap<>();
+            HashMap<String, String> l = new HashMap<>();
 
-        while(keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            l.put(key, bundle.getString(key));
+            while(keys.hasMoreElements()) {
+                String key = keys.nextElement();
+                l.put(key, bundle.getString(key));
+            }
+
+            locales.put(locale, l);
+        } catch (Exception e) {
+            this.plugin.getLogger().warning("Could not load locale " + locale);
         }
-
-        locales.put(locale, l);
     }
 
     /**
