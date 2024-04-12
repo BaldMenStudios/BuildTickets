@@ -8,6 +8,7 @@ import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
@@ -39,6 +40,8 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     private HashMap<UUID, TicketBuilder> builders = new HashMap<>();
 
+    private LocaleManager localeManager;
+
     private IStorage storage;
 
     @Override
@@ -61,6 +64,10 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand());
         this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
+
+        this.getLogger().info("Loading Locales...");
+        this.localeManager = new LocaleManager(this);
+        this.localeManager.loadLocales();
 
         this.getLogger().info("Loading Features...");
 
