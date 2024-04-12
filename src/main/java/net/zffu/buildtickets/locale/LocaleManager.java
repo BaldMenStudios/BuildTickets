@@ -17,9 +17,11 @@ public class LocaleManager {
     private BuildTicketsPlugin plugin;
     public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH};
     public static HashMap<Locale, HashMap<String, String>> locales = new HashMap<>();
+    public static Locale defaultLocale = null;
 
     public LocaleManager(BuildTicketsPlugin plugin) {
         this.plugin =  plugin;
+        defaultLocale = Locale.ENGLISH;
     }
 
     /**
@@ -43,6 +45,30 @@ public class LocaleManager {
             this.plugin.getLogger().warning("Could not load locale " + locale);
         }
     }
+
+    /**
+     * Gets the message from the locale.
+     * @param id
+     * @return
+     */
+    public static String getMessage(String id) {
+        String t = locales.get(defaultLocale).get(id);
+        if(t == null) return id;
+        return t;
+    }
+
+    /**
+     * Gets the message from the locale.
+     * @param id
+     * @param locale
+     * @return
+     */
+    public static String getMessage(String id, Locale locale) {
+        String t = locales.get(locale).get(id);
+        if(t == null) return id;
+        return t;
+    }
+
 
     /**
      * Loads the locales
