@@ -84,67 +84,6 @@ tickets:
   notify-builders-when-created: true
   webhook-url: ""
 
-
-############################################################
-# +------------------------------------------------------+ #
-# |                 General Messages                     | #
-# +------------------------------------------------------+ #
-############################################################
-
-prefix: "§8[§aBuildTickets§r§8] §r"
-no-permission: "§cYou do not have the required permission to execute this action!"
-invalid-usage: "§cMissing arguments! Please check the command help page!"
-
-page-already-first-page: "§cYou are already on the first page!"
-page-already-last-page: "§cYou are already on the last page!"
-
-enter-prompt: "§aPlease enter the prompt in the chat:"
-
-
-############################################################
-# +------------------------------------------------------+ #
-# |              General Ticket Messages                 | #
-# +------------------------------------------------------+ #
-############################################################
-
-
-ticket-note-add: "§aYou added a note for the ticket!"
-ticket-note-edit: "§aYou edited your previous note on the ticket!"
-
-ticket-created: "§aYou created a ticket!"
-ticket-no-need-help: "§cThis ticket doesn't need help from other players, to contribute to this ticket, please ask the creator of the ticket to ask for help."
-ticket-joined: "§aYou joined the ticket."
-ticket-already-joined: "§cYou already joined this ticket."
-ticket-not-builder: "§cYou are not a builder of this ticket."
-ticket-left: "§cYou left the ticket."
-ticket-already-priority: "§aThe ticket already has this priority!"
-ticket-changed-priority: "§aYou changed the ticket priority!"
-ticket-request-help-on: "§aYou are now requesting help from other builders!"
-ticket-request-help-off: "§aYou are no longer requesting help from other builders!"
-
-ticket-waiting-completion: "§aYou marked the ticket as completed! You must wait for an admin to confirm it as completed!"
-ticket-completed: "§aYou marked this ticket as completed!"
-
-
-############################################################
-# +------------------------------------------------------+ #
-# |                 Build Mode Messages                  | #
-# +------------------------------------------------------+ #
-############################################################
-
-buildmode-enabled: "§aYou enabled build mode!"
-buildmode-disabled: "§cYou disabled build mode!"
-
-############################################################
-# +------------------------------------------------------+ #
-# |                 Build Physics Messages               | #
-# +------------------------------------------------------+ #
-############################################################
-
-buildphysics-enabled: "§aYou enabled block physics!"
-buildphysics-disabled: "§cYou disabled block physics!"
-
-
 ############################################################
 # +------------------------------------------------------+ #
 # |                 General Permissions                  | #
