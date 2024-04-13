@@ -1,8 +1,6 @@
 package net.zffu.buildtickets.storage;
 
-import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.storage.impl.crimson.CrimsonStorage;
-import net.zffu.buildtickets.storage.impl.sql.SQLStorage;
 import net.zffu.buildtickets.storage.impl.sql.SQLiteStorage;
 
 public class StorageFactory {
