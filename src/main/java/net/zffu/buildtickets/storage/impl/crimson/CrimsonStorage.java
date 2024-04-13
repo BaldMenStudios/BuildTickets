@@ -1,6 +1,5 @@
 package net.zffu.buildtickets.storage.impl.crimson;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.storage.IStorage;
@@ -12,8 +11,6 @@ import net.zffu.crimson.tables.params.ParameterType;
 
 import java.io.File;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 /**
