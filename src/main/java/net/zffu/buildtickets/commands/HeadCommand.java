@@ -32,24 +32,21 @@ public class HeadCommand implements CommandExecutor {
 
         ItemStack head = null;
 
+        if((args[0].equals("url") || args[0].equals("name")) && args.length != 2) {
+            player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
+            return false;
+        }
+
         switch (args[0]) {
             case "url":
-                if(args.length != 2) {
-                    player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
-                    return false;
-                }
                 String textureURL = args[1];
                 if(!textureURL.startsWith("http")) textureURL = "http://textures.minecraft.net/texture/" + textureURL;
                 head = HeadUtils.getReflectiveHeadStack(textureURL);
                 break;
             case "name":
-                if(args.length != 2) {
-                    player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
-                    return false;
-                }
                 head = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
-                meta.setOwner(args[0]);
+                meta.setOwner(args[1]);
                 head.setItemMeta(meta);
                 break;
             default:

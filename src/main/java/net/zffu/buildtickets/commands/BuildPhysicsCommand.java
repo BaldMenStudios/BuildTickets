@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class BuildPhysicsCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if(!(commandSender instanceof Player)) return false;
-        Player player = (Player) commandSender;
+    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if(!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
 
         if(!Permissions.BUILD_PHYSICS.hasPermission(player)) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));

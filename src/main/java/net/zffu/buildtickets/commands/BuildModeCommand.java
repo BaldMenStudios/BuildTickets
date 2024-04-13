@@ -12,10 +12,10 @@ import org.bukkit.entity.Player;
 public class BuildModeCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if(!(commandSender instanceof Player)) return false;
+    public boolean onCommand(CommandSender sender, Command command, String commandName, String[] strings) {
+        if(!(sender instanceof Player)) return false;
 
-        Player player = (Player) commandSender;
+        Player player = (Player) sender;
 
         if(!Permissions.BUILD_MODE_TOGGLE.hasPermission(player)) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
@@ -28,10 +28,7 @@ public class BuildModeCommand implements CommandExecutor {
             BuildTicketsPlugin.getInstance().getBuildMode().add(player.getUniqueId());
             player.sendMessage(LocaleManager.getMessage(LocaleString.BUILDMODE_ON, player));
         }
-        else {
-            player.sendMessage(LocaleManager.getMessage(LocaleString.BUILDMODE_OFF, player));
-        }
-
+        else player.sendMessage(LocaleManager.getMessage(LocaleString.BUILDMODE_OFF, player));
 
         return true;
     }
