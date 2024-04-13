@@ -2,6 +2,8 @@ package net.zffu.buildtickets.gui;
 
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
@@ -66,7 +68,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goBack(HumanEntity player) {
         if(this.page <= 0) {
-            player.sendMessage(Messages.PAGE_ALREADY_FIRST_PAGE.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.PAGE_ALREADY_FIRST, player));
             return;
         }
         this.page--;
@@ -76,7 +78,7 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     public void goNext(HumanEntity player) {
         if(this.getStacks().size() <= (this.page + 1) * elementsPerPage) {
-            player.sendMessage(Messages.PAGE_ALREADY_LAST_PAGE.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.PAGE_ALREADY_LAST, player));
             return;
         }
         this.page++;
