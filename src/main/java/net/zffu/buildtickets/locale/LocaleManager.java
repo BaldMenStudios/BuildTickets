@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class LocaleManager {
 
-    private BuildTicketsPlugin plugin;
+    private final BuildTicketsPlugin plugin;
     public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH};
     public static HashMap<Locale, EnumMap<LocaleString, String>> locales = new HashMap<>();
     public static HashMap<UUID, Locale> playerLocales;
