@@ -19,8 +19,6 @@ version: 2
 
 # Available modes:
 # - sqlite: SQL Database in a file
-# - sql: SQL Database
-# - mongo: MongoDB Database
 # - crimson: CrimsonDB Database (local)
 # - none: No data saving & loading
 storage-mode: sqlite
@@ -56,8 +54,6 @@ build-mode:
 
 build-chat:
   enabled: true
-  toggle-permission: "buildchat.toggle"
-  see-permission: "buildchat.see"
 
 
 ############################################################
@@ -68,7 +64,6 @@ build-chat:
 
 build-physics:
   enabled: true
-  toggle-permission: "buildphysics.toggle"
 
 ############################################################
 # +------------------------------------------------------+ #
