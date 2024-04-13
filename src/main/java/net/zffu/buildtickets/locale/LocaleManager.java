@@ -46,7 +46,7 @@ public class LocaleManager {
 
             locales.put(locale, l);
         } catch (Exception e) {
-            this.plugin.getLogger().warning("Could not load locale " + locale);
+            this.plugin.getLogger().warning("Could not load locale " + locale + e);
         }
     }
 
