@@ -20,6 +20,7 @@ public class LocaleManager {
     public LocaleManager(BuildTicketsPlugin plugin) {
         this.plugin =  plugin;
         defaultLocale = Locale.forLanguageTag(plugin.getConfig().getString("default-language", "en"));
+        plugin.getLogger().info("Default Locale: " + defaultLocale.getDisplayName());
         if(plugin.getConfig().getBoolean("allow-players-to-choose-custom-language", false)) {
             playerLocales = new HashMap<>();
         }
