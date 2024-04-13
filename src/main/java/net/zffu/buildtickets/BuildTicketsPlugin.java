@@ -27,7 +27,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private static BuildTicketsPlugin INSTANCE;
 
     // Used to make sure that the config is valid.
-    private final int CONFIG_VERSION = 1;
+    private final int CONFIG_VERSION = 2;
 
     private ArrayList<UUID> buildMode = new ArrayList<>();
     @Setter
