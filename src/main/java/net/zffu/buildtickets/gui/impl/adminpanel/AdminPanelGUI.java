@@ -1,7 +1,6 @@
 package net.zffu.buildtickets.gui.impl.adminpanel;
 
 import dev.triumphteam.gui.guis.GuiItem;
-import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.locale.LocaleManager;

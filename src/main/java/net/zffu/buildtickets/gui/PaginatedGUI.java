@@ -1,7 +1,6 @@
 package net.zffu.buildtickets.gui;
 
 import dev.triumphteam.gui.guis.GuiItem;
-import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import org.bukkit.Material;

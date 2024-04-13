@@ -7,7 +7,6 @@ import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
-import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.storage.IStorage;
@@ -15,7 +14,6 @@ import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -59,8 +57,6 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.loadStorage();
 
         this.smartTicketPermissions = getConfig().getBoolean("tickets.smart-ticket-permissions");
-
-        Messages.loadFromConfig(getConfig());
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand());

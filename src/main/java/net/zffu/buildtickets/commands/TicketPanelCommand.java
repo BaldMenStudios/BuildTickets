@@ -1,6 +1,5 @@
 package net.zffu.buildtickets.commands;
 
-import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.impl.adminpanel.AdminPanelGUI;
 import net.zffu.buildtickets.locale.LocaleManager;

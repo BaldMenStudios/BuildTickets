@@ -4,8 +4,6 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
-import net.zffu.buildtickets.gui.impl.TicketBrowserGUI;
-import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
@@ -13,10 +11,7 @@ import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.Locale;
 import java.util.UUID;
-
-import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
 
 public class TicketViewerGUI extends AbstractGUI {
 
