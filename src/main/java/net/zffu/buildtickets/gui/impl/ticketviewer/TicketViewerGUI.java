@@ -6,11 +6,14 @@ import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.gui.impl.TicketBrowserGUI;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import static net.zffu.buildtickets.gui.PaginatedGUI.BACK;
@@ -38,24 +41,24 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(21, (event -> {
             if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             if(ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_ALREADY_JOINED.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_ALREADY, event.getWhoClicked()));
                 return;
             }
             if(!ticket.isNeedsHelp() && !ticket.getBuilders().isEmpty()) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_NO_NEED_HELP.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_HELP_DISABLED, event.getWhoClicked()));
                 return;
             }
             ticket.getBuilders().add(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_JOINED.getMessage());
+            event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN, event.getWhoClicked()));
         }));
 
         setAction(22, (event -> {
             if(!Permissions.CHANGE_TICKET_PRIORITY.hasPermission(event.getWhoClicked(), ticket)) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             new TicketPriorityGUI(ticket).open(event.getWhoClicked(), this);
@@ -63,19 +66,19 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(23, (event -> {
             if(!Permissions.REQUEST_HELP.hasPermission(event.getWhoClicked(), ticket)) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             boolean b = !ticket.isNeedsHelp();
             ticket.setNeedsHelp(b);
 
-            if(b) event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_ON.getMessage());
-            else event.getWhoClicked().sendMessage(Messages.TICKET_REQUEST_HELP_OFF.getMessage());
+            if(b) event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_HELP_ON, event.getWhoClicked()));
+            else event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_HELP_OFF, event.getWhoClicked()));
         }));
 
         setAction(31, (event -> {
             if(!Permissions.TICKET_CHANGE_REASON.hasPermission(event.getWhoClicked(), ticket)) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
@@ -87,27 +90,27 @@ public class TicketViewerGUI extends AbstractGUI {
 
         setAction(32, (event -> {
             if(!ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_BUILDER_NOT, event.getWhoClicked()));
                 return;
             }
 
             ticket.getBuilders().remove(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(Messages.TICKET_LEFT.getMessage());
+            event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_QUIT, event.getWhoClicked()));
         }));
 
 
         setAction(30, (event -> {
             if(!(Permissions.TICKET_COMPLETE.hasPermission(event.getWhoClicked()))) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             if(!ticket.isWaitingForCompletionConfirmation()) {
                 ticket.setWaitingForCompletionConfirmation(true);
-                event.getWhoClicked().sendMessage(Messages.TICKET_WAITING_COMPLETION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_COMPLETION_WAITING, event.getWhoClicked()));
             }
             else {
                 if(!Permissions.TICKET_COMPLETE_CONFIRM.hasPermission(event.getWhoClicked())) {
-                    event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                    event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                     return;
                 }
                 ticket.setCompleted(true);
@@ -117,6 +120,7 @@ public class TicketViewerGUI extends AbstractGUI {
                     BuildTicketsPlugin.getInstance().getOrCreateBuilder(builder).completeTicket();
                 }
 
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_COMPLETION_CONFIRMED, event.getWhoClicked()));
             }
         }));
 
