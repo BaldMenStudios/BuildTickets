@@ -3,6 +3,8 @@ package net.zffu.buildtickets.commands;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,15 +18,15 @@ public class BuildPhysicsCommand implements CommandExecutor {
         Player player = (Player) commandSender;
 
         if(!Permissions.BUILD_PHYSICS.hasPermission(player)) {
-            player.sendMessage(Messages.NO_PERMISSION.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
             return false;
         }
 
         boolean b = !BuildTicketsPlugin.getInstance().isBuildPhysics();
         BuildTicketsPlugin.getInstance().setBuildPhysics(b);
 
-        if(b) player.sendMessage(Messages.BUILD_PHYSICS_ENABLED.getMessage());
-        else player.sendMessage(Messages.BUILD_PHYSICS_DISABLED.getMessage());
+        if(b) player.sendMessage(LocaleManager.getMessage(LocaleString.BUILDPHYSICS_ON, player));
+        else player.sendMessage(LocaleManager.getMessage(LocaleString.BUILDPHYSICS_OFF, player));
 
         return true;
     }
