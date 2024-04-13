@@ -15,7 +15,7 @@ public class LocaleManager {
 
     private BuildTicketsPlugin plugin;
     public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH};
-    public static HashMap<Locale, HashMap<String, String>> locales = new HashMap<>();
+    public static HashMap<Locale, EnumMap<LocaleString, String>> locales = new HashMap<>();
     public static HashMap<UUID, Locale> playerLocales;
 
     public static Locale defaultLocale = null;
@@ -35,13 +35,12 @@ public class LocaleManager {
     public void loadLocale(Locale locale) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("buildtickets", locale);
-            Enumeration<String> keys = bundle.getKeys();
+            EnumMap<LocaleString, String> l = new EnumMap<>(LocaleString.class);
 
-            HashMap<String, String> l = new HashMap<>();
-
-            while(keys.hasMoreElements()) {
-                String key = keys.nextElement();
-                l.put(key, bundle.getString(key));
+            for(LocaleString string : LocaleString.values()) {
+                if(bundle.containsKey(string.getKey())) {
+                    l.put(string, bundle.getString(string.getKey()));
+                }
             }
 
             locales.put(locale, l);
@@ -55,9 +54,9 @@ public class LocaleManager {
      * @param id
      * @return
      */
-    public static String getMessage(String id) {
+    public static String getMessage(LocaleString id) {
         String t = locales.get(defaultLocale).get(id);
-        if(t == null) return id;
+        if(t == null) return id.getKey();
         return t;
     }
 
@@ -67,13 +66,13 @@ public class LocaleManager {
      * @param locale
      * @return
      */
-    public static String getMessage(String id, Locale locale) {
+    public static String getMessage(LocaleString id, Locale locale) {
         String t = locales.get(locale).get(id);
-        if(t == null) return id;
+        if(t == null) return id.getKey();
         return t;
     }
 
-    public static String getMessage(String id, HumanEntity entity) {
+    public static String getMessage(LocaleString id, HumanEntity entity) {
         if(playerLocales == null || !playerLocales.containsKey(entity.getUniqueId())) return getMessage(id);
         return getMessage(id, playerLocales.get(entity.getUniqueId()));
     }
