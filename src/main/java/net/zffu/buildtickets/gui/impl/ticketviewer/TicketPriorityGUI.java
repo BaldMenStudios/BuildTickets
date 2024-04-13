@@ -3,6 +3,8 @@ package net.zffu.buildtickets.gui.impl.ticketviewer;
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.gui.AbstractGUI;
 import net.zffu.buildtickets.config.Messages;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
 import net.zffu.buildtickets.utils.ItemBuilder;
@@ -48,12 +50,12 @@ public class TicketPriorityGUI extends AbstractGUI {
             TicketPriority priority = TicketPriority.values()[priorityId];
 
             if(ticket.getPriority() == priority) {
-                event.getWhoClicked().sendMessage(Messages.TICKET_PRIORITY.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_PRIORITY_ALREADY, event.getWhoClicked()));
                 return;
             }
 
             ticket.setPriority(priority);
-            event.getWhoClicked().sendMessage(Messages.TICKET_PRIORITY_CHANGE.getMessage());
+            event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_PRIORITY_CHANGE, event.getWhoClicked()));
             this.initItems();
         }
 
