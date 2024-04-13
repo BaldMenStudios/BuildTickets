@@ -27,7 +27,7 @@ public class LocaleManager {
 
     /**
      * Loads a specific locale.
-     * @param locale
+     * @param locale the locale type to load.
      */
     public void loadLocale(Locale locale) {
         try {
@@ -48,8 +48,8 @@ public class LocaleManager {
 
     /**
      * Gets the message from the locale.
-     * @param id
-     * @return
+     * @param id the id of the stored string in the locale files.
+     * @return the translated message, or the key if he couldn't be translated.
      */
     public static String getMessage(LocaleString id) {
         String t = locales.get(defaultLocale).get(id);
@@ -59,9 +59,9 @@ public class LocaleManager {
 
     /**
      * Gets the message from the locale.
-     * @param id
-     * @param locale
-     * @return
+     * @param id the id of the stored string in the locale files.
+     * @param locale the locale to get the message from.
+     * @return the translated message, or the key if he couldn't be translated.
      */
     public static String getMessage(LocaleString id, Locale locale) {
         String t = locales.get(locale).get(id);
@@ -69,18 +69,29 @@ public class LocaleManager {
         return t;
     }
 
+    /**
+     * Gets the translated message by using the player's locale preference.
+     * @param id the string id.
+     * @param entity the player to base the locale of.
+     * @return the translated message, or the key if he couldn't be translated.
+     */
     public static String getMessage(LocaleString id, HumanEntity entity) {
         if(playerLocales == null || !playerLocales.containsKey(entity.getUniqueId())) return getMessage(id);
         return getMessage(id, playerLocales.get(entity.getUniqueId()));
     }
 
+    /**
+     * Sets the player's locale preference.
+     * @param entity the player.
+     * @param locale the local to set as the new preference.
+     */
     public static void setPlayerLocale(HumanEntity entity, Locale locale) {
         if(locale == defaultLocale) playerLocales.remove(entity.getUniqueId());
         playerLocales.put(entity.getUniqueId(), locale);
     }
 
     /**
-     * Loads the locales
+     * Loads the locales from the plugin's resources.
      */
     public void loadLocales() {
         for(Locale locale : SUPPORTED_LOCALES) {
