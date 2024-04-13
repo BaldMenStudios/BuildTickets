@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
@@ -67,9 +69,9 @@ public class BuildTicket {
         boolean b = notes.containsKey(player.getUniqueId());
         notes.put(player.getUniqueId(), note);
 
-        if(b) player.sendMessage(Messages.TICKET_NOTE_EDIT.getMessage());
+        if(b) player.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_NOTE_EDIT, player));
         else {
-            player.sendMessage(Messages.TICKET_NOTE_ADD.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_NOTE_ADDED, player));
             noteCreators.add(player.getUniqueId());
         }
     }
