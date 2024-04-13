@@ -25,7 +25,7 @@ public class TicketCommand implements CommandExecutor {
 
         if(args.length == 0) {
             if(!Permissions.OPEN_TICKET_GUI.hasPermission(player)) {
-                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET));
+                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
                 return false;
             }
             new TicketBrowserGUI(0).open(player);
@@ -36,12 +36,12 @@ public class TicketCommand implements CommandExecutor {
 
         if(sub.equals("create")) {
             if(args.length < 2) {
-                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET));
+                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
                 return false;
             }
 
             if(!Permissions.CREATE_TICKET.hasPermission(player)) {
-                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET));
+                player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
                 return false;
             }
 
@@ -50,7 +50,7 @@ public class TicketCommand implements CommandExecutor {
             BuildTicket buildTicket = new BuildTicket(reason, (args.length >= 3 ? TicketPriority.getValue(args[2]) : TicketPriority.NORMAL), player.getUniqueId());
             BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
             BuildTicketsPlugin.getInstance().getOrCreateBuilder(player.getUniqueId()).createTicket();
-            player.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED));
+            player.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, player));
         }
         else {
             player.sendMessage("§7------ §a§lBuild Tickets §r§7------");
