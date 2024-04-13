@@ -2,6 +2,8 @@ package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.HeadUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,12 +26,12 @@ public class HeadCommand implements CommandExecutor {
         Player player = (Player) commandSender;
 
         if(!Permissions.HEAD_GIVER_USER.hasPermission(player)) {
-            player.sendMessage(Messages.NO_PERMISSION.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
             return false;
         }
 
         if(args.length == 0) {
-            player.sendMessage(Messages.INVALID_USAGE.getMessage());
+            player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
             return false;
         }
 
@@ -38,7 +40,7 @@ public class HeadCommand implements CommandExecutor {
         switch (args[0]) {
             case "url":
                 if(args.length != 2) {
-                    player.sendMessage(Messages.INVALID_USAGE.getMessage());
+                    player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
                     return false;
                 }
                 String textureURL = args[1];
@@ -47,7 +49,7 @@ public class HeadCommand implements CommandExecutor {
                 break;
             case "name":
                 if(args.length != 2) {
-                    player.sendMessage(Messages.INVALID_USAGE.getMessage());
+                    player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
                     return false;
                 }
                 head = new ItemStack(Material.PLAYER_HEAD);
