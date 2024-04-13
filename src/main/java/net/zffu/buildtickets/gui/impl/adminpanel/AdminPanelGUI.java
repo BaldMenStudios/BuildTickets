@@ -4,6 +4,8 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.AbstractGUI;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -27,7 +29,7 @@ public class AdminPanelGUI extends AbstractGUI {
 
         setAction(20, (event -> {
             if(!(Permissions.PANEL_PLAYER_STATS.hasPermission(event.getWhoClicked()))) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             new PlayerStatsPanelGUI(0).open(event.getWhoClicked(), this);
@@ -35,7 +37,7 @@ public class AdminPanelGUI extends AbstractGUI {
 
         setAction(22, (event -> {
             if(!(Permissions.PANEL_ACTIVE_TICKETS.hasPermission(event.getWhoClicked()))) {
-                event.getWhoClicked().sendMessage(Messages.NO_PERMISSION.getMessage());
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
             }
             new TicketsStatsPanelGUI().open(event.getWhoClicked(), this);
