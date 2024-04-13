@@ -1,8 +1,11 @@
 package net.zffu.buildtickets.locale;
 
+import lombok.Getter;
+
 /**
  * Enum to store locale keys, seems useless but is actually a bit useful and allows us to use EnumMap for free optimization so.
  */
+@Getter
 public enum LocaleString {
 
     PERMISSION_NOT_MET("permission.not_met"),
@@ -44,7 +47,4 @@ public enum LocaleString {
         this.key = key;
     }
 
-    public String getKey() {
-        return key;
-    }
 }
