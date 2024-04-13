@@ -9,6 +9,7 @@ import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
 import net.zffu.buildtickets.config.Messages;
 import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
@@ -121,7 +122,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     public void doChatHandler(HumanEntity entity, Action<AsyncPlayerChatEvent> action) {
         entity.closeInventory();
-        entity.sendMessage(Messages.ENTER_PROMPT.getMessage());
+        entity.sendMessage(LocaleManager.getMessage(LocaleString.PROMPT_ENTER, entity));
         this.chatHandlers.put(entity.getUniqueId(), action);
     }
 
