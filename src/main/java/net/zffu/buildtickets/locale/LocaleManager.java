@@ -11,7 +11,7 @@ import java.util.*;
 public class LocaleManager {
 
     private final BuildTicketsPlugin plugin;
-    public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH};
+    public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH, Locale.FRENCH};
     public static HashMap<Locale, EnumMap<LocaleString, String>> locales = new HashMap<>();
     public static HashMap<UUID, Locale> playerLocales;
 
