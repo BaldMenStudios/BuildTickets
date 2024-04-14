@@ -45,11 +45,12 @@ public class SQLStorage implements IStorage {
     public void shutdown() {
 
         for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
-            this.tickets.pushJSON(ticket.getTicketUUID(), ticket.toJSON());
+            this.tickets.pushOrUpdateField(ticket.getTicketUUID(), );
         }
 
         for(Map.Entry<UUID, TicketBuilder> builder : BuildTicketsPlugin.getInstance().getBuilders().entrySet()) {
-            this.builders.pushJSON(builder.getKey(), builder.getValue().toJSON());
+            this.builders.pushOrUpdateField(builder.getKey(), "created", builder.getValue().getTicketsCreated());
+            this.builders.pushOrUpdateField(builder.getKey(), "completed", builder.getValue().getTicketsCompleted());
         }
 
         try {

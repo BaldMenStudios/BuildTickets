@@ -48,11 +48,11 @@ public class SQLTable {
         }
     }
 
-    public void pushOrUpdateField(UUID uuid, String field, String value) {
+    public void pushOrUpdateField(UUID uuid, String field, Object value) {
         String insertOrUpdate = "INSERT OR REPLACE INTO " + table + " (uuid, " + field + ") VALUES (?, ?)";
         try(PreparedStatement preparedStatement = this.storage.getConnection().prepareStatement(insertOrUpdate)) {
             preparedStatement.setString(1, uuid.toString());
-            preparedStatement.setString(2, value);
+            preparedStatement.setString(2, value.toString());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
