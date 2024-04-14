@@ -11,7 +11,7 @@ public class SQLTicketTable extends SQLTable {
 
     @Override
     public void init() {
-        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (uuid TEXT PRIMARY KEY, reason TEXT, priority INT, creator STRING, builders STRING, notes STRING, INT completion, INT help)";
+        String createTable = "CREATE TABLE IF NOT EXISTS " + table + " (uuid TEXT PRIMARY KEY, reason TEXT, priority INT, creator STRING, builders STRING, notes STRING,completion INT,help INT)";
         try {
             this.statement.execute(createTable);
         } catch (SQLException e) {
