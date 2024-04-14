@@ -2,8 +2,11 @@ package net.zffu.buildtickets;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.luckperms.api.LuckPerms;
 import net.zffu.buildtickets.commands.*;
 import net.zffu.buildtickets.data.TicketBuilder;
+import net.zffu.buildtickets.hooks.IPermissionHook;
+import net.zffu.buildtickets.hooks.impl.LuckPermsHook;
 import net.zffu.buildtickets.listeners.BuildModeListeners;
 import net.zffu.buildtickets.listeners.BuildPhysicsListeners;
 import net.zffu.buildtickets.listeners.ChatListener;
@@ -14,8 +17,10 @@ import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -43,6 +48,8 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     private IStorage storage;
 
+    private IPermissionHook permissionHook;
+
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -61,6 +68,8 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("ticket").setExecutor(new TicketCommand());
         this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
+
+        this.loadPermissionHooks();
 
         this.getLogger().info("Loading Locales...");
         this.localeManager = new LocaleManager(this);
@@ -104,6 +113,26 @@ public final class BuildTicketsPlugin extends JavaPlugin {
             this.storage.init();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the permission hook from the config.
+     */
+    public void loadPermissionHooks() {
+        this.getLogger().info("Loading Permission Hook...");
+        if(this.getConfig().getString("permission-plugin").equals("luckperms") && this.getServer().getPluginManager().isPluginEnabled("LuckPerms")) {
+            RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+            if (provider != null) {
+                this.permissionHook = new LuckPermsHook(provider.getProvider());
+            }
+        }
+
+        if(this.permissionHook != null) {
+            this.getLogger().info("Successfully loaded permission hook!");
+        }
+        else {
+            this.getLogger().warning("Could not load permission hook correctly!");
         }
     }
 

@@ -23,6 +23,10 @@ version: 2
 # - none: No data saving & loading
 storage-mode: sqlite
 
+# Available Permission Plugin Hooks.
+# - luckperms: Uses LuckPerms to give permissions for the permission panel.
+permission-plugin: LuckPerms
+
 # Only required if your database type is not sqlite or crimson.
 database-url: ""
 
