@@ -19,12 +19,10 @@ public class AdminPanelGUI extends AbstractGUI {
     @Override
     public void initItems() {
         gui.setItem(20, new GuiItem(ItemBuilder.create(Material.LIME_WOOL).display("§aBuilder Statistics").lore("§7See the stats of builders", "", "§eClick here to open the panel!").build()));
-        gui.setItem(22, new GuiItem(ItemBuilder.create(Material.YELLOW_WOOL).display("§aTickets Statistics").lore("§7See the stats of the tickets", "", "§eClick here to open the panel!").build()));
-        gui.setItem(24, new GuiItem(ItemBuilder.create(Material.RED_WOOL).display("§aPermission Management").lore("§7Give or remove permissions to your builders", "", "§eClick here to open the panel!").build()));
+        gui.setItem(24, new GuiItem(ItemBuilder.create(Material.YELLOW_WOOL).display("§aTickets Statistics").lore("§7See the stats of the tickets", "", "§eClick here to open the panel!").build()));
 
         gui.setItem(29, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to see stats of a builder", "§7or the overall stats of the builders", "§7Those stats include: Completed Ticket, Created Tickets", "§7and more").build()));
-        gui.setItem(31, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to see the tickets", "§7that are active, waiting for confirmation", "§7or that require help.").build()));
-        gui.setItem(33, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to give or remove ticket permissions to a builder.").build()));
+        gui.setItem(33, new GuiItem(ItemBuilder.create(Material.BOOK).display("§aPanel Explanation").lore("§7This panel is used to see the tickets", "§7that are active, waiting for confirmation", "§7or that require help.").build()));
 
         setAction(20, (event -> {
             if(!(Permissions.PANEL_PLAYER_STATS.hasPermission(event.getWhoClicked()))) {
@@ -34,7 +32,7 @@ public class AdminPanelGUI extends AbstractGUI {
             new PlayerStatsPanelGUI(0).open(event.getWhoClicked(), this);
         }));
 
-        setAction(22, (event -> {
+        setAction(24, (event -> {
             if(!(Permissions.PANEL_ACTIVE_TICKETS.hasPermission(event.getWhoClicked()))) {
                 event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
                 return;
