@@ -13,9 +13,9 @@ import java.util.UUID;
 
 public class SQLTable {
 
-    private SQLStorage storage;
-    private final Statement statement;
-    private String table;
+    protected SQLStorage storage;
+    protected final Statement statement;
+    protected String table;
 
     public SQLTable(SQLStorage database, String table) throws SQLException {
         this.table = table;
@@ -32,23 +32,13 @@ public class SQLTable {
         }
     }
 
-    public JsonObject getJson(UUID uuid, @Nullable JsonObject defaultVal) {
-        String stringValue = getRaw(uuid).toString();
-        if(stringValue != null) {
-            try {
-                return (JsonObject) new JsonParser().parse(stringValue);
-            } catch (Exception e) {}
-        }
-        return defaultVal;
-    }
-
-    public Object getRaw(UUID uuid) {
-        String select = "SELECT value from " + table + " WHERE key = ?";
+    public Object getRaw(UUID uuid, String field) {
+        String select = "SELECT " + field + " from " + table + " WHERE key = ?";
         try(PreparedStatement preparedStatement = this.storage.getConnection().prepareStatement(select)) {
             preparedStatement.setString(1, uuid.toString());
             ResultSet set = preparedStatement.executeQuery();
             if(set.next()) {
-                return set.getObject("value");
+                return set.getObject(field);
             }
             else {
                 return null;
@@ -58,12 +48,8 @@ public class SQLTable {
         }
     }
 
-    public void pushJSON(UUID uuid, JsonObject object) {
-        pushOrUpdate(uuid, object.toString());
-    }
-
-    public void pushOrUpdate(UUID uuid, String value) {
-        String insertOrUpdate = "INSERT OR REPLACE INTO " + table + " (uuid, value) VALUES (?, ?)";
+    public void pushOrUpdateField(UUID uuid, String field, String value) {
+        String insertOrUpdate = "INSERT OR REPLACE INTO " + table + " (uuid, " + field + ") VALUES (?, ?)";
         try(PreparedStatement preparedStatement = this.storage.getConnection().prepareStatement(insertOrUpdate)) {
             preparedStatement.setString(1, uuid.toString());
             preparedStatement.setString(2, value);
@@ -72,4 +58,5 @@ public class SQLTable {
             e.printStackTrace();
         }
     }
+
 }

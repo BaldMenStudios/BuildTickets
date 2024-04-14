@@ -26,17 +26,13 @@ public class SQLStorage implements IStorage {
     protected Connection connection;
     protected SQLTable builders;
     protected SQLTable tickets;
-    protected String connectionURL;
 
-    public SQLStorage(String connectionURL) {
-        this.connectionURL = connectionURL;
+    public SQLStorage(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
     public void init() throws Exception {
-
-        this.connection = DriverManager.getConnection(this.connectionURL);
-
         if(this.connection != null) {
             this.statement = this.connection.createStatement();
         }
