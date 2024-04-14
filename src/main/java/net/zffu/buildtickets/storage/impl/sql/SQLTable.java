@@ -18,6 +18,7 @@ public class SQLTable {
     protected String table;
 
     public SQLTable(SQLStorage database, String table) throws SQLException {
+        this.storage = database;
         this.table = table;
         this.statement = database.getStatement();
         this.init();
