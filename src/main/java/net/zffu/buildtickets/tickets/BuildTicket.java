@@ -10,9 +10,7 @@ import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -22,9 +20,9 @@ public class BuildTicket {
     private String ticketReason;
     private TicketPriority priority;
     private final UUID creator;
-    private ArrayList<UUID> builders = new ArrayList<>();
-    private ArrayList<UUID> noteCreators = new ArrayList<>();
-    private HashMap<UUID, String> notes = new HashMap<>();
+    private List<UUID> builders = new ArrayList<>();
+    private List<UUID> noteCreators = new ArrayList<>();
+    private Map<UUID, String> notes = new HashMap<>();
     private boolean needsHelp;
 
     private boolean isWaitingForCompletionConfirmation;
@@ -52,6 +50,10 @@ public class BuildTicket {
         this.isWaitingForCompletionConfirmation = (completionMode == 0);
         this.completed = (completionMode == 1);
         this.needsHelp = needsHelp;
+    }
+
+    public void updateNoteCreators() {
+        this.noteCreators = (List<UUID>) this.notes.keySet();
     }
 
     /**

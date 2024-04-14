@@ -59,4 +59,14 @@ public class SQLTable {
         }
     }
 
+    public ResultSet getEntries() {
+        try {
+            return statement.executeQuery("SELECT * from " + table);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

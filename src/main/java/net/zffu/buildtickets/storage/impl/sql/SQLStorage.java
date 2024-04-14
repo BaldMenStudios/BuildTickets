@@ -5,16 +5,11 @@ import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.data.TicketBuilder;
 import net.zffu.buildtickets.storage.IStorage;
 import net.zffu.buildtickets.tickets.BuildTicket;
+import net.zffu.buildtickets.tickets.TicketPriority;
 import net.zffu.buildtickets.utils.SQLFormatter;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Implementation of the SQL Storage.
@@ -24,7 +19,7 @@ import java.util.UUID;
 public class SQLStorage implements IStorage {
 
     protected Statement statement;
-    protected Connection connection;
+    public Connection connection;
     protected SQLBuilderTable builders;
     protected SQLTicketTable tickets;
 
@@ -40,6 +35,36 @@ public class SQLStorage implements IStorage {
 
         this.builders = new SQLBuilderTable(this);
         this.tickets = new SQLTicketTable(this);
+
+        ResultSet buildersSet = this.builders.getEntries();
+
+        while (buildersSet.next()) {
+            UUID uuid = UUID.fromString(buildersSet.getString("uuid"));
+            int created = buildersSet.getInt("created");
+            int completed = buildersSet.getInt("completed");
+            BuildTicketsPlugin.getInstance().getBuilders().put(uuid, new TicketBuilder(uuid, created, completed));
+        }
+
+        ResultSet ticketsSet = this.tickets.getEntries();
+
+        while (ticketsSet.next()) {
+            UUID uuid = UUID.fromString(ticketsSet.getString("uuid"));
+            String reason = ticketsSet.getString("reason");
+            TicketPriority priority = TicketPriority.values()[ticketsSet.getInt("priority")];
+            UUID creator = UUID.fromString(ticketsSet.getString("creator"));
+            List<UUID> builders = (List<UUID>) SQLFormatter.parseToCollectionUUID(ticketsSet.getString("builders"));
+            Map<UUID, String> notes = SQLFormatter.parseMapUUID(ticketsSet.getString("notes"));
+            int compMode = ticketsSet.getInt("completion");
+
+            BuildTicket ticket = new BuildTicket(uuid, reason, priority, creator);
+            ticket.setBuilders(builders);
+            ticket.setNotes(notes);
+            ticket.updateNoteCreators();
+            if(compMode == 0) ticket.setWaitingForCompletionConfirmation(true);
+            if(compMode == 1) ticket.setCompleted(true);
+
+            ticket.setNeedsHelp((ticketsSet.getInt("help") == 1));
+        }
     }
 
     @Override
