@@ -20,7 +20,7 @@ public class BuildTicket {
     private String ticketReason;
     private TicketPriority priority;
     private final UUID creator;
-    private List<UUID> builders = new ArrayList<>();
+    private Collection<UUID> builders = new ArrayList<>();
     private List<UUID> noteCreators = new ArrayList<>();
     private Map<UUID, String> notes = new HashMap<>();
     private boolean needsHelp;
@@ -93,19 +93,6 @@ public class BuildTicket {
 
     public int getTicketCompletionMode() {
         return (completed ? 1 : (isWaitingForCompletionConfirmation ? 0 : -1));
-    }
-
-    public JsonObject toJSON() {
-        Gson gson = new Gson();
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("creator", creator.toString());
-        jsonObject.addProperty("reason", ticketReason);
-        jsonObject.addProperty("priority", priority.getIndex());
-        jsonObject.addProperty("completion", (completed ? 1 : (isWaitingForCompletionConfirmation ? 0 : -1)));
-        jsonObject.add("builders", JsonUtils.toJsonArray(this.builders));
-        jsonObject.add("notes", JsonUtils.toMap(this.notes));
-        jsonObject.addProperty("help", needsHelp);
-        return jsonObject;
     }
 
 }

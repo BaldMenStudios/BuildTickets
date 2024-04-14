@@ -52,7 +52,7 @@ public class SQLStorage implements IStorage {
             String reason = ticketsSet.getString("reason");
             TicketPriority priority = TicketPriority.values()[ticketsSet.getInt("priority")];
             UUID creator = UUID.fromString(ticketsSet.getString("creator"));
-            List<UUID> builders = (List<UUID>) SQLFormatter.parseToCollectionUUID(ticketsSet.getString("builders"));
+            Collection<UUID> builders = SQLFormatter.parseToCollectionUUID(ticketsSet.getString("builders"));
             Map<UUID, String> notes = SQLFormatter.parseMapUUID(ticketsSet.getString("notes"));
             int compMode = ticketsSet.getInt("completion");
 
