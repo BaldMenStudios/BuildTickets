@@ -71,6 +71,7 @@ public class SQLFormatter {
 
     public static Collection<UUID> parseToCollectionUUID(String raw) {
         List<UUID> t = new ArrayList<>();
+        if(raw.isEmpty()) return t;
         for(String s : raw.split(",")) {
             t.add(UUID.fromString(s));
         }
@@ -79,6 +80,7 @@ public class SQLFormatter {
 
     public static Map<UUID, String> parseMapUUID(String str) {
         Map<UUID, String> map = new HashMap<>();
+        if(str.isEmpty()) return map;
         for(String entry : str.split(",")) {
             String[] s = entry.split(";");
             map.put(UUID.fromString(s[0]), s[1]);
