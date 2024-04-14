@@ -53,7 +53,8 @@ public class BuildTicket {
     }
 
     public void updateNoteCreators() {
-        this.noteCreators = (List<UUID>) this.notes.keySet();
+        this.noteCreators.clear();
+        this.noteCreators.addAll(this.notes.keySet());
     }
 
     /**
