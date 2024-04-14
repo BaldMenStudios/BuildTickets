@@ -20,7 +20,7 @@ public class SQLTicketTable extends SQLTable {
     }
 
     public void pushOrUpdateTicket(UUID uuid, String reason, int priority, String creator, String builders, String notes, int completionStatus, int help) {
-        String insertOrUpdate = "INSERT OR REPLACE INTO " + table + " (uuid, reason, priority, creator, builders, notes, completion, help) VALUES (?, ?)";
+        String insertOrUpdate = "INSERT OR REPLACE INTO " + table + " (uuid, reason, priority, creator, builders, notes, completion, help) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement preparedStatement = this.storage.getConnection().prepareStatement(insertOrUpdate)) {
             preparedStatement.setString(1, uuid.toString());
             preparedStatement.setString(2, reason);
