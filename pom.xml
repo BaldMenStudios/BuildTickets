@@ -111,5 +111,11 @@
           <scope>provided</scope>
       </dependency>
 
+      <dependency>
+          <groupId>net.zffu.buildtickets</groupId>
+          <artifactId>api</artifactId>
+          <version>1.0.0</version>
+      </dependency>
+
   </dependencies>
 </project>
