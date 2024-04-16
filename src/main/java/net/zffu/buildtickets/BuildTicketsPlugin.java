@@ -92,8 +92,6 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         StorageType storageType = StorageType.get(this.getConfig().getString("storage-mode"));
         this.getLogger().info("Loading Data Storage...");
 
-        this.getLogger().warning("Database Storage is in development! Errors crashing the plugin when loading the data could occur. If you wish to disable this please enter none in the storage-mode config value!");
-
         if(storageType == null) {
             this.getLogger().warning("Data Storage type " + this.getConfig().getString("storage-mode") + " is invalid!");
             return;
