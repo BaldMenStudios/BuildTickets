@@ -7,10 +7,6 @@
   <groupId>net.zffu</groupId>
   <artifactId>BuildTickets</artifactId>
   <version>1.0.0</version>
-    <modules>
-        <module>api</module>
-    </modules>
-    <packaging>pom</packaging>
 
   <name>BuildTickets</name>
 
@@ -109,12 +105,6 @@
           <artifactId>authlib</artifactId>
           <version>3.16.29</version>
           <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-          <groupId>net.zffu.buildtickets</groupId>
-          <artifactId>api</artifactId>
-          <version>1.0.0</version>
       </dependency>
 
   </dependencies>

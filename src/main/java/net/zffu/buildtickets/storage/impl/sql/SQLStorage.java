@@ -64,6 +64,8 @@ public class SQLStorage implements IStorage {
             if(compMode == 1) ticket.setCompleted(true);
 
             ticket.setNeedsHelp((ticketsSet.getInt("help") == 1));
+
+            BuildTicketsPlugin.getInstance().getTickets().add(ticket);
         }
     }
 
