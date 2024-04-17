@@ -61,6 +61,7 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.smartTicketPermissions = getConfig().getBoolean("tickets.smart-ticket-permissions");
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        this.getCommand("buildtickets").setExecutor(new BuildTicketsCommand());
         this.getCommand("ticket").setExecutor(new TicketCommand());
         this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
 

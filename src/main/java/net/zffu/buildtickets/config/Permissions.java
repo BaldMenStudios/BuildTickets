@@ -27,7 +27,9 @@ public enum Permissions {
 
     BUILD_MODE_TOGGLE("build-mode-toggle", "buildmode.toggle"),
     BUILD_PHYSICS("build-physics-toggle", "buildphysics.toggle"),
-    HEAD_GIVER_USER("headgiver-use", "headgiver.use");
+    HEAD_GIVER_USER("headgiver-use", "headgiver.use"),
+
+    HELP_MESSAGE("help-message", "buildtickets.help");
 
     private String permission;
     private String otherPermission;

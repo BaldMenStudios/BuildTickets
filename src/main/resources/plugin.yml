@@ -17,4 +17,6 @@ commands:
   head:
     description: Gives you a player head with the provided uuid or username.
     aliases: [givehead, itemhead, headitem]
-softdepend: [LuckPerms]
+  buildtickets:
+    description: The main command of the plugin.
+    aliases: [bt, btickets, bticket, buildticket]
