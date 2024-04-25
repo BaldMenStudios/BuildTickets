@@ -2,6 +2,7 @@ package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.commands.sub.SubCommand;
+import net.zffu.buildtickets.commands.sub.impl.BuildModeSubCommand;
 import net.zffu.buildtickets.commands.sub.impl.CreateSubCommand;
 import net.zffu.buildtickets.commands.sub.impl.GuiSubCommand;
 import net.zffu.buildtickets.commands.sub.impl.PanelSubCommand;
@@ -24,7 +25,7 @@ public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
     private SubCommand[] commands;
 
     public BuildTicketsCommand() {
-        this.commands = new SubCommand[] {new GuiSubCommand(), new CreateSubCommand(), new PanelSubCommand()};
+        this.commands = new SubCommand[] {new GuiSubCommand(), new CreateSubCommand(), new PanelSubCommand(), new BuildModeSubCommand()};
     }
 
     @Override
