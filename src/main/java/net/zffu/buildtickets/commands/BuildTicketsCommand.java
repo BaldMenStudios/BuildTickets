@@ -4,6 +4,7 @@ import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.commands.sub.SubCommand;
 import net.zffu.buildtickets.commands.sub.impl.CreateSubCommand;
 import net.zffu.buildtickets.commands.sub.impl.GuiSubCommand;
+import net.zffu.buildtickets.commands.sub.impl.PanelSubCommand;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
@@ -23,7 +24,7 @@ public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
     private SubCommand[] commands;
 
     public BuildTicketsCommand() {
-        this.commands = new SubCommand[] {new GuiSubCommand(), new CreateSubCommand()};
+        this.commands = new SubCommand[] {new GuiSubCommand(), new CreateSubCommand(), new PanelSubCommand()};
     }
 
     @Override
