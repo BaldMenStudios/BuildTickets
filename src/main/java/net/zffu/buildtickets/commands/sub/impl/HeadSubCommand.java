@@ -1,29 +1,24 @@
-package net.zffu.buildtickets.commands;
+package net.zffu.buildtickets.commands.sub.impl;
 
+import net.zffu.buildtickets.commands.sub.SubCommand;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.HeadUtils;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.jetbrains.annotations.NotNull;
 
-public class HeadCommand implements CommandExecutor {
+public class HeadSubCommand extends SubCommand {
+    public HeadSubCommand() {
+        super("head", "Head Giver", Permissions.HEAD_GIVER_USER.getPermission());
+    }
+
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(!(commandSender instanceof Player)) return false;
-
-        Player player = (Player) commandSender;
-
-        if(!Permissions.HEAD_GIVER_USER.hasPermission(player)) {
-            player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
-            return false;
-        }
+    public boolean execute(CommandSender sender, String[] args) {
+        Player player = (Player) sender;
 
         if(args.length == 0) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));

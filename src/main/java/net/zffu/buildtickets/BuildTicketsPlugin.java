@@ -73,19 +73,14 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.getLogger().info("Loading Features...");
 
         if(buildModeEnabled = getConfig().getBoolean("build-mode.enabled", false)) {
-            this.getCommand("buildmode").setExecutor(new BuildModeCommand());
             this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
         }
 
         if(doBuildPhysics = getConfig().getBoolean("build-physics.enabled", false)) {
-            this.getCommand("buildphysics").setExecutor(new BuildPhysicsCommand());
             this.getServer().getPluginManager().registerEvents(new BuildPhysicsListeners(), this);
         }
 
-        if(headGiverEnabled = getConfig().getBoolean("head-giver.enabled", false)) {
-            this.getCommand("head").setExecutor(new HeadCommand());
-        }
-
+        this.headGiverEnabled = getConfig().getBoolean("head-giver.enabled", false);
     }
 
     public void loadStorage() {

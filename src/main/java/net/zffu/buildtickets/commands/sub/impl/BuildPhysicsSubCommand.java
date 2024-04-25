@@ -1,25 +1,23 @@
-package net.zffu.buildtickets.commands;
+package net.zffu.buildtickets.commands.sub.impl;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
+import net.zffu.buildtickets.commands.sub.SubCommand;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class BuildPhysicsCommand implements CommandExecutor {
+public class BuildPhysicsSubCommand extends SubCommand {
+    public BuildPhysicsSubCommand() {
+        super("physics", "Toggles the building physics", Permissions.BUILD_PHYSICS.getPermission());
+    }
+
     @Override
-    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if(!(sender instanceof Player)) return false;
-        Player player = (Player) sender;
+    public boolean execute(CommandSender sender, String[] args) {
+        if(!BuildTicketsPlugin.getInstance().isDoBuildPhysics()) return false;
 
-        if(!Permissions.BUILD_PHYSICS.hasPermission(player)) {
-            player.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, player));
-            return false;
-        }
+        Player player = (Player) sender;
 
         boolean b = !BuildTicketsPlugin.getInstance().isBuildPhysics();
         BuildTicketsPlugin.getInstance().setBuildPhysics(b);
@@ -29,5 +27,4 @@ public class BuildPhysicsCommand implements CommandExecutor {
 
         return true;
     }
-
 }

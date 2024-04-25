@@ -3,20 +3,6 @@ version: '${project.version}'
 main: net.zffu.buildtickets.BuildTicketsPlugin
 api-version: '1.20'
 commands:
-  ticket:
-    description: The command to see and create build tickets.
-  buildmode:
-    description: Enables or disables build mode for you
-  buildchat:
-    description: Main command of the builder's chat.
-  buildphysics:
-    description: Toggles vanilla block physics.
-  ticketpanel:
-    description: Opens the ticket administrator panel
-    aliases: [adminticketpanel, aticketpanel, tpanel]
-  head:
-    description: Gives you a player head with the provided uuid or username.
-    aliases: [givehead, itemhead, headitem]
   buildtickets:
     description: The main command of the plugin.
     aliases: [bt, btickets, bticket, buildticket]
