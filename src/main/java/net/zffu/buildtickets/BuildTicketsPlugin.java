@@ -14,10 +14,8 @@ import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -34,6 +32,11 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private ArrayList<UUID> buildMode = new ArrayList<>();
     @Setter
     private boolean buildPhysics;
+
+    @Setter
+    private boolean buildModeEnabled;
+    private boolean headGiverEnabled;
+    private boolean doBuildPhysics;
 
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
@@ -62,8 +65,6 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new ChatListener(), this);
         this.getCommand("buildtickets").setExecutor(new BuildTicketsCommand());
-        this.getCommand("ticket").setExecutor(new TicketCommand());
-        this.getCommand("ticketpanel").setExecutor(new TicketPanelCommand());
 
         this.getLogger().info("Loading Locales...");
         this.localeManager = new LocaleManager(this);
@@ -71,17 +72,17 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
         this.getLogger().info("Loading Features...");
 
-        if(getConfig().getBoolean("build-mode.enabled", false)) {
+        if(buildModeEnabled = getConfig().getBoolean("build-mode.enabled", false)) {
             this.getCommand("buildmode").setExecutor(new BuildModeCommand());
             this.getServer().getPluginManager().registerEvents(new BuildModeListeners(), this);
         }
 
-        if(getConfig().getBoolean("build-physics.enabled", false)) {
+        if(doBuildPhysics = getConfig().getBoolean("build-physics.enabled", false)) {
             this.getCommand("buildphysics").setExecutor(new BuildPhysicsCommand());
             this.getServer().getPluginManager().registerEvents(new BuildPhysicsListeners(), this);
         }
 
-        if(getConfig().getBoolean("head-giver.enabled", false)) {
+        if(headGiverEnabled = getConfig().getBoolean("head-giver.enabled", false)) {
             this.getCommand("head").setExecutor(new HeadCommand());
         }
 
