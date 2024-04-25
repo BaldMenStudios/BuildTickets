@@ -2,6 +2,7 @@ package net.zffu.buildtickets.commands;
 
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.commands.sub.SubCommand;
+import net.zffu.buildtickets.commands.sub.impl.GuiSubCommand;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
@@ -19,6 +20,10 @@ import java.util.List;
 public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
 
     private SubCommand[] commands;
+
+    public BuildTicketsCommand() {
+        this.commands = new SubCommand[] {new GuiSubCommand()};
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
