@@ -4,7 +4,11 @@ import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.gui.PaginatedGUI;
 import net.zffu.buildtickets.gui.impl.ticketviewer.TicketViewerGUI;
+import net.zffu.buildtickets.locale.LocaleManager;
+import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
+import net.zffu.buildtickets.tickets.TicketPriority;
+import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -37,6 +41,8 @@ public class TicketBrowserGUI extends PaginatedGUI {
         gui.setItem(48, new GuiItem(GO_BACK));
         gui.setItem(50, new GuiItem(GO_NEXT));
 
+        gui.setItem(53, new GuiItem(ItemBuilder.create(Material.PAPER).display("§aCreate Ticket").lore("§7Create a building ticket here.", "", "§eClick here to create a ticket!").build()));
+
         setAction(48, (event -> {
             goBack(event.getWhoClicked());
         }));
@@ -44,6 +50,16 @@ public class TicketBrowserGUI extends PaginatedGUI {
         setAction(50, (event -> {
             goNext(event.getWhoClicked());
         }));
+
+        setAction(53, (event -> {
+            BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (e -> {
+                BuildTicket buildTicket = new BuildTicket(event.getEventName(), TicketPriority.NORMAL, event.getWhoClicked().getUniqueId());
+                BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
+                BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
+            }));
+        }));
+
     }
 
     @Override
