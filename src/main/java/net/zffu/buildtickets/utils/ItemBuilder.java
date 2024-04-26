@@ -4,12 +4,15 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ItemBuilder {
 
     private ItemStack itemStack;
     private ItemMeta meta;
+    private List<String> lore = new ArrayList<>();
 
     public ItemBuilder(Material material) {
         this.itemStack = new ItemStack(material);
@@ -31,11 +34,12 @@ public class ItemBuilder {
     }
 
     public ItemBuilder lore(String... lines) {
-        this.meta.setLore(Arrays.asList(lines));
+        this.lore.addAll(Arrays.asList(lines));
         return this;
     }
 
     public ItemStack build() {
+        this.meta.setLore(this.lore);
         this.itemStack.setItemMeta(meta);
         return this.itemStack;
     }
