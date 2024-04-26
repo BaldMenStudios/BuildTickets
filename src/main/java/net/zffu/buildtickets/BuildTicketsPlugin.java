@@ -27,8 +27,6 @@ import java.util.UUID;
 public final class BuildTicketsPlugin extends JavaPlugin {
     private static BuildTicketsPlugin INSTANCE;
 
-    public static DiscordWebhook MODIFIED;
-
 
     // Used to make sure that the config is valid.
     private final int CONFIG_VERSION = 2;
@@ -41,8 +39,6 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     private boolean buildModeEnabled;
     private boolean headGiverEnabled;
     private boolean doBuildPhysics;
-
-    private String webhookUrl;
 
     private HashMap<UUID, Action<AsyncPlayerChatEvent>> chatHandlers = new HashMap<>();
     private ArrayList<BuildTicket> tickets = new ArrayList<>();
@@ -63,15 +59,6 @@ public final class BuildTicketsPlugin extends JavaPlugin {
         this.metrics = new Metrics(this, 21715);
 
         this.saveDefaultConfig();
-
-        this.webhookUrl = getConfig().getString("tickets.webhook-url");
-
-        if(this.webhookUrl != null) {
-            DiscordWebhook discordWebhook = new DiscordWebhook(this.webhookUrl);
-            discordWebhook.setAvatarUrl("https://cdn.discordapp.com/attachments/1230923824351150181/1230965795408973886/bt.png");
-            discordWebhook.addEmbed(new DiscordWebhook.EmbedObject().setTitle("A Building Ticket was Modified").setDescription("**Ticket UUID: **%uuid%\n%change%"));
-            MODIFIED = discordWebhook;
-        }
 
         this.loadStorage();
 
