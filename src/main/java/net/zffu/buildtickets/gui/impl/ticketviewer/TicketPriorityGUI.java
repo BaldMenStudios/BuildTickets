@@ -7,12 +7,14 @@ import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
 import net.zffu.buildtickets.utils.ItemBuilder;
+import net.zffu.buildtickets.wrappers.WrappedMaterials;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class TicketPriorityGUI extends AbstractGUI {
 
-    private static Material[] materials = new Material[] {Material.RED_DYE, Material.ORANGE_DYE, Material.YELLOW_DYE, Material.GREEN_DYE, Material.LIME_DYE};
+    private static ItemStack[] stacks = new ItemStack[] {WrappedMaterials.DYE_RED, WrappedMaterials.DYE_ORANGE, WrappedMaterials.DYE_YELLOW, WrappedMaterials.DYE_GREEN, WrappedMaterials.DYE_LIME};
 
     private BuildTicket ticket;
 
@@ -27,7 +29,7 @@ public class TicketPriorityGUI extends AbstractGUI {
         int index = 11;
         for(TicketPriority priority : TicketPriority.values()) {
 
-            gui.setItem(index, new GuiItem(ItemBuilder.create(materials[index - 11]).display("§a" + priority.getDisplay()).lore((this.ticket.getPriority() != priority ? "§eClick here to change the priority to the " + priority.getDisplay() : "§cThis is already the priority of the ticket!")).build()));
+            gui.setItem(index, new GuiItem(ItemBuilder.create(stacks[index - 11]).display("§a" + priority.getDisplay()).lore((this.ticket.getPriority() != priority ? "§eClick here to change the priority to the " + priority.getDisplay() : "§cThis is already the priority of the ticket!")).build()));
 
             index++;
         }

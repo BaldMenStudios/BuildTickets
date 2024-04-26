@@ -5,6 +5,7 @@ import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.HeadUtils;
+import net.zffu.buildtickets.wrappers.WrappedMaterials;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,7 +40,7 @@ public class HeadSubCommand extends SubCommand {
                 head = HeadUtils.getReflectiveHeadStack(textureURL);
                 break;
             case "name":
-                head = new ItemStack(Material.PLAYER_HEAD);
+                head = new ItemStack(WrappedMaterials.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
                 meta.setOwner(args[2]);
                 head.setItemMeta(meta);

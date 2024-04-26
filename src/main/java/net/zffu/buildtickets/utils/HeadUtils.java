@@ -2,23 +2,44 @@ package net.zffu.buildtickets.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import net.zffu.buildtickets.wrappers.WrappedMaterials;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Base64;
 import java.util.UUID;
 
 public class HeadUtils {
 
     private static Field profileField;
+    private static Method setOwningPlayer;
 
+    public HeadUtils() {
+        try {
+            if(WrappedMaterials.old) {
+                setOwningPlayer = SkullMeta.class.getMethod("setOwner", String.class);
+            }
+            else {
+                setOwningPlayer = SkullMeta.class.getMethod("setOwningPlayer", OfflinePlayer.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static ItemStack getHeadStack(UUID uuid) {
-        ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack stack = new ItemStack(WrappedMaterials.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
+        try {
+            setOwningPlayer.invoke(meta, (WrappedMaterials.old) ? Bukkit.getOfflinePlayer(uuid).getPlayer().getName() :Bukkit.getOfflinePlayer(uuid));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         stack.setItemMeta(meta);
         return stack;
     }
