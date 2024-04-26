@@ -4,10 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.zffu.buildtickets.BuildTicketsPlugin;
 import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.ItemConvertible;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
+import net.zffu.buildtickets.utils.DiscordWebhook;
 import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.IOException;
 import java.util.*;
 
 @Getter
@@ -140,14 +143,37 @@ public class BuildTicket implements ItemConvertible {
     }
 
     public void setPriority(TicketPriority priority) {
+        if(BuildTicketsPlugin.MODIFIED != null) {
+            DiscordWebhook discordWebhook = BuildTicketsPlugin.MODIFIED;
+            discordWebhook.getEmbeds().get(0).setDescription(discordWebhook.getEmbeds().get(0).getDescription().replace("%uuid%", this.ticketUUID.toString()).replace("%change%", "The ticket priority went from " + this.priority.getDisplay() + " to " + priority.getDisplay()));
+            try {
+                discordWebhook.execute();
+            } catch (Exception e) {}
+        }
+
         this.priority = priority;
+
     }
 
     public void setNeedsHelp(boolean needsHelp) {
         this.needsHelp = needsHelp;
+        if(BuildTicketsPlugin.MODIFIED != null) {
+            DiscordWebhook discordWebhook = BuildTicketsPlugin.MODIFIED;
+            discordWebhook.getEmbeds().get(0).setDescription(discordWebhook.getEmbeds().get(0).getDescription().replace("%uuid%", this.ticketUUID.toString()).replace("%change%", "The ticket's help state was set to " + this.needsHelp));
+            try {
+                discordWebhook.execute();
+            } catch (Exception e) {}
+        }
     }
 
     public void setTicketReason(String reason) {
+        if(BuildTicketsPlugin.MODIFIED != null) {
+            DiscordWebhook discordWebhook = BuildTicketsPlugin.MODIFIED;
+            discordWebhook.getEmbeds().get(0).setDescription(discordWebhook.getEmbeds().get(0).getDescription().replace("%uuid%", this.ticketUUID.toString()).replace("%change%", "The ticket reason was changed from " + this.ticketReason + " to " + reason));
+            try {
+                discordWebhook.execute();
+            } catch (Exception e) {}
+        }
         this.ticketReason = reason;
     }
 

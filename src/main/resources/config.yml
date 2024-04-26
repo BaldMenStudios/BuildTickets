@@ -82,7 +82,6 @@ head-giver:
 tickets:
   # Enabling this ticket will make it so builders and the owner of tickets can modify the ticket's settings without requiring the permissions
   smart-ticket-permissions: true
-  notify-builders-when-created: true
   webhook-url: ""
 
 ############################################################
