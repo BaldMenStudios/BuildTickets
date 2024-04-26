@@ -3,6 +3,11 @@ package net.zffu.buildtickets.locale;
 import net.zffu.buildtickets.BuildTicketsPlugin;
 import org.bukkit.entity.HumanEntity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -11,6 +16,7 @@ import java.util.*;
 public class LocaleManager {
 
     private final BuildTicketsPlugin plugin;
+    private static final File LOCALE_FOLDER = new File(BuildTicketsPlugin.getInstance().getDataFolder(), "locales");
     public static final Locale[] SUPPORTED_LOCALES = new Locale[] {Locale.ENGLISH, Locale.FRENCH};
     public static HashMap<Locale, EnumMap<LocaleString, String>> locales = new HashMap<>();
     public static HashMap<UUID, Locale> playerLocales;
@@ -24,6 +30,8 @@ public class LocaleManager {
         if(plugin.getConfig().getBoolean("allow-players-to-choose-custom-language", false)) {
             playerLocales = new HashMap<>();
         }
+
+        if(!LOCALE_FOLDER.exists()) LOCALE_FOLDER.mkdirs();
     }
 
     /**
@@ -31,20 +39,34 @@ public class LocaleManager {
      * @param locale the locale type to load.
      */
     public void loadLocale(Locale locale) {
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("buildtickets", locale);
-            EnumMap<LocaleString, String> l = new EnumMap<>(LocaleString.class);
+        File customLocale = new File(LOCALE_FOLDER, "buildtickets_" + locale.getDisplayName() + ".properties");
+        ResourceBundle bundle = null;
+        EnumMap<LocaleString, String> l = new EnumMap<>(LocaleString.class);
 
-            for(LocaleString string : LocaleString.values()) {
-                if(bundle.containsKey(string.getKey())) {
-                    l.put(string, bundle.getString(string.getKey()));
-                }
-            }
+        if(customLocale.exists()) {
+            plugin.getLogger().info("Loading custom locale from locales folder!");
 
-            locales.put(locale, l);
-        } catch (Exception e) {
-            this.plugin.getLogger().warning("Could not load locale " + locale + e);
+            try (BufferedReader reader = Files.newBufferedReader(customLocale.toPath(), StandardCharsets.UTF_8)) {
+                bundle = new PropertyResourceBundle(reader);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } ;
         }
+        else {
+            try {
+                bundle = ResourceBundle.getBundle("buildtickets", locale);
+            } catch (Exception e) {
+                this.plugin.getLogger().warning("Could not load locale " + locale + e);
+            }
+        }
+
+        for(LocaleString string : LocaleString.values()) {
+            if(bundle.containsKey(string.getKey())) {
+                l.put(string, bundle.getString(string.getKey()));
+            }
+        }
+
+        locales.put(locale, l);
     }
 
     /**
