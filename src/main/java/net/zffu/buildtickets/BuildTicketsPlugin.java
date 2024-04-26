@@ -125,6 +125,14 @@ public final class BuildTicketsPlugin extends JavaPlugin {
     }
 
     /**
+     * Registers the ticket into the ticket list and triggers the webhook if needed.
+     * @param ticket
+     */
+    public void registerTicket(BuildTicket ticket) {
+        this.tickets.add(ticket);
+    }
+
+    /**
      * Gets or create the builder.
      * @param uuid
      * @return

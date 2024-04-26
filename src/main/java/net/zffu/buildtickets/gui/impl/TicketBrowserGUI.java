@@ -52,14 +52,6 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
             goNext(event.getWhoClicked());
         }));
 
-        setAction(53, (event -> {
-            BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (e -> {
-                BuildTicket buildTicket = new BuildTicket(event.getEventName(), TicketPriority.NORMAL, event.getWhoClicked().getUniqueId());
-                BuildTicketsPlugin.getInstance().getTickets().add(buildTicket);
-                BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
-                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
-            }));
-        }));
 
     }
 
@@ -95,6 +87,15 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
             if(event.getClick().isRightClick()) {
                 new TicketViewerGUI(ticket).open(event.getWhoClicked(), this);
             }
+        }
+
+        if(event.getSlot() == 53) {
+            BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (e -> {
+                BuildTicket buildTicket = new BuildTicket(event.getEventName(), TicketPriority.NORMAL, event.getWhoClicked().getUniqueId());
+                BuildTicketsPlugin.getInstance().registerTicket(buildTicket);
+                BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
+                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
+            }));
         }
     }
 
