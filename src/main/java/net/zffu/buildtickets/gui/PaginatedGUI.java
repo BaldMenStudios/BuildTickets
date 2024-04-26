@@ -41,9 +41,6 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
     @Override
     public void initItems() {
         List<ItemStack> stacks = getItems();
-        if(selectedFilter != -1) {
-            stacks.sort(sortingOptions[selectedFilter].getSecond());
-        }
         int rowIndex = 0;
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
             if(stacks.size() <= i) return;
@@ -52,7 +49,7 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
                 rowIndex = 0;
                 i += (9 - elementsPerLine);
             }
-            this.gui.setItem(i - startingIndex, new GuiItem(getStacks().get(i)));
+            this.gui.setItem(i - startingIndex, new GuiItem(stacks.get(i)));
         }
 
         if(this.sortingOptions.length != 0) {
@@ -68,7 +65,11 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
     public abstract List<T> getElements();
 
     private List<ItemStack> getItems() {
-        return getElements().stream().map(element -> element.toItemStack()).collect(Collectors.toList());
+        List<T> elems = new ArrayList<>();
+        if(selectedFilter != -1) {
+            elems.sort(sortingOptions[selectedFilter].getSecond());
+        }
+        return elems.stream().map(element -> element.toItemStack()).collect(Collectors.toList());
     }
 
     static {
