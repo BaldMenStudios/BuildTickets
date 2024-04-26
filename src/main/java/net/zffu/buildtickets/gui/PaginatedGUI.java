@@ -45,15 +45,15 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
         if(this.sortingOptions != null) {
             ItemBuilder builder = ItemBuilder.create(Material.ANVIL);
             builder = builder.display("§aSorting");
-            for (int i = 0; i < sortingOptions.length; i++) {
-                builder = builder.lore((selectedFilter == i) ? "§2► " + sortingOptions[i].getFirst() : "  §7" + sortingOptions[i].getFirst());
+            for (int i = 0; i < this.sortingOptions.length; i++) {
+                builder = builder.lore((this.selectedFilter == i) ? "§2► " + this.sortingOptions[i].getFirst() : "  §7" + this.sortingOptions[i].getFirst());
             }
 
             builder = builder.lore("§7", "§eLeft-Click to go forward", "§eRight-Click to go backwards", "§eShift-Click to remove filter");
 
-            this.gui.setItem(sortingSlot, new GuiItem(builder.build()));
+            this.gui.setItem(this.sortingSlot, new GuiItem(builder.build()));
 
-            setAction(sortingSlot, (event -> {
+            setAction(this.sortingSlot, (event -> {
                 event.setCancelled(true);
 
                 if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
