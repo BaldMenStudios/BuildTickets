@@ -143,4 +143,8 @@ public class BuildTicket implements ItemConvertible {
         this.priority = priority;
     }
 
+    public void setNeedsHelp(boolean needsHelp) {
+        this.needsHelp = needsHelp;
+    }
+
 }
