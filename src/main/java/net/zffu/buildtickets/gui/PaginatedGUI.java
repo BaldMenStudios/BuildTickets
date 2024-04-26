@@ -30,7 +30,7 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
     protected int elementsPerLine;
 
     protected Bundle<String, Comparator<T>>[] sortingOptions = null;
-    protected int sortingSlot = 48;
+    protected int sortingSlot = 47;
     private int selectedFilter = -1;
 
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
@@ -52,8 +52,6 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
             builder.lore("§7", "§eLeft-Click to go forward", "§eRight-Click to go backwards", "§eShift-Click to remove filter");
 
             this.gui.setItem(sortingSlot, new GuiItem(builder.build()));
-
-            Bukkit.broadcastMessage("e" + sortingSlot);
 
             setAction(sortingSlot, (event -> {
                 event.setCancelled(true);
