@@ -4,17 +4,21 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.zffu.buildtickets.gui.ItemConvertible;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
 @Getter
 @Setter
-public class BuildTicket {
+public class BuildTicket implements ItemConvertible {
 
     private UUID ticketUUID;
     private String ticketReason;
@@ -96,4 +100,23 @@ public class BuildTicket {
         return (completed ? 1 : (isWaitingForCompletionConfirmation ? 0 : -1));
     }
 
+    @Override
+    public ItemStack toItemStack() {
+        Material material = Material.GREEN_DYE;
+
+        if(this.isCompleted()) {
+            material = Material.DIAMOND;
+        }
+
+        if(this.getBuilders().isEmpty()) {
+            material = Material.RED_DYE;
+        }
+
+        ItemStack stack = new ItemStack(material);
+        ItemMeta meta = stack.getItemMeta();
+        meta.setDisplayName("§a" + this.getTicketReason());
+        meta.setLore(Arrays.asList("", "§7Creator: §f" + this.getCreator(), "§7Priority: §f" + this.getPriority().getDisplay(), "§7Claimed by: §f" + (this.getBuilders().isEmpty() ? "§cNone" : this.getFormattedBuilders()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
+        stack.setItemMeta(meta);
+        return stack;
+    }
 }

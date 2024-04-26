@@ -18,8 +18,9 @@ import org.checkerframework.checker.units.qual.C;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class TicketBrowserGUI extends PaginatedGUI {
+public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
 
     private Category category;
 
@@ -63,6 +64,21 @@ public class TicketBrowserGUI extends PaginatedGUI {
     }
 
     @Override
+    public List<BuildTicket> getElements() {
+        switch (category) {
+            case ALL:
+                return BuildTicketsPlugin.getInstance().getTickets();
+            case ACTIVE:
+                return BuildTicketsPlugin.getInstance().getTickets().stream().filter(ticket -> !ticket.getBuilders().isEmpty()).collect(Collectors.toList());
+            case INACTIVE:
+                return BuildTicketsPlugin.getInstance().getTickets().stream().filter(ticket -> ticket.getBuilders().isEmpty()).collect(Collectors.toList());
+            case WAITING:
+                return BuildTicketsPlugin.getInstance().getTickets().stream().filter(ticket -> ticket.isWaitingForCompletionConfirmation()).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    @Override
     public boolean setDefaultClickActions() {
         return true;
     }
@@ -72,55 +88,14 @@ public class TicketBrowserGUI extends PaginatedGUI {
         event.setCancelled(true);
 
         if(event.getSlot() <= 35) {
-            BuildTicket ticket = BuildTicketsPlugin.getInstance().getTickets().get(startingIndex + event.getSlot());
+            BuildTicket ticket = getElements().get(startingIndex + event.getSlot());
             if(event.getClick().isLeftClick()) {
                 new TicketNotesGUI(ticket, 0).open(event.getWhoClicked(), this);
             }
             if(event.getClick().isRightClick()) {
                 new TicketViewerGUI(ticket).open(event.getWhoClicked(), this);
             }
-
         }
-
-    }
-
-    @Override
-    public List<ItemStack> getStacks() {
-        List<ItemStack> stacks = new ArrayList<>();
-
-        for(BuildTicket ticket : BuildTicketsPlugin.getInstance().getTickets()) {
-
-            switch (category) {
-                case ACTIVE:
-                    if(ticket.getBuilders().isEmpty()) continue;
-                    break;
-                case INACTIVE:
-                    if(!ticket.getBuilders().isEmpty()) continue;
-                    break;
-                case WAITING:
-                    if(!ticket.isWaitingForCompletionConfirmation()) continue;
-                    break;
-            }
-
-            Material material = Material.GREEN_DYE;
-
-            if(ticket.isCompleted()) {
-                material = Material.DIAMOND;
-            }
-
-            if(ticket.getBuilders().isEmpty()) {
-                material = Material.RED_DYE;
-            }
-
-            ItemStack stack = new ItemStack(material);
-            ItemMeta meta = stack.getItemMeta();
-            meta.setDisplayName("§a" + ticket.getTicketReason());
-            meta.setLore(Arrays.asList("", "§7Creator: §f" + ticket.getCreator(), "§7Priority: §f" + ticket.getPriority().getDisplay(), "§7Claimed by: §f" + (ticket.getBuilders().isEmpty() ? "§cNone" : ticket.getFormattedBuilders()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
-            stack.setItemMeta(meta);
-
-            stacks.add(stack);
-        }
-        return stacks;
     }
 
     public enum Category {
