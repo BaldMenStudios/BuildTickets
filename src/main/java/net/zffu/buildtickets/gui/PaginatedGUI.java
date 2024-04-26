@@ -7,6 +7,7 @@ import net.zffu.buildtickets.utils.Bundle;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -58,6 +59,38 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
             for(int i = 0; i < sortingOptions.length; i++) {
                 builder.lore((selectedFilter == i) ? "§2► " + sortingOptions[i].getFirst() : "  §7" + sortingOptions[i].getFirst());
             }
+
+            builder.lore("§7", "§eLeft-Click to go forward", "§eRight-Click to go backwards", "§eShift-Click to remove filter");
+
+            this.gui.setItem(sortingSlot, new GuiItem(builder.build()));
+
+            setAction(sortingSlot, (event -> {
+                event.setCancelled(true);
+
+                if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                    this.selectedFilter = -1;
+                    return;
+                }
+
+                if(event.getClick() == ClickType.LEFT) {
+                    if(this.selectedFilter == -1 || (this.selectedFilter + 1) >= (this.sortingOptions.length)) {
+                        this.selectedFilter = 0;
+                    }
+                    else {
+                        this.selectedFilter++;
+                    }
+                }
+
+                if(event.getClick() == ClickType.RIGHT) {
+                    this.selectedFilter--;
+                    if(this.selectedFilter == -1) {
+                        this.selectedFilter = this.sortingOptions.length - 1;
+                    }
+                }
+
+                this.initItems();
+                this.gui.update();
+            }));
         }
     }
 
