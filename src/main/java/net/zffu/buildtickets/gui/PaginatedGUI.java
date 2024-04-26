@@ -143,7 +143,7 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
     }
 
     public void goNext(HumanEntity player) {
-        if(this.getStacks().size() <= (this.page + 1) * elementsPerPage) {
+        if(this.getElements().size() <= (this.page + 1) * elementsPerPage) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.PAGE_ALREADY_LAST, player));
             return;
         }
