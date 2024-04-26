@@ -39,7 +39,7 @@ public class LocaleManager {
      * @param locale the locale type to load.
      */
     public void loadLocale(Locale locale) {
-        File customLocale = new File(LOCALE_FOLDER, "buildtickets_" + locale.getDisplayName() + ".properties");
+        File customLocale = new File(LOCALE_FOLDER, "buildtickets_" + locale.getLanguage() + ".properties");
         ResourceBundle bundle = null;
         EnumMap<LocaleString, String> l = new EnumMap<>(LocaleString.class);
 
