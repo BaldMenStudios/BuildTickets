@@ -14,6 +14,7 @@ import net.zffu.buildtickets.storage.StorageFactory;
 import net.zffu.buildtickets.storage.StorageType;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.Action;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,9 +49,13 @@ public final class BuildTicketsPlugin extends JavaPlugin {
 
     private IStorage storage;
 
+    private Metrics metrics;
+
     @Override
     public void onEnable() {
         INSTANCE = this;
+
+        this.metrics = new Metrics(this, 21715);
 
         this.saveDefaultConfig();
 
