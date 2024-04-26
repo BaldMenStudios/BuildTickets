@@ -59,11 +59,18 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
                 builder.lore((selectedFilter == i) ? "§2► " + sortingOptions[i].getFirst() : "  §7" + sortingOptions[i].getFirst());
             }
         }
-
     }
 
+    /**
+     * Returns the elements to display in the Paginated GUIS. T must be a {@link ItemConvertible}
+     * @return
+     */
     public abstract List<T> getElements();
 
+    /**
+     * Parses the elements into items.
+     * @return
+     */
     private List<ItemStack> getItems() {
         List<T> elems = new ArrayList<>();
         if(selectedFilter != -1) {
