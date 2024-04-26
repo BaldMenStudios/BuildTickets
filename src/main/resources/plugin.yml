@@ -1,8 +1,11 @@
 name: BuildTickets
 version: '${project.version}'
+description: A Spigot Plugin to help builders and staff teams.
+authors: [Zffu, Diph]
+website: https://github.com/BaldMenStudios/BuildTickets
 main: net.zffu.buildtickets.BuildTicketsPlugin
-api-version: '1.20'
+api-version: 1.13
 commands:
   buildtickets:
     description: The main command of the plugin.
-    aliases: [bt, btickets, bticket, buildticket]
+    aliases: [bt, btickets, bticket, buildticket, ticket, tickets]
