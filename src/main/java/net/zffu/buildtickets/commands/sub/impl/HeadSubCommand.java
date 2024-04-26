@@ -20,33 +20,33 @@ public class HeadSubCommand extends SubCommand {
     public boolean execute(CommandSender sender, String[] args) {
         Player player = (Player) sender;
 
-        if(args.length == 0) {
+        if(args.length == 1) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
             return false;
         }
 
         ItemStack head = null;
 
-        if((args[0].equals("url") || args[0].equals("name")) && args.length != 2) {
+        if((args[1].equals("url") || args[1].equals("name")) && args.length != 3) {
             player.sendMessage(LocaleManager.getMessage(LocaleString.USAGE_MISSING_ARGS, player));
             return false;
         }
 
-        switch (args[0]) {
+        switch (args[1]) {
             case "url":
-                String textureURL = args[1];
+                String textureURL = args[2];
                 if(!textureURL.startsWith("http")) textureURL = "http://textures.minecraft.net/texture/" + textureURL;
                 head = HeadUtils.getReflectiveHeadStack(textureURL);
                 break;
             case "name":
                 head = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
-                meta.setOwner(args[1]);
+                meta.setOwner(args[2]);
                 head.setItemMeta(meta);
                 break;
             default:
-                player.sendMessage("§c/head url <textureUrl> §fGives you the head with the texture url");
-                player.sendMessage("§c/head name <playerName> §fGives you the head with the player name");
+                player.sendMessage("§c/bt head url <textureUrl> §fGives you the head with the texture url");
+                player.sendMessage("§c/bt head name <playerName> §fGives you the head with the player name");
                 return false;
         }
 
