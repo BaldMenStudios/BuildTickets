@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.checkerframework.checker.units.qual.C;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -41,7 +42,7 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
     }
 
     public void initChoices() {
-        this.sortingOptions = new Bundle[] {new Bundle("Newest Created", (Comparator<BuildTicket>) (o1, o2) -> o2.getCreated().compareTo(o1.getCreated())), new Bundle("Last Created", Comparator.comparing(BuildTicket::getCreated))};
+        this.sortingOptions = new Bundle[] {new Bundle("Created", Comparator.comparing(BuildTicket::getCreated)), new Bundle("Name", (Comparator<BuildTicket>) (o1, o2) -> o1.getTicketReason().compareToIgnoreCase(o2.getTicketReason())), new Bundle("Priority", Comparator.comparingInt((BuildTicket o) -> o.getPriority().getIndex()))};
     }
 
     @Override
