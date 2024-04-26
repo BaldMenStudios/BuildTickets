@@ -147,4 +147,8 @@ public class BuildTicket implements ItemConvertible {
         this.needsHelp = needsHelp;
     }
 
+    public void setTicketReason(String reason) {
+        this.ticketReason = reason;
+    }
+
 }
