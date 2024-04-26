@@ -139,4 +139,8 @@ public class BuildTicket implements ItemConvertible {
         entity.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN, entity));
     }
 
+    public void setPriority(TicketPriority priority) {
+        this.priority = priority;
+    }
+
 }
