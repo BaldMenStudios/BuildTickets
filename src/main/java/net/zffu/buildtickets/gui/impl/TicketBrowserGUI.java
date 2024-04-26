@@ -8,6 +8,7 @@ import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.tickets.TicketPriority;
+import net.zffu.buildtickets.utils.Bundle;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,6 +18,7 @@ import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,12 +30,18 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
         this.page = page;
         this.category = Category.ALL;
+        this.initChoices();
     }
 
     public TicketBrowserGUI(int page, Category category) {
         super("Build Tickets (Page " + (page + 1) + ")", page, 35);
         this.page = page;
         this.category = category;
+        this.initChoices();
+    }
+
+    public void initChoices() {
+        this.sortingOptions = new Bundle[] {new Bundle("Newest Created", (Comparator<BuildTicket>) (o1, o2) -> o2.getCreated().compareTo(o1.getCreated())), new Bundle("Last Created", Comparator.comparing(BuildTicket::getCreated))};
     }
 
     @Override

@@ -5,6 +5,7 @@ import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.Bundle;
 import net.zffu.buildtickets.utils.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.ClickType;
@@ -64,6 +65,8 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
 
             this.gui.setItem(sortingSlot, new GuiItem(builder.build()));
 
+            Bukkit.broadcastMessage("e" + sortingSlot);
+
             setAction(sortingSlot, (event -> {
                 event.setCancelled(true);
 
@@ -105,11 +108,11 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
      * @return
      */
     private List<ItemStack> getItems() {
-        List<T> elems = new ArrayList<>();
+        List<T> elems = this.getElements();
         if(selectedFilter != -1) {
             elems.sort(sortingOptions[selectedFilter].getSecond());
         }
-        return elems.stream().map(element -> element.toItemStack()).collect(Collectors.toList());
+        return elems.stream().map(ItemConvertible::toItemStack).collect(Collectors.toList());
     }
 
     static {
