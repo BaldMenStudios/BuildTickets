@@ -42,22 +42,10 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
 
     @Override
     public void initItems() {
-        List<ItemStack> stacks = getItems();
-        int rowIndex = 0;
-        for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
-            if(stacks.size() <= i) return;
-            rowIndex++;
-            if(rowIndex >= elementsPerLine && elementsPerLine > 0) {
-                rowIndex = 0;
-                i += (9 - elementsPerLine);
-            }
-            this.gui.setItem(i - startingIndex, new GuiItem(stacks.get(i)));
-        }
-
-        if(this.sortingOptions.length != 0) {
+        if(this.sortingOptions != null) {
             ItemBuilder builder = ItemBuilder.create(Material.ANVIL);
             builder.display("§aSorting");
-            for(int i = 0; i < sortingOptions.length; i++) {
+            for (int i = 0; i < sortingOptions.length; i++) {
                 builder.lore((selectedFilter == i) ? "§2► " + sortingOptions[i].getFirst() : "  §7" + sortingOptions[i].getFirst());
             }
 
@@ -70,23 +58,22 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
             setAction(sortingSlot, (event -> {
                 event.setCancelled(true);
 
-                if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
                     this.selectedFilter = -1;
                     return;
                 }
 
-                if(event.getClick() == ClickType.LEFT) {
-                    if(this.selectedFilter == -1 || (this.selectedFilter + 1) >= (this.sortingOptions.length)) {
+                if (event.getClick() == ClickType.LEFT) {
+                    if (this.selectedFilter == -1 || (this.selectedFilter + 1) >= (this.sortingOptions.length)) {
                         this.selectedFilter = 0;
-                    }
-                    else {
+                    } else {
                         this.selectedFilter++;
                     }
                 }
 
-                if(event.getClick() == ClickType.RIGHT) {
+                if (event.getClick() == ClickType.RIGHT) {
                     this.selectedFilter--;
-                    if(this.selectedFilter == -1) {
+                    if (this.selectedFilter == -1) {
                         this.selectedFilter = this.sortingOptions.length - 1;
                     }
                 }
@@ -94,6 +81,18 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
                 this.initItems();
                 this.gui.update();
             }));
+        }
+
+        List<ItemStack> stacks = getItems();
+        int rowIndex = 0;
+        for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
+            if(stacks.size() <= i) return;
+            rowIndex++;
+            if(rowIndex >= elementsPerLine && elementsPerLine > 0) {
+                rowIndex = 0;
+                i += (9 - elementsPerLine);
+            }
+            this.gui.setItem(i - startingIndex, new GuiItem(stacks.get(i)));
         }
     }
 
