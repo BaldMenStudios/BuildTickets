@@ -58,7 +58,6 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
 
                 if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
                     this.selectedFilter = -1;
-                    return;
                 }
 
                 if (event.getClick() == ClickType.LEFT) {
