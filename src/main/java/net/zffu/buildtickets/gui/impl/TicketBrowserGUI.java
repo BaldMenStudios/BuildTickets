@@ -89,7 +89,7 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
         event.setCancelled(true);
 
         if(event.getSlot() <= 35) {
-            BuildTicket ticket = getElements().get(startingIndex + event.getSlot());
+            BuildTicket ticket = getElements().get(event.getSlot() - startingIndex);
             if(event.getClick().isLeftClick()) {
                 new TicketNotesGUI(ticket, 0).open(event.getWhoClicked(), this);
             }

@@ -105,8 +105,8 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
      */
     private List<ItemStack> getItems() {
         List<T> elems = this.getElements();
-        if(selectedFilter != -1) {
-            elems.sort(sortingOptions[selectedFilter].getSecond());
+        if(this.selectedFilter != -1) {
+            elems.sort(this.sortingOptions[this.selectedFilter].getSecond());
         }
         return elems.stream().map(ItemConvertible::toItemStack).collect(Collectors.toList());
     }
