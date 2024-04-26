@@ -35,20 +35,7 @@ public class TicketViewerGUI extends AbstractGUI {
         gui.setItem(32, new GuiItem(ItemBuilder.create(Material.RED_DYE).display("§aLeave Ticket").lore("§7Leave the ticket to go to another one.", "", "§eClick here to leave this ticket").build()));
 
         setAction(21, (event -> {
-            if(!Permissions.JOIN_TICKET.hasPermission(event.getWhoClicked(), ticket)) {
-                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, event.getWhoClicked()));
-                return;
-            }
-            if(ticket.getBuilders().contains(event.getWhoClicked().getUniqueId())) {
-                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_ALREADY, event.getWhoClicked()));
-                return;
-            }
-            if(!ticket.isNeedsHelp() && !ticket.getBuilders().isEmpty()) {
-                event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_HELP_DISABLED, event.getWhoClicked()));
-                return;
-            }
-            ticket.getBuilders().add(event.getWhoClicked().getUniqueId());
-            event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN, event.getWhoClicked()));
+            ticket.joinTicket(event.getWhoClicked());
         }));
 
         setAction(22, (event -> {

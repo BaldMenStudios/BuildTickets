@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.ItemConvertible;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
 import net.zffu.buildtickets.utils.JsonUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -119,4 +121,22 @@ public class BuildTicket implements ItemConvertible {
         stack.setItemMeta(meta);
         return stack;
     }
+
+    public void joinTicket(HumanEntity entity) {
+        if(!Permissions.JOIN_TICKET.hasPermission(entity, this)) {
+            entity.sendMessage(LocaleManager.getMessage(LocaleString.PERMISSION_NOT_MET, entity));
+            return;
+        }
+        if(this.builders.contains(entity.getUniqueId())) {
+            entity.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_ALREADY, entity));
+            return;
+        }
+        if(!this.isNeedsHelp() && !this.builders.isEmpty()) {
+            entity.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN_HELP_DISABLED, entity));
+            return;
+        }
+        this.builders.add(entity.getUniqueId());
+        entity.sendMessage(LocaleManager.getMessage(LocaleString.TICKET_JOIN, entity));
+    }
+
 }
