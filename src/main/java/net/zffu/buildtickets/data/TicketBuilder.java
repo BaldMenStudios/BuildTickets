@@ -2,14 +2,20 @@ package net.zffu.buildtickets.data;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
+import net.zffu.buildtickets.gui.ItemConvertible;
+import net.zffu.buildtickets.utils.HeadUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
  * Represents a builder player.
  */
 @Getter
-public class TicketBuilder {
+public class TicketBuilder implements ItemConvertible {
 
     private UUID uuid;
 
@@ -55,4 +61,16 @@ public class TicketBuilder {
         return builder;
     }
 
+    @Override
+    public ItemStack toItemStack() {
+        ItemStack stack = HeadUtils.getHeadStack(this.getUuid());
+        ItemMeta meta = stack.getItemMeta();
+        meta.setDisplayName("§a" + Bukkit.getOfflinePlayer(this.getUuid()).getPlayer().getName() + "'s Statistics");
+        meta.setLore(Arrays.asList(
+                "§7Tickets Created: §f" + this.getTicketsCreated(),
+                "§7Tickets Completed: §f" + this.getTicketsCompleted()
+        ));
+        stack.setItemMeta(meta);
+        return stack;
+    }
 }

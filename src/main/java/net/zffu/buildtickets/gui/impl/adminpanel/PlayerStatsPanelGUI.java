@@ -13,8 +13,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class PlayerStatsPanelGUI extends PaginatedGUI {
+public class PlayerStatsPanelGUI extends PaginatedGUI<TicketBuilder> {
     public PlayerStatsPanelGUI(int page) {
         super("Player Stats Panel", page, 44);
         this.startingSlotIndex = 10;
@@ -27,9 +28,7 @@ public class PlayerStatsPanelGUI extends PaginatedGUI {
     }
 
     @Override
-    public void handleMenu(InventoryClickEvent event) {
-
-    }
+    public void handleMenu(InventoryClickEvent event) {}
 
     @Override
     public void initItems() {
@@ -42,19 +41,8 @@ public class PlayerStatsPanelGUI extends PaginatedGUI {
     }
 
     @Override
-    public List<ItemStack> getStacks() {
-        List<ItemStack> stacks = new ArrayList<>();
-        for(TicketBuilder builder : BuildTicketsPlugin.getInstance().getBuilders().values()) {
-            ItemStack stack = HeadUtils.getHeadStack(builder.getUuid());
-            ItemMeta meta = stack.getItemMeta();
-            meta.setDisplayName("§a" + Bukkit.getOfflinePlayer(builder.getUuid()).getPlayer().getName() + "'s Statistics");
-            meta.setLore(Arrays.asList(
-                    "§7Tickets Created: §f" + builder.getTicketsCreated(),
-                    "§7Tickets Completed: §f" + builder.getTicketsCompleted()
-            ));
-            stack.setItemMeta(meta);
-            stacks.add(stack);
-        }
-        return stacks;
+    public List<TicketBuilder> getElements() {
+        return BuildTicketsPlugin.getInstance().getBuilders().values().stream().collect(Collectors.toList());
     }
+
 }
