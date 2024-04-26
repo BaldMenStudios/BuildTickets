@@ -3,15 +3,20 @@ package net.zffu.buildtickets.gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
+import net.zffu.buildtickets.utils.Bundle;
+import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public abstract class PaginatedGUI extends AbstractGUI {
+public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGUI {
 
     public static ItemStack BACK = null;
     public static ItemStack GO_BACK = null;
@@ -21,6 +26,11 @@ public abstract class PaginatedGUI extends AbstractGUI {
     protected int startingIndex;
     protected int startingSlotIndex = 0;
     protected int elementsPerLine;
+
+    protected Bundle<String, Comparator<T>>[] sortingOptions = null;
+    protected int sortingSlot = 48;
+    private int selectedFilter = -1;
+
     public PaginatedGUI(String inventoryName, int page, int elementsPerPage) {
         super(inventoryName);
         this.page = page;
@@ -30,7 +40,10 @@ public abstract class PaginatedGUI extends AbstractGUI {
 
     @Override
     public void initItems() {
-        List<ItemStack> stacks = getStacks();
+        List<ItemStack> stacks = getItems();
+        if(selectedFilter != -1) {
+            stacks.sort(sortingOptions[selectedFilter].getSecond());
+        }
         int rowIndex = 0;
         for(int i = startingIndex; i < startingIndex + elementsPerPage; i++) {
             if(stacks.size() <= i) return;
@@ -41,9 +54,22 @@ public abstract class PaginatedGUI extends AbstractGUI {
             }
             this.gui.setItem(i - startingIndex, new GuiItem(getStacks().get(i)));
         }
+
+        if(this.sortingOptions.length != 0) {
+            ItemBuilder builder = ItemBuilder.create(Material.ANVIL);
+            builder.display("§aSorting");
+            for(int i = 0; i < sortingOptions.length; i++) {
+                builder.lore((selectedFilter == i) ? "§2► " + sortingOptions[i].getFirst() : "  §7" + sortingOptions[i].getFirst());
+            }
+        }
+
     }
 
-    public abstract List<ItemStack> getStacks();
+    public abstract List<T> getElements();
+
+    private List<ItemStack> getItems() {
+        return getElements().stream().map(element -> element.toItemStack()).collect(Collectors.toList());
+    }
 
     static {
         BACK = new ItemStack(Material.ARROW);
