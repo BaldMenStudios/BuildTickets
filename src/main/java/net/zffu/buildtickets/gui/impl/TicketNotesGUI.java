@@ -13,6 +13,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,7 +41,12 @@ public class TicketNotesGUI extends PaginatedGUI<TicketNotesGUI.Notes> {
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.sendNote(chat.getPlayer(), chat.getMessage());
-                this.open(chat.getPlayer());
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        open(chat.getPlayer());
+                    }
+                }.runTask(BuildTicketsPlugin.getInstance());
             });
         }));
 

@@ -104,6 +104,7 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
                 BuildTicketsPlugin.getInstance().registerTicket(buildTicket);
                 BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
                 event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
+                event.setCancelled(true);
             }));
         }
     }
