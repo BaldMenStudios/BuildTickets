@@ -6,6 +6,7 @@ import net.zffu.buildtickets.gui.ItemConvertible;
 import net.zffu.buildtickets.gui.PaginatedGUI;
 import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.HeadUtils;
+import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -30,12 +31,7 @@ public class TicketNotesGUI extends PaginatedGUI<TicketNotesGUI.Notes> {
     @Override
     public void initItems() {
         super.initItems();
-        ItemStack itemStack = new ItemStack(Material.PAPER);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName("§aCreate a note");
-        meta.setLore(Arrays.asList("§7Create or edit your note of this", "§7ticket.", "", "§eClick to send / edit your note!"));
-        itemStack.setItemMeta(meta);
-        gui.setItem(53, new GuiItem(itemStack));
+        gui.setItem(53, new GuiItem(ItemBuilder.create(Material.PAPER).display("§aCreate a note").lore("§7Create or edit your note of this", "§7ticket.", "", "§eClick here to send / edit your note!").build()));
 
         setAction(53, (event -> {
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
@@ -89,13 +85,7 @@ public class TicketNotesGUI extends PaginatedGUI<TicketNotesGUI.Notes> {
             String note = entry.getValue();
 
             ItemStack stack = HeadUtils.getHeadStack(entry.getKey());
-            ItemMeta meta = stack.getItemMeta();
-            meta.setDisplayName("§a" + poster.getPlayer().getName() + "'s Note");
-            meta.setLore(Arrays.asList("§7Note: §f" + note));
-
-            stack.setItemMeta(meta);
-
-            return stack;
+            return ItemBuilder.create(stack).display("§a" + poster.getPlayer().getName() + "'s Note").lore("§7Note: §f" + note).build();
         }
     }
 

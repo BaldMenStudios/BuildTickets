@@ -28,6 +28,10 @@ public class ItemBuilder {
         return new ItemBuilder(material);
     }
 
+    public static ItemBuilder create(ItemStack stack) {
+        return new ItemBuilder(stack);
+    }
+
     public ItemBuilder display(String displayName) {
         this.meta.setDisplayName(displayName);
         return this;
