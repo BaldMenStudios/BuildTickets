@@ -7,7 +7,6 @@ import net.zffu.buildtickets.config.Permissions;
 import net.zffu.buildtickets.gui.ItemConvertible;
 import net.zffu.buildtickets.locale.LocaleManager;
 import net.zffu.buildtickets.locale.LocaleString;
-import net.zffu.buildtickets.wrappers.WrappedMaterials;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -104,16 +103,17 @@ public class BuildTicket implements ItemConvertible {
 
     @Override
     public ItemStack toItemStack() {
-        ItemStack stack = WrappedMaterials.DYE_GREEN;
+        Material material = Material.GREEN_DYE;
 
         if(this.isCompleted()) {
-            stack = new ItemStack(Material.DIAMOND);
+            material = Material.DIAMOND;
         }
 
         if(this.getBuilders().isEmpty()) {
-            stack = WrappedMaterials.DYE_RED;
+            material = Material.RED_DYE;
         }
 
+        ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName("§a" + this.getTicketReason());
         meta.setLore(Arrays.asList("", "§7Creator: §f" + this.getCreator(), "§7Priority: §f" + this.getPriority().getDisplay(), "§7Claimed by: §f" + (this.getBuilders().isEmpty() ? "§cNone" : this.getFormattedBuilders()), "", "§eRight-Click to view the ticket!", "§eLeft-Click to add a note"));
