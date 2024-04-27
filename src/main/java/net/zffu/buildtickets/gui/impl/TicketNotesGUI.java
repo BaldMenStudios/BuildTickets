@@ -85,7 +85,7 @@ public class TicketNotesGUI extends PaginatedGUI<TicketNotesGUI.Notes> {
             String note = entry.getValue();
 
             ItemStack stack = HeadUtils.getHeadStack(entry.getKey());
-            return ItemBuilder.create(stack).display("§a" + poster.getPlayer().getName() + "'s Note").lore("§7Note: §f" + note).build();
+            return ItemBuilder.create(stack).display("§a" + poster.getName() + "'s Note").lore("§7Note: §f" + note).build();
         }
     }
 
