@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.checkerframework.checker.units.qual.C;
 
 import java.text.Collator;
@@ -104,7 +105,14 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
                 BuildTicketsPlugin.getInstance().registerTicket(buildTicket);
                 BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
                 event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
-                event.setCancelled(true);
+                e.setCancelled(true);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        open(e.getPlayer());
+                    }
+                }.runTask(BuildTicketsPlugin.getInstance());
+
             }));
         }
     }
