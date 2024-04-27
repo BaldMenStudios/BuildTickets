@@ -101,7 +101,7 @@ public class TicketBrowserGUI extends PaginatedGUI<BuildTicket> {
 
         if(event.getSlot() == 53) {
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (e -> {
-                BuildTicket buildTicket = new BuildTicket(event.getEventName(), TicketPriority.NORMAL, event.getWhoClicked().getUniqueId());
+                BuildTicket buildTicket = new BuildTicket(e.getMessage(), TicketPriority.NORMAL, event.getWhoClicked().getUniqueId());
                 BuildTicketsPlugin.getInstance().registerTicket(buildTicket);
                 BuildTicketsPlugin.getInstance().getOrCreateBuilder(event.getWhoClicked().getUniqueId()).createTicket();
                 event.getWhoClicked().sendMessage(LocaleManager.getMessage(LocaleString.TICKET_CREATED, event.getWhoClicked()));
