@@ -45,7 +45,7 @@ public class HeadUtils {
     }
 
     public static ItemStack getReflectiveHeadStack(String textureURL) {
-        ItemStack stack = new ItemStack(WrappedMaterials.PLAYER_HEAD);
+        ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
 
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
