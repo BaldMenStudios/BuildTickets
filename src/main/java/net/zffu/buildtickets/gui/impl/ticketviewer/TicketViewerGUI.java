@@ -10,6 +10,7 @@ import net.zffu.buildtickets.tickets.BuildTicket;
 import net.zffu.buildtickets.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
@@ -66,7 +67,12 @@ public class TicketViewerGUI extends AbstractGUI {
             BuildTicketsPlugin.getInstance().doChatHandler(event.getWhoClicked(), (chat) -> {
                 chat.setCancelled(true);
                 ticket.setTicketReason(chat.getMessage());
-                this.open(chat.getPlayer());
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        open(chat.getPlayer());
+                    }
+                }.runTask(BuildTicketsPlugin.getInstance());
             });
         }));
 
