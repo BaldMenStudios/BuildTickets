@@ -53,7 +53,5 @@ public class AdminPanelGUI extends AbstractGUI {
     }
 
     @Override
-    public void handleMenu(InventoryClickEvent event) {
-
-    }
+    public void handleMenu(InventoryClickEvent event) {}
 }

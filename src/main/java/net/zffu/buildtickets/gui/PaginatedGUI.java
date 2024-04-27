@@ -11,6 +11,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,23 +113,9 @@ public abstract class PaginatedGUI<T extends ItemConvertible> extends AbstractGU
     }
 
     static {
-        BACK = new ItemStack(Material.ARROW);
-        ItemMeta meta = BACK.getItemMeta();
-        meta.setDisplayName("§aGo Back");
-        meta.setLore(Arrays.asList("§7Click here to go back!"));
-        BACK.setItemMeta(meta);
-
-        GO_BACK = new ItemStack(Material.ARROW);
-        meta = GO_BACK.getItemMeta();
-        meta.setDisplayName("§aPrevious Page");
-        meta.setLore(Arrays.asList("§7Click here to go back to the previous page!"));
-        GO_BACK.setItemMeta(meta);
-
-        GO_NEXT = new ItemStack(Material.ARROW);
-        meta = GO_NEXT.getItemMeta();
-        meta.setDisplayName("§aNext Page");
-        meta.setLore(Arrays.asList("§7Click here to go back to the next page!"));
-        GO_NEXT.setItemMeta(meta);
+        BACK = ItemBuilder.create(Material.ARROW).display("§aGo Back").lore("§7Click here to go back!").build();
+        GO_BACK = ItemBuilder.create(Material.ARROW).display("§aPrevious Page").lore("§7Click here to go back to the previous page!").build();
+        GO_NEXT = ItemBuilder.create(Material.ARROW).display("§aNext Page").lore("§7Click here to go to the next page!").build();
     }
 
     public void goBack(HumanEntity player) {
