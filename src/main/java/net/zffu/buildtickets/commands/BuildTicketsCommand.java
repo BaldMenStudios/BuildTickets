@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
@@ -62,10 +63,15 @@ public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
 
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String c, @NotNull String[] strings) {
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String c, @NotNull String[] args) {
         List<String> s = new ArrayList<>();
         for(SubCommand sub : commands) {
-            if(sub.permission != null && commandSender.hasPermission(sub.permission)) s.add(sub.name);
+            if(sub.permission != null && commandSender.hasPermission(sub.permission) && args.length == 0) s.add(sub.name);
+            if(args.length == 1) {
+                if(sub.name.equals(args[0]) && sub.options != null) {
+                    s.addAll(Arrays.asList(sub.options));
+                }
+            }
         }
         return s;
     }

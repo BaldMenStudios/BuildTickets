@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 public abstract class SubCommand {
 
     public String name;
+    public String[] options;
     public String description;
     public String permission;
 
@@ -16,6 +17,13 @@ public abstract class SubCommand {
         this.description = description;
         this.permission = permission;
     }
+    public SubCommand(String name, String description, String permission, String[] options) {
+        this.name = name;
+        this.description = description;
+        this.permission = permission;
+        this.options = options;
+    }
+
 
     public SubCommand(String name, String description) {
         this.name = name;
