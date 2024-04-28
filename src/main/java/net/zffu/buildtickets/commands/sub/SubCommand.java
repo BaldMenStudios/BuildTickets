@@ -30,6 +30,10 @@ public abstract class SubCommand {
         this.description = description;
     }
 
+    public String getUsage() {
+        return "/bt " + name;
+    }
+
     public abstract boolean execute(CommandSender sender, String[] args);
 
 }

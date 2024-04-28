@@ -42,7 +42,7 @@ public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
         if(args[0].equals("help")) {
             for(SubCommand sub : commands) {
                 String perm = (sub.permission != null && !player.hasPermission(sub.permission)) ? "§m" : "";
-                sender.sendMessage("§6> §e/bt " + perm + sub.name);
+                sender.sendMessage("§6> §e" + perm + sub.getUsage());
             }
             return true;
         }

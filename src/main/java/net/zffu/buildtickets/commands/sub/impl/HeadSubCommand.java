@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class HeadSubCommand extends SubCommand {
     public HeadSubCommand() {
-        super("head", "Head Giver", Permissions.HEAD_GIVER_USER.getPermission());
+        super("head", "Head Giver", Permissions.HEAD_GIVER_USER.getPermission(), new String[] {"help", "url", "name"});
     }
 
     @Override
