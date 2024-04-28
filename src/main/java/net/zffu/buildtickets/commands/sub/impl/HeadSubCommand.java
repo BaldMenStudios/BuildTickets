@@ -53,4 +53,9 @@ public class HeadSubCommand extends SubCommand {
         player.getInventory().addItem(head);
         return true;
     }
+
+    @Override
+    public String getUsage() {
+        return "/bt head <help|url|name> <url|name>";
+    }
 }
