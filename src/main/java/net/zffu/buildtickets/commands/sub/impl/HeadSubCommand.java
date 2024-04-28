@@ -56,6 +56,6 @@ public class HeadSubCommand extends SubCommand {
 
     @Override
     public String getUsage() {
-        return "/bt head <help|url|name> <url|name>";
+        return "/bt head <help | url | name> <url | name>";
     }
 }
