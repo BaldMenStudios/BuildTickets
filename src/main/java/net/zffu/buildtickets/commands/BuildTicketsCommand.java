@@ -66,12 +66,8 @@ public class BuildTicketsCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String c, @NotNull String[] args) {
         List<String> s = new ArrayList<>();
         for(SubCommand sub : commands) {
-            if(sub.permission != null && commandSender.hasPermission(sub.permission) && args.length == 0) s.add(sub.name);
-            if(args.length == 1) {
-                if(sub.name.equals(args[0]) && sub.options != null) {
-                    s.addAll(Arrays.asList(sub.options));
-                }
-            }
+            if(sub.permission != null && commandSender.hasPermission(sub.permission) && (args.length == 0 || args[0].isEmpty())) s.add(sub.name);
+            //todo: Rewrite command api with Mojang Brigadier
         }
         return s;
     }
