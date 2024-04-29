@@ -11,18 +11,18 @@ public class BuildModeListeners implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
+        if(!event.isCancelled()) event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
+        if(!event.isCancelled()) event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
     }
 
     @EventHandler
     public void onBlockInteract(PlayerInteractEvent event) {
         if(event.getClickedBlock() == null) return;
-        event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
+        if(!event.isCancelled()) event.setCancelled(!BuildTicketsPlugin.getInstance().getBuildMode().contains(event.getPlayer().getUniqueId()));
     }
 
 }
